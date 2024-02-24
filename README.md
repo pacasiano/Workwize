@@ -9,7 +9,7 @@ Well, you asked for it!
 </details>
 
 <details open>
-<summary> ## Key Features </summary>
+<summary> <h2>Key Features</h2> </summary>
 <br>
 
 - **Task Creation**
