@@ -9,7 +9,7 @@ A task management app provides users with a centralized platform to plan, organi
   > Users can easily create new tasks, specifying details such as title, description, due date, priority level, tags, and attachments.
 
 - **Task Organization**
-  > Tasks can be organized into projects, categories, or lists, allowing users to categorize and group related tasks together for better clarity and organization.
+  > Tasks can be organized into teams, projects, categories, or lists, allowing users to categorize and group related tasks together for better clarity and organization.
 
 - **Priority Management**
   > Users can assign priority levels to tasks to indicate their importance or urgency, helping them focus on what needs immediate attention.
