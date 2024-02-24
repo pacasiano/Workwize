@@ -2,14 +2,10 @@
 
 A task management app provides users with a centralized platform to plan, organize, and monitor their tasks and projects, whether they are personal or professional. It aims to streamline workflows, enhance productivity, and ensure that nothing falls through the cracks. Users can create tasks, assign them to team members if applicable, set deadlines, track progress, and collaborate seamlessly.
 
-<details open>
-<summary>Want to ruin the surprise?</summary>
-<br>
-Well, you asked for it!
-</details>
+---
 
 <details open>
-<summary> <h2>Key Features</h2> </summary>
+<h2>Key Features</h2> <summary> </summary>
 <br>
 
 - **Task Creation**
@@ -36,6 +32,8 @@ Well, you asked for it!
 - **Customizable Workflows**
   > The app offers flexibility in setting up workflows tailored to the specific needs and preferences of users or teams, accommodating different project management methodologies.
 </details>
+
+---
 
 ## Benefits of a Full-Stack Web Application
 
