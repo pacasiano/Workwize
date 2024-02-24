@@ -12,8 +12,6 @@ A task management app provides users with a centralized platform to plan, organi
 - **Collaboration Tools:** For team-based projects, the app facilitates collaboration by enabling users to assign tasks to team members, comment on tasks, share files, and track progress collectively.
 - **Progress Monitoring:** Users can track the progress of their tasks and projects, view status updates, and identify bottlenecks or overdue tasks easily.
 
-<br>
-
 ## Benefits of a Full-Stack Web Application
 
 - **Organization:** Centralizes tasks for streamlined management.
