@@ -8,7 +8,9 @@ A task management app provides users with a centralized platform to plan, organi
 Well, you asked for it!
 </details>
 
-## Key Features
+<details open>
+<summary> ## Key Features </summary>
+<br>
 
 - **Task Creation**
   > Users can easily create new tasks, specifying details such as title, description, due date, priority level, tags, and attachments.
@@ -33,7 +35,7 @@ Well, you asked for it!
 
 - **Customizable Workflows**
   > The app offers flexibility in setting up workflows tailored to the specific needs and preferences of users or teams, accommodating different project management methodologies.
-
+</details>
 
 ## Benefits of a Full-Stack Web Application
 
