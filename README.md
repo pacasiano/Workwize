@@ -2,12 +2,10 @@
 
 A task management app provides users with a centralized platform to plan, organize, and monitor their tasks and projects, whether they are personal or professional. It aims to streamline workflows, enhance productivity, and ensure that nothing falls through the cracks. Users can create tasks, assign them to team members if applicable, set deadlines, track progress, and collaborate seamlessly.
 
----
 
 ## Key Features
 
-- **Task Creation**
-> Users can easily create new tasks, specifying details such as title, description, due date, priority level, tags, and attachments.
+- **Task Creation** > Users can easily create new tasks, specifying details such as title, description, due date, priority level, tags, and attachments.
 
 - **Task Organization**
 : Tasks can be organized into projects, categories, or lists, allowing users to categorize and group related tasks together for better clarity and organization.
