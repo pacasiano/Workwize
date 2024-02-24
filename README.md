@@ -16,8 +16,6 @@ A task management app provides users with a centralized platform to plan, organi
 
 ## Benefits of a Full-Stack Web Application
 
-A task management app simplifies work with these key benefits:
-
 - **Organization:** Centralizes tasks for streamlined management.
 - **Efficiency:** Optimizes workflows for improved productivity.
 - **Collaboration:** Enables seamless teamwork and communication.
