@@ -1,9 +1,14 @@
+import Topbar from "./topbar"
 
 export default function Dashboard() {
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <Topbar setTitle={"Dashboard"} />
+            <div className="w-full h-full">
+                Dash
+            </div>
         </div>
     )
+
 }

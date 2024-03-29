@@ -19,7 +19,7 @@ function App() {
             <Sidebar Wide={Wide} setWide={setWide} setWindow={setWindow} />
           </div>
 
-          <div className="w-full h-full bg-green-100">
+          <div className="w-full h-full">
             {(() => {
               switch (Window) {
                 case "Projects":

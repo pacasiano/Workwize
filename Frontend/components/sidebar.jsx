@@ -28,19 +28,19 @@ export default function Sidebar({Wide, setWide, setWindow}) {
                     <FontAwesomeIcon className=" bg-black transform-gpu transition-all ease-in-out hover:scale-110 text-3xl rounded-full text-white translate-x-48" icon={faCircleChevronLeft} />
                 </button>
 
-                <div className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                <div className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 pr-4 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                     <p className="" >New&nbsp;Project</p>
                 </div>
 
-                <div className="flex flex-col text-xl gap-3 transition-all ease-in-out">
-                    <button onClick={()=> setWindow("Dashboard")} className="flex flex-row gap-2 transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
-                        <FontAwesomeIcon className="text-2xl" icon={faBorderAll} />Dashboard
+                <div className="flex flex-col text-xl gap-3">
+                    <button onClick={()=> setWindow("Dashboard")} className="flex flex-row gap-2 transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
+                        <FontAwesomeIcon className="text-2xl" icon={faBorderAll} /><p>Dashboard</p>
                     </button>
-                    <button onClick={()=> setWindow("Projects")} className="flex flex-row gap-2 transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
+                    <button onClick={()=> setWindow("Projects")} className="flex flex-row gap-2 transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
                         <FontAwesomeIcon className="text-2xl" icon={faListCheck} />Projects
                     </button>
-                    <button onClick={()=> setWindow("Settings")} className="flex flex-row gap-2 tansform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
+                    <button onClick={()=> setWindow("Settings")} className="flex flex-row gap-2 transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
                         <FontAwesomeIcon className="text-2xl" icon={faGear} />Settings
                     </button>
                 </div>
@@ -59,15 +59,15 @@ export default function Sidebar({Wide, setWide, setWindow}) {
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                 </div>
 
-                <div className="flex flex-col gap-3 text-2xl transition-all">
+                <div className="flex flex-col gap-3 text-xl">
                     <button onClick={()=> setWindow("Dashboard")} className="flex flex-row gap-2 transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
-                        <FontAwesomeIcon icon={faBorderAll} />
+                        <FontAwesomeIcon className="text-2xl" icon={faBorderAll} />
                     </button>
                     <button onClick={()=> setWindow("Projects")} className="flex flex-row gap-2 transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
-                        <FontAwesomeIcon icon={faListCheck} />
+                        <FontAwesomeIcon className="text-2xl" icon={faListCheck} />
                     </button>
                     <button onClick={()=> setWindow("Settings")} className="flex flex-row gap-2 tansform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-1 px-2 rounded-md">
-                        <FontAwesomeIcon icon={faGear} />
+                        <FontAwesomeIcon className="text-2xl" icon={faGear} />
                     </button>
                 </div>
                 
