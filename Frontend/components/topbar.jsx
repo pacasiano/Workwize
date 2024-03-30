@@ -18,7 +18,7 @@ export default function Topbar({setTitle}) {
                 {setTitle}
             </div>
             <div className="flex flex-row gap-5 justify-between items-center">
-                <div className="group relative border-b-2 border-black/20 hover:-translate-y-[1px] focus-within:border-black/50 transition-transform duration-300">
+                <div className="group flex flex-nowrap relative border-b-2 border-black/20 hover:-translate-y-[1px] focus-within:border-black/50 transition-transform duration-300">
                     <button>
                         <FontAwesomeIcon className="pr-1 text-black/20 group-focus-within:text-black/50" icon={faMagnifyingGlass} />
                     </button>

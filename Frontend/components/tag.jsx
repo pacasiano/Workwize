@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Tag({word, color}) {
 
