@@ -32,7 +32,7 @@ export default function NewTask({data, setAddProj}) {
         desc: "",
         created: moment().format("YYYY-MM-DD"),
         deadline: "",
-        states: chosenTags
+        states: "",
     })
 
     const addTag = () => {
@@ -44,6 +44,7 @@ export default function NewTask({data, setAddProj}) {
 
     const addTask = () => {
         //instaed of setStates, update the database of the changes to the users states
+        task.states = chosenTags
         data.push(task)
         setAddProj(false)
 
