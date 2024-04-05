@@ -1,14 +1,16 @@
 import Compact from '@uiw/react-color-compact';
 import { useState } from 'react';
-import Tag from '../tag';
+import Tag from '../general/tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
-export default function NewProject({setAddProj}) {
+export default function NewTask({data, setAddProj}) {
 
-    NewProject.propTypes = {
+    NewTask.propTypes = {
         setAddProj: PropTypes.func.isRequired,
+        data: PropTypes.array.isRequired,
     };
 
     const colors = [
@@ -25,12 +27,26 @@ export default function NewProject({setAddProj}) {
     const [tagName, setTagName] = useState('');
     const [hex, setHex] = useState('#F44E3B');
 
-    const addTag = (e) => {
-        e.preventDefault();
+    const [task, setTask] = useState({
+        name: "",
+        desc: "",
+        created: moment().format("YYYY-MM-DD"),
+        deadline: "",
+        states: chosenTags
+    })
+
+    const addTag = () => {
         //instaed of setStates, update the database of the changes to the users states
         setChosenTags([...chosenTags, { word: tagName, color: hex}]);
         setTagName("")
         setHex("#FFFFFF")
+    }
+
+    const addTask = () => {
+        //instaed of setStates, update the database of the changes to the users states
+        data.push(task)
+        setAddProj(false)
+
     }
 
     return (
@@ -40,20 +56,20 @@ export default function NewProject({setAddProj}) {
             </div>
             <div className="bg-white rounded-xl p-10">
                 <div className="flex flex-col gap-4 justify-center items-center">
-                    <h1 className="font-mono text-2xl border-b-2 text-center border-black/40 w-52">New Project</h1>
-                    <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-7">
+                    <h1 className="font-mono text-2xl border-b-2 text-center border-black/40 w-52">New Task</h1>
+                    <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-7 pt-4">
                         <div className="flex flex-col gap-2">
                             <div className="flex flex-col">
                                 <label>Project Name</label>
-                                <input type='text' className=" outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md w-60 h-10 p-2" placeholder="Project Name" />
+                                <input type='text' onChange={(e) => setTask({ ...task, name: e.target.value})} className=" outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md w-60 h-10 p-2" placeholder="Project Name" />
                             </div>
                             <div className="flex flex-col">
                                 <label>Project Description</label>
-                                <textarea className="outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md h-20 w-60 resize-none p-2" placeholder="Project Description" />
+                                <textarea onChange={(e) => setTask({ ...task, desc: e.target.value})} className="outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md h-20 w-60 resize-none p-2" placeholder="Project Description" />
                             </div>
                             <div className="flex flex-col">
                                 <label>Project Deadline</label>
-                                <input type='date' className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
+                                <input type='date' onChange={(e) => setTask({ ...task, deadline: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
                             </div>
                             
                         </div>
@@ -64,7 +80,6 @@ export default function NewProject({setAddProj}) {
                                     <Tag key={index} word={tag.word} color={tag.color} />
                                 ))}
                             </div>
-                            <form onSubmit={addTag}>
                                 <div className="flex flex-col outline focus-within:outline-1 outline-0 group rounded-md">
                                     <div className="">
                                         <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-neutral-100 outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
@@ -75,12 +90,11 @@ export default function NewProject({setAddProj}) {
                                     color={hex}
                                     onChange={(color) => {setHex(color.hex);}}
                                     />
-                                    <button type="submit" className="bg-blue-900/80 rounded-b-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                                    <button onClick={addTag} className="bg-blue-900/80 rounded-b-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
                                 </div>
-                            </form>
                         </div>
                     </div>
-                    <div className="pt-2">
+                    <div onClick={addTask} className="pt-2">
                         <button className="bg-blue-900/80 text-white w-60 h-10 rounded-md hover:bg-blue-900/90">Create Project</button>
                     </div>
                 </div>

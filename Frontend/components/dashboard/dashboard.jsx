@@ -1,4 +1,4 @@
-import Topbar from "../topbar"
+import Topbar from "../general/topbar"
 
 export default function Dashboard() {
 

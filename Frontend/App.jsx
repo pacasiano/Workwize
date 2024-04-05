@@ -1,16 +1,19 @@
-import Sidebar from "./components/sidebar"
-import Projects from "./components/project/projects"
-import Settings from "./components/setting/settings"
+import Sidebar from "./components/general/sidebar"
+import Tasks from "./components/task/tasks"
+import Settings from "./components/functionalities/settings"
 import Dashboard from "./components/dashboard/dashboard"
 import { useState } from "react"
-import NewProject from "./components/project/newProject"
-
+import NewTask from "./components/task/newTask"
+import Calendar from "./components/calendar/calendar"
+import Task from "./components/task/task"
+import data from "./data"
 
 function App() {
 
   const [Wide, setWide] = useState(true)
   const [Window, setWindow] = useState("")
   const [showAddProj, setAddProj] = useState(false)
+  const [chosenProj, setChosenProj] = useState("")
 
   return (
     <>
@@ -23,20 +26,24 @@ function App() {
           <div className="w-full h-full bg-orange-50">
             {(() => {
               switch (Window) {
-                case "Projects":
-                  return <Projects />;
+                case "Tasks":
+                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} data={data} />;
                 case "Settings":
                   return <Settings />;
+                case "Task":
+                  return <Task data={chosenProj} />;
                 case "Dashboard":
                   return <Dashboard />;
+                case "Calendar":
+                  return <Calendar data={data} setWindow={setWindow} setChosenProj={setChosenProj} />;
                 default:
-                  return <Dashboard />;
+                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} data={data} />;
               }
             })()}
           </div>
         </div>
       </div>
-      {showAddProj ? <NewProject setAddProj={setAddProj} /> : null}
+      {showAddProj ? <NewTask data={data} setAddProj={setAddProj} /> : null}
     </>
   )
 }
