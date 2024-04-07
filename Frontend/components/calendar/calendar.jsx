@@ -15,11 +15,13 @@ export default function MyCalendar({data, setWindow, setChosenProj}){
   const localizer = momentLocalizer(moment)
   
   const myEventsList = data.map((project) => {
+
     return {
       title: project.name,
       start: new Date(project.created),
       end: new Date(project.deadline),
     }
+    
   }
   )
 
