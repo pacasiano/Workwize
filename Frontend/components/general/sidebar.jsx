@@ -30,7 +30,7 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
                     <FontAwesomeIcon className=" bg-black  ease-in-out hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronLeft} />
                 </button>
 
-                <div onClick={()=> setAddProj(true)} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 pr-4 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 pr-4 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                     <p className="" >New&nbsp;Task</p>
                 </div>

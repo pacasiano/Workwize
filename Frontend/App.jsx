@@ -12,7 +12,7 @@ function App() {
 
   const [Wide, setWide] = useState(true)
   const [Window, setWindow] = useState("")
-  const [showAddProj, setAddProj] = useState(false)
+  const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [chosenProj, setChosenProj] = useState("")
 
   return (
@@ -35,7 +35,7 @@ function App() {
                 case "Dashboard":
                   return <Dashboard />;
                 case "Calendar":
-                  return <Calendar data={data} setWindow={setWindow} setChosenProj={setChosenProj} />;
+                  return <Calendar data={data} setWindow={setWindow} setChosenProj={setChosenProj} setAddProj={setAddProj} />;
                 default:
                   return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} data={data} />;
               }
@@ -43,7 +43,7 @@ function App() {
           </div>
         </div>
       </div>
-      {showAddProj ? <NewTask data={data} setAddProj={setAddProj} /> : null}
+      {showAddProj.show ? <NewTask data={data} showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
     </>
   )
 }

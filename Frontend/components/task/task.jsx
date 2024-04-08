@@ -84,11 +84,11 @@ export default function Task({data}) {
                     </div>
                     <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">created:</p>
-                        <p className="text-black/50 font-thin text-sm">{data.created}</p>
+                        <p className="text-black/50 font-thin text-sm">{data.start}</p>
                     </div>
                     <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">deadline:</p>
-                        <p className="text-black/50 font-thin text-sm">{data.deadline}</p>
+                        <p className="text-black/50 font-thin text-sm">{data.end}</p>
                     </div>
                 </div>
 

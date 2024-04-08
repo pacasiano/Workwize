@@ -4,12 +4,12 @@ import Tag from '../general/tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
-export default function NewTask({data, setAddProj}) {
+export default function NewTask({data, showAddProj, setAddProj}) {
 
     NewTask.propTypes = {
         setAddProj: PropTypes.func.isRequired,
+        showAddProj: PropTypes.object.isRequired,
         data: PropTypes.array.isRequired,
     };
 
@@ -30,8 +30,8 @@ export default function NewTask({data, setAddProj}) {
     const [task, setTask] = useState({
         name: "",
         desc: "",
-        created: moment().format("YYYY-MM-DD"),
-        deadline: "",
+        start: showAddProj.data.start,
+        end: showAddProj.data.end,
         states: "",
     })
 
@@ -44,10 +44,10 @@ export default function NewTask({data, setAddProj}) {
 
     const addTask = () => {
         //instaed of setStates, update the database of the changes to the users states
+        console.log(task)
         task.states = chosenTags
         data.push(task)
         setAddProj(false)
-
     }
 
     return (
@@ -69,10 +69,13 @@ export default function NewTask({data, setAddProj}) {
                                 <textarea onChange={(e) => setTask({ ...task, desc: e.target.value})} className="outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md h-20 w-60 resize-none p-2" placeholder="Project Description" />
                             </div>
                             <div className="flex flex-col">
-                                <label>Project Deadline</label>
-                                <input type='date' onChange={(e) => setTask({ ...task, deadline: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
+                                <label>Project start date</label>
+                                <input type='date' value={task.start} onChange={(e) => setTask({ ...task, start: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
                             </div>
-                            
+                            <div className="flex flex-col">
+                                <label>Project end date</label>
+                                <input type='date' value={task.end} onChange={(e) => setTask({ ...task, deadline: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
+                            </div>
                         </div>
                         <div className="flex flex-col w-62">
                             <label>Tags</label>
