@@ -60,7 +60,7 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
                     <FontAwesomeIcon className=" bg-black  hover:scale-110 text-2xl rounded-full text-white " icon={faCircleChevronRight} />
                 </button>
 
-                <div onClick={()=> setAddProj(true)} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                 </div>
 

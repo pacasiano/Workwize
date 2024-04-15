@@ -23,7 +23,7 @@ export default function Topbar({setTitle, search}) {
                     <button>
                         <FontAwesomeIcon className="pr-1 text-black/20 group-focus-within:text-black/50" icon={faMagnifyingGlass} />
                     </button>
-                    <input type="search" className="bg-inherit outline-none" placeholder="Search..." />
+                    <input type="search" className="bg-inherit outline-none pointer-events-auto" placeholder="Search..." />
                 </div>
                 <div>
                     <FontAwesomeIcon className="w-10 h-7 pt-1" icon={faUserCircle} />

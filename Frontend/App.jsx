@@ -6,7 +6,7 @@ import { useState } from "react"
 import NewTask from "./components/task/newTask"
 import Calendar from "./components/calendar/calendar"
 import Task from "./components/task/task"
-import data from "./data"
+import Project from "./data/Project"
 
 function App() {
 
@@ -14,20 +14,22 @@ function App() {
   const [Window, setWindow] = useState("")
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [chosenProj, setChosenProj] = useState("")
+  
+  const [projectInfo, setProjectInfo] = useState(Project[0])
 
   return (
     <>
-      <div className="h-screen w-full select-none">
-        <div className="flex flex-row h-full">
-          <div className={`  h-full transition-all`}>
+      <div className="min-h-screen w-full select-none">
+        <div className="flex flex-row min-h-screen">
+          <div className={` min-h-screen transition-all will-change-scroll`}>
             <Sidebar Wide={Wide} setWide={setWide} setWindow={setWindow} setAddProj={setAddProj} />
           </div>
 
-          <div className="w-full h-full bg-orange-50">
+          <div className=" w-full max-h-screen overflow-clip bg-orange-50 scroll-smooth ">
             {(() => {
               switch (Window) {
                 case "Tasks":
-                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} data={data} />;
+                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} setAddProj={setAddProj} projectInfo={projectInfo}  />;
                 case "Settings":
                   return <Settings />;
                 case "Task":
@@ -35,15 +37,15 @@ function App() {
                 case "Dashboard":
                   return <Dashboard />;
                 case "Calendar":
-                  return <Calendar data={data} setWindow={setWindow} setChosenProj={setChosenProj} setAddProj={setAddProj} />;
+                  return <Calendar setWindow={setWindow} setChosenProj={setChosenProj} setAddProj={setAddProj} projectInfo={projectInfo} />;
                 default:
-                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} data={data} />;
+                  return <Tasks setWindow={setWindow} setChosenProj={setChosenProj} projectInfo={projectInfo} setAddProj={setAddProj} />;
               }
             })()}
           </div>
         </div>
       </div>
-      {showAddProj.show ? <NewTask data={data} showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+      {showAddProj.show ? <NewTask projectInfo={projectInfo} showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
     </>
   )
 }
