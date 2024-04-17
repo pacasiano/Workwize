@@ -10,8 +10,8 @@ import TaskCard from "./taskCard.jsx";
 export default function Tasks({projectInfo, setWindow, setChosenProj, setAddProj}) {
 
     Tasks.propTypes = {
-        setWindow: PropTypes.func.isRequired,
-        setChosenProj: PropTypes.func.isRequired,
+        setWindow: PropTypes.func,
+        setChosenProj: PropTypes.func,
         projectInfo: PropTypes.object.isRequired,
         setAddProj: PropTypes.func,
     };

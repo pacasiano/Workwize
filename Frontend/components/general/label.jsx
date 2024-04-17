@@ -3,9 +3,9 @@ import { faCaretDown, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useState } from "react";
 
-export default function Tag({word, color, type}) {
+export default function Label({word, color, type}) {
 
-    Tag.propTypes = {
+    Label.propTypes = {
         word: PropTypes.string,
         color: PropTypes.string,
         type: PropTypes.string,

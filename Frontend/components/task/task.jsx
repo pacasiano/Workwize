@@ -1,10 +1,10 @@
 
-import Tag from '../general/tag';
+import Label from '../general/label';
 import Topbar from '../general/topbar'
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Compact from '@uiw/react-color-compact';
-import Label from '../../data/Label';
+import Labels from '../../data/Label';
 import UserSubtask from '../../data/UserSubtask';
 import User from '../../data/User';
 
@@ -22,7 +22,7 @@ export default function Task({data}) {
     ]
 
     // filter the labels that are in the Subtask with the same task_id
-    const labels = Label.filter((label) => label.subtask_id === data.subtask_id)
+    const labels = Labels.filter((label) => label.subtask_id === data.subtask_id)
     // filter the users that are in the Subtask with the same task_id
     const userIds = UserSubtask.filter((user) => user.subtask_id === data.subtask_id)
     // get the names of the users in User data by using user_id from uesrids (only users has the data)
@@ -51,7 +51,7 @@ export default function Task({data}) {
 
                     <div className="flex flex-wrap gap-2 p-2 rounded-xl">
                         {labels.map((tag, index) => (
-                            <Tag key={index} word={tag.name} color={tag.color} type={"2"} />
+                            <Label key={index} word={tag.name} color={tag.color} type={"2"} />
                         ))}
                     </div>
 
@@ -69,8 +69,8 @@ export default function Task({data}) {
                                 onChange={(color) => {setHex(color.hex);}}
                                 />
                             </div>
-                            <button type="submit" className="bg-green-900/70 text-white px-2 h-8 w-20 rounded-md font-light">
-                                Add Tag
+                            <button type="submit" className="bg-green-900/70 text-white px-2 h-8 w-20 rounded-md font-light text-nowrap">
+                                Add Label
                             </button>
                         </div>
                         </form>

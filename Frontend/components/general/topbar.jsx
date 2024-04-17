@@ -19,12 +19,13 @@ export default function Topbar({setTitle, search}) {
                 {setTitle}
             </div>
             <div className="flex flex-row gap-5 justify-between items-center">
+                {search===true && (
                 <div className={` ${search===false && "hidden"} group flex flex-nowrap relative border-b-2 border-black/20 hover:-translate-y-[1px] focus-within:border-black/50 transition-transform duration-300`}>
                     <button>
                         <FontAwesomeIcon className="pr-1 text-black/20 group-focus-within:text-black/50" icon={faMagnifyingGlass} />
                     </button>
                     <input type="search" className="bg-inherit outline-none pointer-events-auto" placeholder="Search..." />
-                </div>
+                </div>)}
                 <div>
                     <FontAwesomeIcon className="w-10 h-7 pt-1" icon={faUserCircle} />
                 </div>

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import Compact from '@uiw/react-color-compact';
-import Tag from '../general/tag';
+import Tag from '../general/label';
 
-export default function Tags ({chosenTags, setChosenTags}) {
+export default function Labels ({chosenTags, setChosenTags}) {
 
-    Tags.propTypes = {
+    Labels.propTypes = {
         chosenTags: PropTypes.array.isRequired,
-        setChosenTags: PropTypes.func.isRequired,
+        setChosenTags: PropTypes.func,
     };
 
     const colors = [

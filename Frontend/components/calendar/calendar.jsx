@@ -5,10 +5,10 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
 import { useState } from 'react';
 import moment from 'moment';
-import Tag from '../general/tag';
+import Label from '../general/label';
 import Task from '../../data/Task';
 import Subtask from '../../data/Subtask';
-import Label from '../../data/Label';
+import Labels from '../../data/Label';
 
 export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAddProj}){
 
@@ -24,7 +24,7 @@ export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAd
   // get all subtask where taak id is in taskId
   const data = Subtask.filter((subtask) => taskId.map((task) => task.task_id).includes(subtask.task_id))
   // get all labels where subtask_id is in data
-  const labels = Label.filter((label) => data.map((subtask) => subtask.subtask_id).includes(label.subtask_id))
+  const labels = Labels.filter((label) => data.map((subtask) => subtask.subtask_id).includes(label.subtask_id))
 
   const [myEventsList, setMyEventsList] = useState( data.map((t) => ({
 
@@ -68,7 +68,7 @@ export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAd
             <div className="p-1">
               <div className="flex flex-wrap gap-1">
               {eventInfo.event.extendedProps.states.map((tag, index) => (
-                <Tag key={index} word={tag.word} color={tag.color} type={"1"} />
+                <Label key={index} word={tag.word} color={tag.color} type={"1"} />
               ))}
               </div>
               <b>{eventInfo.event.title}</b>

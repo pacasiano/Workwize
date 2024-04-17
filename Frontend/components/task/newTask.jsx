@@ -1,11 +1,11 @@
 
 import { useState } from 'react';
-import Tag from '../general/tag';
+import Label from '../general/label';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import List from './newTaskList';
-import Tags from './newTaskTags';
+import Tags from './newTaskLabel';
 
 import UserProject from '../../data/UserProject';
 import User from '../../data/User';
@@ -13,7 +13,7 @@ import User from '../../data/User';
 export default function NewTask({projectInfo, showAddProj, setAddProj}) {
 
     NewTask.propTypes = {
-        setAddProj: PropTypes.func.isRequired,
+        setAddProj: PropTypes.func,
         showAddProj: PropTypes.object.isRequired,
         projectInfo: PropTypes.object.isRequired,
     };
@@ -105,7 +105,7 @@ export default function NewTask({projectInfo, showAddProj, setAddProj}) {
                                     {assigned.length === 0 ? <p className="text-xs font-light">No users assigned</p> : null}
                                     {assigned.map((name, index) => (
                                         <div key={index} onClick={() => unassignUser(name)} className="hover:cursor-pointer">
-                                            <Tag word={name} type={"3"} color="#10B981" />
+                                            <Label word={name} type={"3"} color="#10B981" />
                                         </div>
                                     ))}
                                 </div>
@@ -115,7 +115,7 @@ export default function NewTask({projectInfo, showAddProj, setAddProj}) {
                                     {unAssgined.length === 0 ? <p className="text-xs font-light">All users have been assigned</p> : null}
                                     {unAssgined.map((name, index) => (
                                         <div key={index} onClick={() => assignUser(name)} className="hover:cursor-pointer">
-                                            <Tag word={name} type={"3"} color="#F47174" />
+                                            <Label word={name} type={"3"} color="#F47174" />
                                         </div>
                                     ))}
                                 </div>

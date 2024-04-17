@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
-import Tag from '../general/tag';
+import Label from '../general/label';
 import { useState } from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faCirclePlus, faCaretDown, faCircleMinus } from '@fortawesome/free-solid-svg-icons'; 
 //import Circle from '@uiw/react-color-circle';
 import Compact from '@uiw/react-color-compact';
-import Label from '../../data/Label';
+import Labels from '../../data/Label';
 
 export default function TaskCard({data, setWindow, setChosenProj}) {
 
     TaskCard.propTypes = {
         data: PropTypes.object.isRequired,
-        setWindow: PropTypes.func.isRequired,
-        setChosenProj: PropTypes.func.isRequired,
+        setWindow: PropTypes.func,
+        setChosenProj: PropTypes.func,
     };
 
     const [add, setAdd] = useState(true)
@@ -44,7 +44,7 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
     }
 
     // filter the labels that are in the Subtask with the same task_id
-    const labels = Label.filter((label) => label.subtask_id === data.subtask_id)
+    const labels = Labels.filter((label) => label.subtask_id === data.subtask_id)
 
     return (
         <div className="flex flex-row gap-0 ">
@@ -53,7 +53,7 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
                     <div className="flex justify-between gap-1">
                         <div className="flex flex-wrap gap-1 items-center w-full">
                             {labels.map((tag, index) => (
-                                <Tag key={index} word={tag.name} color={tag.color} />
+                                <Label key={index} word={tag.name} color={tag.color} />
                             ))}
                         </div>
                         {/* The add button for tags */}

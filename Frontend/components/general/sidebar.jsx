@@ -13,9 +13,9 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
 
     Sidebar.propTypes = {
         Wide: PropTypes.bool.isRequired,
-        setWide: PropTypes.func.isRequired,
-        setWindow: PropTypes.func.isRequired,
-        setAddProj: PropTypes.func.isRequired,
+        setWide: PropTypes.func,
+        setWindow: PropTypes.func,
+        setAddProj: PropTypes.func,
     };
 
     return (
@@ -24,7 +24,7 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
             {Wide ? (
             <div className="relative flex flex-col items-start gap-10 justify-start p-8">
 
-                <h1 className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} /> Projects</h1>
+                <h1 className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</h1>
 
                 <button className="absolute transform-gpu transition-all rounded-full translate-x-48" onClick={()=> setWide(false)}>
                     <FontAwesomeIcon className=" bg-black  ease-in-out hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronLeft} />
