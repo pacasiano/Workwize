@@ -84,7 +84,7 @@ export default function Task({data}) {
                         <p className="text-xl font-bold">
                             Description
                         </p>
-                        {data.desc}
+                        {data.description}
                     </div>
                     <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">created:</p>

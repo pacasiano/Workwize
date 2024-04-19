@@ -23,7 +23,5 @@ describe('Label', () => {
     render(<Label word={"hello"} color={""} type={"3"} />);
     expect(screen.getByText("hello")).toBeInTheDocument();
   });
-
-
   
 });

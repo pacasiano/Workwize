@@ -19,4 +19,19 @@ describe('Task', () => {
         expect(title).toBeInTheDocument();
     });
 
+    it('Should display correct description', () => {
+        render(<Task data={data} />);
+        const description = screen.getByText(/hays Ito nanaman tayo/i);
+        expect(description).toBeInTheDocument();
+    });
+
+    it('Should display correct start and end dates', () => {
+        render(<Task data={data} />);
+        const startDate = screen.getByText(/2024-4-10/i);
+        const endDate = screen.getByText(/2024-4-12/i);
+
+        expect(startDate).toBeInTheDocument();
+        expect(endDate).toBeInTheDocument();
+    });
+
 });

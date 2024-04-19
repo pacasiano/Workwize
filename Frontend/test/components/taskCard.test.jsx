@@ -19,4 +19,10 @@ describe('TaskCard', () => {
         expect(title).toBeInTheDocument();
     });
 
+    it('Should display correct description', () => {
+        render(<TaskCard data={data} />);
+        const description = screen.getByText(/hays Ito nanaman tayo/i);
+        expect(description).toBeInTheDocument();
+    });
+
 });
