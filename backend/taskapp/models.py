@@ -25,12 +25,12 @@ class Project(models.Model):
         return '{} {}'.format(self.project_id, self.project_name)
     
 class UserProject(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
     task_name = models.CharField(max_length=100)
     color = models.CharField(max_length=7)
 
@@ -39,7 +39,7 @@ class Task(models.Model):
 
 class Subtask(models.Model):
     subtask_id = models.AutoField(primary_key=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task_id = models.ForeignKey(Task, on_delete=models.CASCADE)
     subtask_name = models.CharField(max_length=100)
     description = models.TextField() 
     end_date = models.DateTimeField()
@@ -50,24 +50,23 @@ class Subtask(models.Model):
 
 class Label(models.Model):
     label_id = models.AutoField(primary_key=True)
-    subtask = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    subtask_id = models.ForeignKey(Subtask, on_delete=models.CASCADE)
     label_name = models.CharField(max_length=100)
     color = models.CharField(max_length=7)
 
 class Attachment(models.Model):
     attachment_id = models.AutoField(primary_key=True)
-    subtask = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    subtask_id = models.ForeignKey(Subtask, on_delete=models.CASCADE)
     filename = models.CharField(max_length=255)
 
 
 class UserSubtask(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subtask = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    subtask_id = models.ForeignKey(Subtask, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} {}'.format(self.user, self.subtask)
 
     class Meta:
-        unique_together = ('user', 'subtask')  # Ensures each user is assigned to a subtask only once and vice versa
-
+        unique_together = ('user_id', 'subtask_id')  # Ensures each user is assigned to a subtask only once and vice versa
 
