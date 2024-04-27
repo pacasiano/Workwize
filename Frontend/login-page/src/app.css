@@ -1,0 +1,46 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  @apply bg-orange-50 justify-center items-center;
+}
+
+.form-container {
+  @apply bg-orange-200 p-4 rounded-lg shadow-md;
+}
+
+/* Login form styles */
+.login-form {
+  @apply p-8 rounded-lg shadow-md;
+  width: 300px;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+.form-group label {
+  @apply font-bold;
+}
+
+.form-group input {
+  @apply w-full px-1 py-1 items-center border border-gray-300 rounded;
+}
+
+/* Overlay styles */
+.overlay {
+  @apply fixed justify-center items-center bg-black bg-opacity-50;
+}
+
+.overlay-content {
+  @apply bg-orange-200 top-0 rounded-lg shadow-md;
+  width: 0px;
+}
+
+.overlay-content button {
+  @apply bg-orange-100 rounded border-gray-100 mt-4;
+}
