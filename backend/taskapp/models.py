@@ -19,17 +19,20 @@ class User(models.Model):
 
 class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     project_name = models.CharField(max_length=100)
 
     def __str__(self):
         return '{} {}'.format(self.project_id, self.project_name)
+    
+class UserProject(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     task_name = models.CharField(max_length=100)
-    deadline = models.DateTimeField()
+    color = models.CharField(max_length=7)
 
     def __str__(self):
         return '{} {}'.format(self.task_id, self.task_name)
@@ -37,12 +40,25 @@ class Task(models.Model):
 class Subtask(models.Model):
     subtask_id = models.AutoField(primary_key=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    description = models.TextField()
-    STATUS_CHOICES = [('completed', 'Completed'), ('ongoing', 'Ongoing')]
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    subtask_name = models.CharField(max_length=100)
+    description = models.TextField() 
+    end_date = models.DateTimeField()
+    start_date = models.DateTimeField()
 
     def __str__(self):
         return '{} {}'.format(self.subtask_id, self.description)
+
+class Label(models.Model):
+    label_id = models.AutoField(primary_key=True)
+    subtask = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    label_name = models.CharField(max_length=100)
+    color = models.CharField(max_length=7)
+
+class Attachment(models.Model):
+    attachment_id = models.AutoField(primary_key=True)
+    subtask = models.ForeignKey(Subtask, on_delete=models.CASCADE)
+    filename = models.CharField(max_length=255)
+
 
 class UserSubtask(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -53,3 +69,5 @@ class UserSubtask(models.Model):
 
     class Meta:
         unique_together = ('user', 'subtask')  # Ensures each user is assigned to a subtask only once and vice versa
+
+

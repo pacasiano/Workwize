@@ -10,6 +10,13 @@ import data from "./data"
 
 function App() {
 
+  fetch('http://127.0.0.1:8000/api/users/')
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(err => {
+      console.error('There was an error ' + err)
+    })
+
   const [Wide, setWide] = useState(true)
   const [Window, setWindow] = useState("")
   const [showAddProj, setAddProj] = useState(false)
