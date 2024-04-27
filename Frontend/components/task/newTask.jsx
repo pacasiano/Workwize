@@ -1,53 +1,72 @@
-import Compact from '@uiw/react-color-compact';
+
 import { useState } from 'react';
-import Tag from '../general/tag';
+import Label from '../general/label';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import List from './newTaskList';
+import Tags from './newTaskLabel';
 
-export default function NewTask({data, setAddProj}) {
+import UserProject from '../../data/UserProject';
+import User from '../../data/User';
+
+export default function NewTask({projectInfo, showAddProj, setAddProj}) {
 
     NewTask.propTypes = {
-        setAddProj: PropTypes.func.isRequired,
-        data: PropTypes.array.isRequired,
+        setAddProj: PropTypes.func,
+        showAddProj: PropTypes.object.isRequired,
+        projectInfo: PropTypes.object.isRequired,
     };
 
-    const colors = [
-        '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0'
-    ]
+    // get Users from UsersProject where project_id is projectInfo.project_id
+    const userIds = UserProject.filter((user) => user.project_id === projectInfo.project_id)
+    // get the names of the users in Users data by using user_id from userIds
+    const users = userIds.map((user) => User.find((u) => u.user_id === user.user_id))
 
+    // get the users from the database
+    const [unAssgined, setUnAssgined] = useState([
+        // show all users in the project
+        ...users.map((user) => user.username)
+    ])
+
+    const [assigned, setAssigned] = useState([])
+
+    const assignUser = (name) => {
+        setAssigned([...assigned, name]);
+        setUnAssgined(unAssgined.filter(n => n !== name));
+    };
+
+    const unassignUser = (name) => {
+        setUnAssgined([...unAssgined, name]);
+        setAssigned(assigned.filter(n => n !== name));
+    };
+    
     const [chosenTags, setChosenTags] = useState([
         {
             word: "try",
             color: "#10B981"
         }
     ])
-
-    const [tagName, setTagName] = useState('');
-    const [hex, setHex] = useState('#F44E3B');
+    const [chosenList, setChosenList] = useState({name: showAddProj.data.name, color: showAddProj.data.color }||{})
 
     const [task, setTask] = useState({
         name: "",
         desc: "",
-        created: moment().format("YYYY-MM-DD"),
-        deadline: "",
+        start: showAddProj.data.start || "",
+        end: showAddProj.data.end || "", 
         states: "",
+        list: "",
+        assigned: ""
     })
-
-    const addTag = () => {
-        //instaed of setStates, update the database of the changes to the users states
-        setChosenTags([...chosenTags, { word: tagName, color: hex}]);
-        setTagName("")
-        setHex("#FFFFFF")
-    }
 
     const addTask = () => {
         //instaed of setStates, update the database of the changes to the users states
         task.states = chosenTags
-        data.push(task)
+        task.assigned = assigned
+        task.list = chosenList
+        console.log(task)
+        // data.push(task)
         setAddProj(false)
-
     }
 
     return (
@@ -61,45 +80,60 @@ export default function NewTask({data, setAddProj}) {
                     <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-7 pt-4">
                         <div className="flex flex-col gap-2">
                             <div className="flex flex-col">
-                                <label>Project Name</label>
-                                <input type='text' onChange={(e) => setTask({ ...task, name: e.target.value})} className=" outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md w-60 h-10 p-2" placeholder="Project Name" />
+                                <label>Task Name</label>
+                                <input type='text' onChange={(e) => setTask({ ...task, name: e.target.value})} className=" outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md w-60 h-10 p-2" placeholder="Task Name" />
                             </div>
                             <div className="flex flex-col">
-                                <label>Project Description</label>
-                                <textarea onChange={(e) => setTask({ ...task, desc: e.target.value})} className="outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md h-20 w-60 resize-none p-2" placeholder="Project Description" />
+                                <label>Task Description</label>
+                                <textarea onChange={(e) => setTask({ ...task, desc: e.target.value})} className="outline focus-within:outline-1 outline-0 bg-neutral-100 rounded-md h-20 w-60 resize-none p-2" placeholder="Task Description" />
                             </div>
                             <div className="flex flex-col">
-                                <label>Project Deadline</label>
-                                <input type='date' onChange={(e) => setTask({ ...task, deadline: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
+                                <label>Task start date</label>
+                                <input type='date' value={task.start} onChange={(e) => setTask({ ...task, start: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
                             </div>
-                            
+                            <div className="flex flex-col">
+                                <label>Task end date</label>
+                                <input type='date' value={task.end} onChange={(e) => setTask({ ...task, end: e.target.value})} className="outline focus-within:outline-1 outline-0 placeholder:text-neutral-400 bg-neutral-100 rounded-md w-60 h-10 p-2" />
+                            </div>
                         </div>
-                        <div className="flex flex-col w-62">
-                            <label>Tags</label>
-                            <div className="flex flex-wrap gap-1 py-1 w-60">
-                                {chosenTags.map((tag, index) => (
-                                    <Tag key={index} word={tag.word} color={tag.color} />
-                                ))}
-                            </div>
-                                <div className="flex flex-col outline focus-within:outline-1 outline-0 group rounded-md">
-                                    <div className="">
-                                        <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-neutral-100 outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
-                                    </div>
-                                    <Compact
-                                    className="bg-neutral-100"
-                                    colors={colors}
-                                    color={hex}
-                                    onChange={(color) => {setHex(color.hex);}}
-                                    />
-                                    <button onClick={addTag} className="bg-blue-900/80 rounded-b-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                        <div className="flex flex-col gap-4 w-62">
+                            <div className="flex flex-col">
+
+                                <label>Assigned users</label>
+                                {/* assigned */}
+                                <div className="flex flex-wrap gap-1 py-1 w-60">
+                                    {assigned.length === 0 ? <p className="text-xs font-light">No users assigned</p> : null}
+                                    {assigned.map((name, index) => (
+                                        <div key={index} onClick={() => unassignUser(name)} className="hover:cursor-pointer">
+                                            <Label word={name} type={"3"} color="#10B981" />
+                                        </div>
+                                    ))}
                                 </div>
+                                {/* not assigned */}
+                                <hr />
+                                <div className="flex flex-wrap gap-1 py-1 w-60">
+                                    {unAssgined.length === 0 ? <p className="text-xs font-light">All users have been assigned</p> : null}
+                                    {unAssgined.map((name, index) => (
+                                        <div key={index} onClick={() => assignUser(name)} className="hover:cursor-pointer">
+                                            <Label word={name} type={"3"} color="#F47174" />
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                            </div>
+
+                            <List chosenList={chosenList} setChosenList={setChosenList} />
+                        
+                            <Tags chosenTags={chosenTags} setChosenTags={setChosenTags} />
+                            
                         </div>
                     </div>
                     <div onClick={addTask} className="pt-2">
-                        <button className="bg-blue-900/80 text-white w-60 h-10 rounded-md hover:bg-blue-900/90">Create Project</button>
+                        <button className="bg-blue-900/80 text-white w-60 h-10 rounded-md hover:bg-blue-900/90">Create Task</button>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
+

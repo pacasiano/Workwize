@@ -3,11 +3,11 @@ import { faCaretDown, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useState } from "react";
 
-export default function Tag({word, color, type}) {
+export default function Label({word, color, type}) {
 
-    Tag.propTypes = {
-        word: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
+    Label.propTypes = {
+        word: PropTypes.string,
+        color: PropTypes.string,
         type: PropTypes.string,
     }; 
 
@@ -27,6 +27,14 @@ export default function Tag({word, color, type}) {
                 <button onClick={delTag} >
                 <FontAwesomeIcon className={` ${isHovered ? 'block' : 'hidden'} hover:cursor-pointer `} icon={faXmarkSquare} />
                 </button>
+            </div>
+        </div>
+        )
+    } else if (type === "3"){
+        return (
+        <div className="relative ">
+            <div className={` flex flex-row justify-center items-center gap-1 group text-white w-full px-2 py-1 rounded-md `} style={{ background: color }}>
+                {word}
             </div>
         </div>
         )

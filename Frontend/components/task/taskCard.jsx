@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
-import Tag from '../general/tag';
+import Label from '../general/label';
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faCaretDown, faCircleMinus } from '@fortawesome/free-solid-svg-icons'; 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCirclePlus, faCaretDown, faCircleMinus } from '@fortawesome/free-solid-svg-icons'; 
 //import Circle from '@uiw/react-color-circle';
 import Compact from '@uiw/react-color-compact';
+import Labels from '../../data/Label';
 
 export default function TaskCard({data, setWindow, setChosenProj}) {
 
     TaskCard.propTypes = {
         data: PropTypes.object.isRequired,
-        setWindow: PropTypes.func.isRequired,
-        setChosenProj: PropTypes.func.isRequired,
+        setWindow: PropTypes.func,
+        setChosenProj: PropTypes.func,
     };
 
     const [add, setAdd] = useState(true)
@@ -42,17 +43,21 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
         setWindow("Task")
     }
 
+    // filter the labels that are in the Subtask with the same task_id
+    const labels = Labels.filter((label) => label.subtask_id === data.subtask_id)
+
     return (
         <div className="flex flex-row gap-0 ">
             <div className="flex flex-col gap-2 bg-white/70 shadow-md rounded-md w-56">
                 <div className="px-5 pt-5">
                     <div className="flex justify-between gap-1">
                         <div className="flex flex-wrap gap-1 items-center w-full">
-                            {data.states.map((tag, index) => (
-                                <Tag key={index} word={tag.word} color={tag.color} />
+                            {labels.map((tag, index) => (
+                                <Label key={index} word={tag.name} color={tag.color} />
                             ))}
                         </div>
-                        <div className="group relative w-min h-min select-none">
+                        {/* The add button for tags */}
+                        {/* <div className="group relative w-min h-min select-none">
                             {add ?
                             <FontAwesomeIcon onClick={showadd} className="text-xl text-black/20 group-hover:text-black/80 hover:cursor-pointer" icon={faCirclePlus} />
                             :
@@ -62,7 +67,7 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
                                 <FontAwesomeIcon className={` absolute -z-10 size-5 translate-y-[10px] ${add ? "text-black" : "text-red-900"} `} icon={faCaretDown} />
                                 <p className="z-50 text-white font-thin text-sm whitespace-nowrap ">{add ? "add tag" : "exit"}</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div onClick={()=> setPage()} className="hover:cursor-pointer">
@@ -71,18 +76,18 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
                             {data.name}
                         </div>
                         <p className=" overflow-wrap break-words font-light">
-                            {data.desc}
+                            {data.description}
                         </p>
-                        <div className="flex flex-col gap-1">
+                        {/* <div className="flex flex-col gap-1">
                             <div className="flex flex-row gap-1 items-center">
                                 <p className="text-black/50 text-sm font-light">created:</p>
-                                <p className="text-black/50 font-thin text-sm">{data.created}</p>
+                                <p className="text-black/50 font-thin text-sm">{data.start}</p>
                             </div>
                             <div className="flex flex-row gap-1 items-center">
                                 <p className="text-black/50 text-sm font-light">deadline:</p>
-                                <p className="text-black/50 font-thin text-sm">{data.deadline}</p>
+                                <p className="text-black/50 font-thin text-sm">{data.end}</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

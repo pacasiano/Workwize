@@ -13,9 +13,9 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
 
     Sidebar.propTypes = {
         Wide: PropTypes.bool.isRequired,
-        setWide: PropTypes.func.isRequired,
-        setWindow: PropTypes.func.isRequired,
-        setAddProj: PropTypes.func.isRequired,
+        setWide: PropTypes.func,
+        setWindow: PropTypes.func,
+        setAddProj: PropTypes.func,
     };
 
     return (
@@ -24,13 +24,13 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
             {Wide ? (
             <div className="relative flex flex-col items-start gap-10 justify-start p-8">
 
-                <h1 className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} /> Projects</h1>
+                <h1 className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</h1>
 
                 <button className="absolute transform-gpu transition-all rounded-full translate-x-48" onClick={()=> setWide(false)}>
                     <FontAwesomeIcon className=" bg-black  ease-in-out hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronLeft} />
                 </button>
 
-                <div onClick={()=> setAddProj(true)} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 pr-4 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-10 px-2 pr-4 justify-center items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                     <p className="" >New&nbsp;Task</p>
                 </div>
@@ -60,7 +60,7 @@ export default function Sidebar({Wide, setWide, setWindow, setAddProj}) {
                     <FontAwesomeIcon className=" bg-black  hover:scale-110 text-2xl rounded-full text-white " icon={faCircleChevronRight} />
                 </button>
 
-                <div onClick={()=> setAddProj(true)} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                     <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                 </div>
 
