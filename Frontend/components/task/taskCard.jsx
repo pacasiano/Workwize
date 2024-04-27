@@ -73,7 +73,7 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
                 <div onClick={()=> setPage()} className="hover:cursor-pointer">
                     <div className="pb-5 px-5 flex flex-col gap-2">
                         <div  className="text-xl font-bold">
-                            {data.name}
+                            {data.subtask_name}
                         </div>
                         <p className=" overflow-wrap break-words font-light">
                             {data.description}

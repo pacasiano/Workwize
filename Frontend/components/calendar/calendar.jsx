@@ -3,14 +3,27 @@ import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 import Label from '../general/label';
-import Task from '../../data/Task';
-import Subtask from '../../data/Subtask';
+// import Task from '../../data/Task';
+// import Subtask from '../../data/Subtask';
 import Labels from '../../data/Label';
 
 export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAddProj}){
+
+  const [tasks, setTasks] = useState([])
+  const [subtasks, setSubtasks] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/tasks/')
+    .then(res => res.json())
+    .then(data => setTasks(data))
+
+    fetch('http://localhost:8000/api/subtasks/')
+    .then(res => res.json())
+    .then(data => setSubtasks(data))
+  }, [])
 
   MyCalendar.propTypes = {
     projectInfo: PropTypes.object.isRequired,
@@ -20,9 +33,9 @@ export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAd
   };
 
   // get all task where project_id is 1
-  const taskId = Task.filter((task) => task.project_id === projectInfo.project_id)
-  // get all subtask where taak id is in taskId
-  const data = Subtask.filter((subtask) => taskId.map((task) => task.task_id).includes(subtask.task_id))
+  const taskId = tasks.filter((task) => task.project_id === projectInfo.project_id)
+  // get all subtask where task id is in taskId
+  const data = subtasks.filter((subtask) => taskId.map((task) => task.task_id).includes(subtask.task_id))
   // get all labels where subtask_id is in data
   const labels = Labels.filter((label) => data.map((subtask) => subtask.subtask_id).includes(label.subtask_id))
 
@@ -42,7 +55,7 @@ export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAd
   const goToProject = (id) => {
     // find the subtask where subtask_id is equal to id
     const intId = parseInt(id, 10);
-    const task = Subtask.find((subtask) => subtask.subtask_id === intId)
+    const task = subtasks.find((subtask) => subtask.subtask_id === intId)
     setChosenProj(task)
     setWindow("Task")
   }
