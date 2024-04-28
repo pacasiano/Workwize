@@ -25,6 +25,7 @@ router.register(r'projects', views.ProjectView, 'project')
 router.register(r'tasks', views.TaskView, 'task')
 router.register(r'subtasks', views.SubtaskView, 'subtask')
 router.register(r'user-subtasks', views.UserSubtaskView, 'usersubtask')
+router.register(r'labels', views.LabelView, 'label')
 
 
 urlpatterns = [

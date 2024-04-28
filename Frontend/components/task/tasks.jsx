@@ -25,15 +25,13 @@ export default function Tasks({projectInfo, setWindow, setChosenProj, setAddProj
         .then(res => res.json())
         .then(data => setTasks(data))
 
-        // console.log(tasks)
-    }, []) //i dont want to include 'tasks' in the dependency array bc for some reason, react keeps re-rendering the component
+    }, []) 
 
     useEffect(() => {
         fetch('http://localhost:8000/api/subtasks/')
         .then(res => res.json())
         .then(data => setSubtasks(data))
 
-        // console.log(tasks)
     }, []) 
 
     // get all Task where project_id is 1

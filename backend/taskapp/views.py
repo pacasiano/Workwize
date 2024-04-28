@@ -3,8 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 
 from rest_framework import viewsets
-from .serializers import UserSerializer, ProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer
-from .models import User, Project, Task, Subtask, UserSubtask
+from .serializers import UserSerializer, ProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
+from .models import User, Project, Task, Subtask, UserSubtask, Label
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -26,3 +26,6 @@ class UserSubtaskView(viewsets.ModelViewSet):
     serializer_class = UserSubtaskSerializer
     queryset = UserSubtask.objects.all()
 
+class LabelView(viewsets.ModelViewSet):
+    serializer_class = LabelSerializer
+    queryset = Label.objects.all()

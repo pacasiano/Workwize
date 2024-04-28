@@ -2,7 +2,7 @@
 # Like taking an object in JS and passing it to JSON.stringify()
 
 from rest_framework import serializers
-from .models import User, Project, Task, Subtask, UserSubtask
+from .models import User, Project, Task, Subtask, UserSubtask, Label
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +28,8 @@ class UserSubtaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserSubtask
         fields = ('user_id', 'subtask_id')
+
+class LabelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Label
+        fields = ('label_id', 'subtask_id', 'label_name', 'color')
