@@ -4,15 +4,20 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 const Header = () => {
 
-    const [loggedIn, setLoggedIn] = useState(false)
+    Header.propTypes = {
+        type: PropTypes.string,
+    }; 
+
+    const [loggedIn, setLoggedIn] = useState(true)
 
     return (
         <div className="fixed z-50 top-0 w-full p-3 px-5 bg-black/90">
             <div className="flex flex-row justify-between items-center">
-                <h1 className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</h1>
+                <Link to={"/"} className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</Link>
 
                 <div className='mr-24 flex flex-row gap-5'>
                     <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</p>
