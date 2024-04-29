@@ -1,7 +1,6 @@
 
 import Label from '../general/label';
 import Topbar from '../general/topbar'
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Compact from '@uiw/react-color-compact';
 
@@ -10,39 +9,50 @@ import { useEffect } from 'react';
 
 export default function Task() {
 
-    Task.propTypes = {
-        data: PropTypes.object.isRequired,
-    };
-
     const { task_id } = useParams();
     const [data, setSubtasks] = useState({});
     const [labels, setLabels] = useState([]);
-
-    useEffect(() => {
-        fetch(`http://localhost:8000/api/subtasks/${task_id}/`)
-        .then(res => res.json())
-        .then(data => {setSubtasks(data)});
-        // console.log(data);
-    }, [task_id]);
-
-    useEffect(() => {
-        fetch(`http://localhost:8000/api/labels/`)
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data)
-            const filteredLabels = data.filter(label => label.subtask_id === parseInt(task_id));
-            setLabels(filteredLabels);
-        });
-    }, [task_id]);
+    const [usersID, setUsersID] = useState([]);
+    const [users, setUsers] = useState([]);
 
     const [tagName, setTagName] = useState('');
     const [hex, setHex] = useState('#F44E3B');
-    
-    const colors = [
-        '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0'
-    ]
+    const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
 
-    // get the names of the users in User data by using user_id from uesrids (only users has the data)
+    useEffect(() => {
+
+        fetch(`http://localhost:8000/api/subtasks/${task_id}/`)
+        .then(res => res.json())
+        .then(data => {setSubtasks(data)});
+        
+
+        fetch(`http://localhost:8000/api/labels/`)
+        .then(res => res.json())
+        .then(data => {
+            const filteredLabels = data.filter(label => label.subtask_id === parseInt(task_id));
+            setLabels(filteredLabels);
+        });
+
+        fetch(`http://localhost:8000/api/user-subtasks/`)
+        .then(res => res.json())
+        .then(data => {
+            const filteredUsers = data.filter(user => user.subtask_id === parseInt(task_id));
+            setUsersID(filteredUsers);
+        });
+
+    }, [task_id]);
+
+    useEffect(() => {
+
+        fetch(`http://localhost:8000/api/users/`)
+        .then(res => res.json())
+        .then(data => {
+            const filteredUsers = data.filter(user => usersID.map(user => user.user_id).includes(user.user_id));
+            setUsers(filteredUsers.map(user => user.username));
+        });
+    
+    }, [usersID]);
+    
     
     const addTag = (e) => {
         e.preventDefault();
@@ -109,10 +119,10 @@ export default function Task() {
                         <p className="text-black/50 text-sm font-light">deadline:</p>
                         <p className="text-black/50 font-thin text-sm">{data.end_date}</p>
                     </div>
-                    {/* <div className="flex flex-row gap-1 items-center">
+                    <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">assigned:</p>
                         <p className="text-black/50 font-thin text-sm">{users.join(", ")}</p>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
