@@ -87,7 +87,7 @@ function App() {
       errorElement: <div>404</div>,
     },
     {
-      path: "/project/:id/tasks/task",
+      path: "/project/:id/tasks/:task_id",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />

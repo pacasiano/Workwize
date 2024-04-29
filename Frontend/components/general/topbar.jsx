@@ -3,7 +3,6 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 //import { useState } from "react"
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom"
 
 export default function Topbar({setTitle, search}) {
 
