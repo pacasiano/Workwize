@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-const ForgotPasswordPage = ({ onReturn }) => {
+function ForgotPasswordPage({ onReturn }) {
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
@@ -32,6 +32,6 @@ const ForgotPasswordPage = ({ onReturn }) => {
       </div>
     </div>
   );
-};
+}
 
 export default ForgotPasswordPage;

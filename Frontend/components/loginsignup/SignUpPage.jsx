@@ -1,7 +1,8 @@
 // SignUpPage.jsx
 import React, { useState } from 'react';
 
-const SignUpPage = ({ onReturn }) => {
+function SignUpPage({ onReturn }) {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -42,6 +43,6 @@ const SignUpPage = ({ onReturn }) => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUpPage;

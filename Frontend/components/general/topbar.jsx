@@ -3,7 +3,6 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 //import { useState } from "react"
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom"
 
 export default function Topbar({setTitle, search}) {
 
@@ -13,8 +12,6 @@ export default function Topbar({setTitle, search}) {
         setTitle: PropTypes.string.isRequired,
         search: PropTypes.bool,
     };
-
-    const path = window.location.pathname
 
     return (
         <div className="flex flex-row gap-5 justify-start items-center w-full h-14 border-b shadow-md px-5">

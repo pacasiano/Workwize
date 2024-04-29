@@ -14,12 +14,16 @@ import NewTask from "./components/task/newTask"
 import Calendar from "./components/calendar/calendar"
 import Task from "./components/task/task"
 import Project from "./data/Project"
-
 import Landing from './components/general/landing.jsx'
 import Home from './components/general/home.jsx'
 import SpinnerOfDoom from "./components/general/spinnerOfDoom"
 import Error404 from "./components/general/error404.jsx";
 
+// ito lang galawin mo remz
+import LoginPage from "./components/loginsignup/LoginPage.jsx";
+import SignUpPage from "./components/loginsignup/SignUpPage.jsx";
+import ForgotPasswordPage from "./components/loginsignup/ForgotPasswordPage.jsx"
+// hangang dito lang
 
 function App() {
 
@@ -28,20 +32,29 @@ function App() {
   const [chosenProj, setChosenProj] = useState("")
 
   // get the project where href is /projectID
-  const [projectInfo, setProjectInfo] = useState(Project[0])
+  const [projectInfo] = useState(Project[0])
 
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Landing />,
-      errorElement: <div>404</div>,
+      // for testing purposes (dito mo ilagay ang link remz, chang mo lang yung element)
+      path : "/test",
+      element: <LoginPage />,
     },
     {
-      path: "/home",
-      element: <Home />,
+      path: "*",
+      element: <Error404 />,
+    },
+    {
+      index: true,
+      element: <Landing />,
     },
     {
       path: "/project",
+      element: <Home data={Project} />,
+    },
+    {
+      // this should be changed to /project/:id or just /:id
+      path: "/project/:id",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -53,7 +66,8 @@ function App() {
       )
     },
     {
-      path: "/project/tasks",
+      // this should be changed to /project/:id/:task_id or just /:id/:task_id
+      path: "/project/:id/tasks",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -65,7 +79,7 @@ function App() {
       )
     },
     {
-      path: "/project/settings",
+      path: "/project/:id/settings",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -78,7 +92,7 @@ function App() {
       errorElement: <div>404</div>,
     },
     {
-      path: "/project/tasks/task",
+      path: "/project/:id/tasks/:task_id",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -90,7 +104,7 @@ function App() {
       )
     },
     {
-      path: "/project/dashboard",
+      path: "/project/:id/dashboard",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -102,7 +116,7 @@ function App() {
       )
     },
     {
-      path: "/project/calendar",
+      path: "/project/:id/calendar",
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -118,7 +132,7 @@ function App() {
 
   return (
     <>
-    <RouterProvider router={router} />
+    <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
     </>
   )
 }
