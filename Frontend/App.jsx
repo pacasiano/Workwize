@@ -14,20 +14,12 @@ import NewTask from "./components/task/newTask"
 import Calendar from "./components/calendar/calendar"
 import Task from "./components/task/task"
 import Project from "./data/Project"
+
 import Landing from './components/general/landing.jsx'
 import Home from './components/general/home.jsx'
 import SpinnerOfDoom from "./components/general/spinnerOfDoom"
 import Error404 from "./components/general/error404.jsx";
 
-
-import Landing from './components/general/landing.jsx'
-import Home from './components/general/home.jsx'
-
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 
 function App() {
 
@@ -40,7 +32,6 @@ function App() {
 
   const router = createBrowserRouter([
     {
-<<<<<<< HEAD
       path: "/",
       element: <Landing />,
       errorElement: <div>404</div>,
@@ -51,27 +42,6 @@ function App() {
     },
     {
       path: "/project",
-=======
-      // for testing purposes
-      path : "/test",
-      element: <SpinnerOfDoom />,
-    },
-    {
-      path: "*",
-      element: <Error404 />,
-    },
-    {
-      index: true,
-      element: <Landing />,
-    },
-    {
-      path: "/project",
-      element: <Home data={Project} />,
-    },
-    {
-      // this should be changed to /project/:id or just /:id
-      path: "/project/:id",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -83,12 +53,7 @@ function App() {
       )
     },
     {
-<<<<<<< HEAD
       path: "/project/tasks",
-=======
-      // this should be changed to /project/:id/:task_id or just /:id/:task_id
-      path: "/project/:id/tasks",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -100,11 +65,7 @@ function App() {
       )
     },
     {
-<<<<<<< HEAD
       path: "/project/settings",
-=======
-      path: "/project/:id/settings",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -117,11 +78,7 @@ function App() {
       errorElement: <div>404</div>,
     },
     {
-<<<<<<< HEAD
       path: "/project/tasks/task",
-=======
-      path: "/project/:id/tasks/:task_id",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -133,11 +90,7 @@ function App() {
       )
     },
     {
-<<<<<<< HEAD
       path: "/project/dashboard",
-=======
-      path: "/project/:id/dashboard",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -149,11 +102,7 @@ function App() {
       )
     },
     {
-<<<<<<< HEAD
       path: "/project/calendar",
-=======
-      path: "/project/:id/calendar",
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
       element:(
         <div className={`h-screen flex flex-row transition-all will-change-scroll`}>
           <Sidebar data={projectInfo} Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
@@ -169,11 +118,7 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
     <RouterProvider router={router} />
-=======
-    <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
->>>>>>> 03973fef34d53334d823a6002d259564b837e320
     </>
   )
 }
