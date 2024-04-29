@@ -36,9 +36,9 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      // for testing purposes (dito mo ilagay ang link remz, chang mo lang yung element)
+      // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
-      element: <LoginPage />,
+      element: <ForgotPasswordPage />
     },
     {
       path: "*",

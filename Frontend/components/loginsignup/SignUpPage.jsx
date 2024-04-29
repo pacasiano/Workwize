@@ -1,10 +1,19 @@
 // SignUpPage.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function SignUpPage({ onReturn }) {
+function SignUpPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [userData, setUserData] = useState({
+    email: "pacasiano@addu.edu.ph",
+    username: "pits",
+    password: "1022",
+    first_name: "Peter Andre",
+    last_name: "Casiano",
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +48,7 @@ function SignUpPage({ onReturn }) {
           </div>
           <button type="submit">Sign Up</button>
         </form>
-        <button onClick={onReturn}>Return to Login</button>
+        <Link to={"/login"}>Return to Login</Link>
       </div>
     </div>
   );

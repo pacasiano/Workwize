@@ -1,7 +1,14 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-function ForgotPasswordPage({ onReturn }) {
+function ForgotPasswordPage() {
+
+  ForgotPasswordPage.propTypes = {
+    onReturn: PropTypes.string,
+  }; 
+
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
@@ -28,7 +35,7 @@ function ForgotPasswordPage({ onReturn }) {
           </div>
           <button type="submit">Reset Password</button>
         </form>
-        <button onClick={onReturn}>Return to Login</button>
+        <Link to={"/login"} >Return to Login</Link>
       </div>
     </div>
   );
