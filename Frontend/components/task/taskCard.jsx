@@ -7,12 +7,11 @@ import { useState } from 'react';
 import Compact from '@uiw/react-color-compact';
 import Label from '../../data/Label';
 
-export default function TaskCard({data, setWindow, setChosenProj}) {
+export default function TaskCard({data, setChosenProj}) {
 
     TaskCard.propTypes = {
         data: PropTypes.object.isRequired,
-        setWindow: PropTypes.func.isRequired,
-        setChosenProj: PropTypes.func.isRequired,
+        setChosenProj: PropTypes.func,
     };
 
     const [add, setAdd] = useState(true)
@@ -40,7 +39,8 @@ export default function TaskCard({data, setWindow, setChosenProj}) {
 
     const setPage = () => {
         setChosenProj(data)
-        setWindow("Task")
+        console.log(data)
+        window.location.href = '/project/tasks/task';
     }
 
     // filter the labels that are in the Subtask with the same task_id

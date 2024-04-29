@@ -10,11 +10,10 @@ import Task from '../../data/Task';
 import Subtask from '../../data/Subtask';
 import Label from '../../data/Label';
 
-export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAddProj}){
+export default function MyCalendar({projectInfo, setChosenProj, setAddProj}){
 
   MyCalendar.propTypes = {
     projectInfo: PropTypes.object.isRequired,
-    setWindow: PropTypes.func.isRequired,
     setChosenProj: PropTypes.func.isRequired,
     setAddProj: PropTypes.func.isRequired
   };
@@ -44,7 +43,7 @@ export default function MyCalendar({projectInfo, setWindow, setChosenProj, setAd
     const intId = parseInt(id, 10);
     const task = Subtask.find((subtask) => subtask.subtask_id === intId)
     setChosenProj(task)
-    setWindow("Task")
+    window.location.href = '/project/calendar';
   }
 
   const handleDateSelect = (info) => {
