@@ -31,7 +31,7 @@ export default function Tasks({projectInfo, setChosenProj, setAddProj}) {
         .then(res => res.json())
         .then(data => setSubtasks(data))
 
-    }, []) 
+    }, [])
 
     // get all Task where project_id is 1
     const uniqueCategoriesData = tasks.filter((task) => task.project_id === projectInfo.project_id)
@@ -48,7 +48,7 @@ export default function Tasks({projectInfo, setChosenProj, setAddProj}) {
                             <div className="flex flex-col p-[3px] gap-1 rounded-md" style={{ background: task.color }}>
                                 {subtasks.filter((subtask) => subtask.task_id === task.task_id).map((data, index) => (
                                     <div key={index} draggable="true" className="rounded-md">
-                                    <TaskCard data={data} setChosenProj={setChosenProj} />
+                                    <TaskCard subtask_data={data} setChosenProj={setChosenProj} />
                                     </div>
                                 ))}
                             </div>
