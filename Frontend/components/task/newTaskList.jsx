@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Compact from '@uiw/react-color-compact';
-import Tag from '../general/tag';
+import Label from '../general/label';
 
 export default function List ({chosenList, setChosenList}) {
 
     List.propTypes = {
         chosenList: PropTypes.object.isRequired,
-        setChosenList: PropTypes.func.isRequired,
+        setChosenList: PropTypes.func,
     };
 
     const colors = [
@@ -28,7 +28,7 @@ export default function List ({chosenList, setChosenList}) {
             <form onSubmit={(e) => AddList(e)}>
             <div className="flex flex-wrap gap-1 py-1 w-60">
                 <div className="hover:cursor-pointer" >
-                    <Tag word={chosenList.name} color={chosenList.color} type={"3"} />
+                    <Label word={chosenList.name} color={chosenList.color} type={"3"} />
                 </div>
             </div>
             <div className="flex flex-col outline focus-within:outline-1 outline-0 group rounded-md">

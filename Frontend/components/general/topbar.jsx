@@ -18,10 +18,6 @@ export default function Topbar({setTitle, search}) {
 
     return (
         <div className="flex flex-row gap-5 justify-start items-center w-full h-14 border-b shadow-md px-5">
-
-            {!(path === "/project" || path === "/project/tasks") &&
-            <Link to=".." relative="path" className="flex w-2 flex-row gap-2 text-nowrap font-light text-black/50 hover:cursor-pointer hover:font-semibold hover:text-black">{"<"}</Link>
-            }
             <div className="flex flex-row justify-between items-center w-full ">
                 <div className=" font-bold text-xl">
                     {setTitle}

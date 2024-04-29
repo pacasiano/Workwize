@@ -1,18 +1,39 @@
 
-import Tag from '../general/tag';
+import Label from '../general/label';
 import Topbar from '../general/topbar'
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Compact from '@uiw/react-color-compact';
-import Label from '../../data/Label';
-import UserSubtask from '../../data/UserSubtask';
-import User from '../../data/User';
 
-export default function Task({data}) {
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
+export default function Task() {
 
     Task.propTypes = {
         data: PropTypes.object.isRequired,
     };
+
+    const { task_id } = useParams();
+    const [data, setSubtasks] = useState({});
+    const [labels, setLabels] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/subtasks/${task_id}/`)
+        .then(res => res.json())
+        .then(data => {setSubtasks(data)});
+        // console.log(data);
+    }, [task_id]);
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/labels/`)
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            const filteredLabels = data.filter(label => label.subtask_id === parseInt(task_id));
+            setLabels(filteredLabels);
+        });
+    }, [task_id]);
 
     const [tagName, setTagName] = useState('');
     const [hex, setHex] = useState('#F44E3B');
@@ -21,20 +42,14 @@ export default function Task({data}) {
         '#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0'
     ]
 
-    // filter the labels that are in the Subtask with the same task_id
-    const labels = Label.filter((label) => label.subtask_id === data.subtask_id)
-    // filter the users that are in the Subtask with the same task_id
-    const userIds = UserSubtask.filter((user) => user.subtask_id === data.subtask_id)
     // get the names of the users in User data by using user_id from uesrids (only users has the data)
-    const users = userIds.map((user) => User.find((u) => u.user_id === user.user_id).username)
-
     
     const addTag = (e) => {
         e.preventDefault();
     
         // change this to upload to the database instead
-        let newTag = { label_id: data.subtask_id,  subtask_id: labels[labels.length-1].subtask_id + 1, name: tagName, color: hex}
-        labels.push(newTag)
+        // let newTag = { label_id: data.subtask_id,  subtask_id: labels[labels.length-1].subtask_id + 1, name: tagName, color: hex}
+        // labels.push(newTag)
 
         setTagName("")
         setHex("#FFFFFF")
@@ -42,7 +57,7 @@ export default function Task({data}) {
 
     return (
         <div className=" min-h-screen">
-            <Topbar setTitle={data.name} search={false} />
+            <Topbar setTitle={data.subtask_name||""} search={false} />
 
             <div className="p-8">
 
@@ -51,7 +66,7 @@ export default function Task({data}) {
 
                     <div className="flex flex-wrap gap-2 p-2 rounded-xl">
                         {labels.map((tag, index) => (
-                            <Tag key={index} word={tag.name} color={tag.color} type={"2"} />
+                            <Label key={index} word={tag.label_name} color={tag.color} type={"2"} />
                         ))}
                     </div>
 
@@ -69,8 +84,8 @@ export default function Task({data}) {
                                 onChange={(color) => {setHex(color.hex);}}
                                 />
                             </div>
-                            <button type="submit" className="bg-green-900/70 text-white px-2 h-8 w-20 rounded-md font-light">
-                                Add Tag
+                            <button type="submit" className="bg-green-900/70 text-white px-2 h-8 w-20 rounded-md font-light text-nowrap">
+                                Add Label
                             </button>
                         </div>
                         </form>
@@ -84,7 +99,7 @@ export default function Task({data}) {
                         <p className="text-xl font-bold">
                             Description
                         </p>
-                        {data.desc}
+                        {data.description}
                     </div>
                     <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">created:</p>
@@ -94,10 +109,10 @@ export default function Task({data}) {
                         <p className="text-black/50 text-sm font-light">deadline:</p>
                         <p className="text-black/50 font-thin text-sm">{data.end_date}</p>
                     </div>
-                    <div className="flex flex-row gap-1 items-center">
+                    {/* <div className="flex flex-row gap-1 items-center">
                         <p className="text-black/50 text-sm font-light">assigned:</p>
                         <p className="text-black/50 font-thin text-sm">{users.join(", ")}</p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
