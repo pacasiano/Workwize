@@ -27,7 +27,7 @@ export default function Home() {
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
-                            <Link to="/fuck" className="flex flex-row gap-1 text-nowrap" ><div className="-mt-[0.5px]">+</div>New Project</Link>
+                            <Link to="/project" className="flex flex-row gap-1 text-nowrap" ><div className="-mt-[0.5px]">+</div>New Project</Link>
                         </button>
                         <div className="flex flex-col w-full border-t-2 border-black/40">
                             <div className="pt-2"></div>

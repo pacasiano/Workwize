@@ -48,10 +48,6 @@ function App() {
       element: <Home />,
     },
     {
-      path: "/fuck",
-      element: <AddProject />,
-    },
-    {
       path: "/project/:id",
       element:(
         <div className={`h-screen w-full`}>
