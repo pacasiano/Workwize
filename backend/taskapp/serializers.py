@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ('project_id', 'project_name')
+        fields = ('project_id', 'project_name', 'background', 'isStarred')
 
 class UserProjectSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,12 +22,12 @@ class UserProjectSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ('task_id', 'project_id', 'task_name', 'color')
+        fields = ('task_id', 'project_id', 'task_name', 'color', 'order_num')
 
 class SubtaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subtask
-        fields = ('subtask_id', 'task_id', 'subtask_name', 'description', 'end_date', 'start_date')
+        fields = ('subtask_id', 'task_id', 'subtask_name', 'description', 'end_date', 'start_date', 'order_num')
     
 class UserSubtaskSerializer(serializers.ModelSerializer):
     class Meta:
