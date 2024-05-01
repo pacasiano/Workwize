@@ -62,7 +62,7 @@ export default function Tasks({setAddProj}) {
                             </div>
                             <div className="flex flex-col p-[3px] gap-1 rounded-md" style={{ background: task.color }}>
                                 {(subtasks.filter((subtask) => subtask.task_id === task.task_id).length === 0) &&
-                                    <div className="flex justify-center items-center text-center font-thin h-20 w-52 text-md bg-white/40 rounded-sm px-2 whitespace-break-spaces">
+                                    <div className="flex justify-center items-center text-center font-thin h-20 w-52 text-md bg-white/70 rounded-sm px-2 whitespace-break-spaces">
                                         There are currently no Tasks in {task.task_name}
                                     </div>}
                                 {subtasks.filter((subtask) => subtask.task_id === task.task_id).map((data, index) => (

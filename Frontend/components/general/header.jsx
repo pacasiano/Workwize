@@ -2,20 +2,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-const Header = () => {
+const Header = ({loggedIn}) => {
 
     Header.propTypes = {
-        type: PropTypes.string,
+        loggedIn: PropTypes.bool.isRequired
     }; 
 
-    const [loggedIn, setLoggedIn] = useState(true)
-
     return (
-        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-black/90">
+        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-neutral-900">
             <div className="flex flex-row justify-between items-center">
                 <Link to={"/"} className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</Link>
 

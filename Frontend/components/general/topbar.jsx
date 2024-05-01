@@ -11,7 +11,7 @@ export default function Topbar({setTitle, search}) {
     //const [searchData, setSearchData] = useState([])
 
     Topbar.propTypes = {
-        setTitle: PropTypes.string.isRequired,
+        setTitle: PropTypes.string,
         search: PropTypes.bool,
     };
 

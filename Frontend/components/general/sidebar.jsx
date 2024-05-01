@@ -37,7 +37,7 @@ export default function Sidebar({Wide, setWide, setAddProj}) {
         
                 <div className="flex flex-col items-start justify-start gap-10">
 
-                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out w-full bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                         <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                         <p className="" >New&nbsp;List</p>
                     </div>
@@ -70,7 +70,7 @@ export default function Sidebar({Wide, setWide, setAddProj}) {
                     <FontAwesomeIcon className="text-white group-hover:text-black p-1 text-3xl" icon={faFolder} />
                 </Link> */}
                 
-                <button className="absolute transform-gpu transition-all rounded-full translate-x-10 translate-y-80" onClick={()=> setWide(true)}>
+                <button className="absolute transform-gpu transition-all rounded-full translate-x-11 translate-y-80" onClick={()=> setWide(true)}>
                     <FontAwesomeIcon className=" bg-black  hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronRight} />
                 </button>
 

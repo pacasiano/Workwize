@@ -1,19 +1,15 @@
 
-import Header from "../components/general/header"
 // import Projects svg file from assets
 import Projects from "../assets/homepic.svg"
 import { Link } from "react-router-dom"
-import Footer from "../components/general/footer"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Landing() {
 
   return (
-    <div className="flex flex-col min-h-screen bg-#FAFBFC">
-        <Header />
-
-        <div className="relative top-0 translate-y-16 border-b">
+    <div className="flex flex-col bg-#FAFBFC">
+        <div className="relative top-0  border-b translate-y-[60px]">
             <div className="shrink-0"><object type="image/svg+xml" data={Projects} className="object-cover w-full" alt="HomeBodyPic">Your browser does not support SVG</object></div>
             <div className="absolute flex flex-col justify-start items-start text-left bottom-1/3 ml-44 w-80 -translate-x-5">
               <div className="flex justify-center text-center text-md flex-nowrap">Welcome to <div className="font-mono pl-2">Projects.</div></div>
@@ -46,8 +42,7 @@ export default function Landing() {
 
           </div>
         </div>
-        <Footer />
-    </div>
+      </div>
   )
 
 } 
