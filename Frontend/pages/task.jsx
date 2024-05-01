@@ -1,6 +1,6 @@
 
-import Label from '../general/label';
-import Topbar from '../general/topbar'
+import Label from '../components/general/label';
+import Topbar from '../components/general/topbar'
 import { useState } from 'react';
 import Compact from '@uiw/react-color-compact';
 
@@ -70,7 +70,7 @@ export default function Task() {
             <Topbar setTitle={data.subtask_name||""} search={false} />
 
             <div className="p-8">
-
+                
                 {/* Tags and Add Button */}
                 <div className="p-2 bg-black/5 bg-opacity-10 rounded-md flex flex-row justify-between items-center">
 

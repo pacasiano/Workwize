@@ -1,11 +1,11 @@
-import Topbar from '../general/topbar'
+import Topbar from '../components/general/topbar'
 import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import Label from '../general/label';
+import Label from '../components/general/label';
 import { useParams } from 'react-router-dom';
 
 export default function MyCalendar({setAddProj}){
@@ -53,8 +53,7 @@ export default function MyCalendar({setAddProj}){
   )
 
   const goToProject = (subtask_id) => {
-    // find the subtask where subtask_id is equal to id
-    window.location.href = `/project/${id}/tasks/${subtask_id}`;
+    window.location.href = `/project/${id}/tasks/${subtask_id}`
   }
 
   const handleDateSelect = (info) => {
@@ -74,7 +73,7 @@ export default function MyCalendar({setAddProj}){
         events={myEventsList}
         eventContent={(eventInfo) => {
           return (
-            <div className="p-1">
+            <div className="p-2">
               <div className="flex flex-wrap gap-1">
               {eventInfo.event.extendedProps.states.map((tag, index) => (
                 <Label key={index} word={tag.word} color={tag.color} type={"1"} />
@@ -85,7 +84,7 @@ export default function MyCalendar({setAddProj}){
             </div>
           );
         }}
-        height={640}
+        height={580}
         editable={true}
         selectable={true}
         initialView="dayGridMonth"
