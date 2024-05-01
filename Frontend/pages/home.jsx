@@ -3,14 +3,8 @@ import { useEffect, useState } from "react"
 
 import Selectable from "../components/general/selectable"
 import ProjectCard from "../components/general/projectCard"
-import Header from "../components/general/header"
-import PropTypes from 'prop-types';
 
-export default function Home({loggedIn}) {
-
-    Home.propTypes = {
-        loggedIn: PropTypes.bool.isRequired
-    };
+export default function Home() {
 
     // di ito normal, dapat kunin ang user_id somewhere
     const [user_id, setUser_id] = useState(1)
@@ -64,7 +58,7 @@ export default function Home({loggedIn}) {
                     {data.map((data, index) => (
                         <ProjectCard key={index} data={data} />
                     ))}
-                    <ProjectCard type={1} />
+                    <ProjectCard data={{isStarred: false}} type={1} />
                 </div>
             </div>
         </div>

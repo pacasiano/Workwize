@@ -10,12 +10,12 @@ import { useState } from "react";
 export default function ProjectCard({data, type}) {
 
     ProjectCard.propTypes = {
-        data: PropTypes.object,
+        data: PropTypes.object.isRequired,
         type: PropTypes.number
     };
 
     const [hovered, setHovered] = useState(false)
-    const [star, setStar] = useState(true)
+    const [star, setStar] = useState(data.isStarred)
 
     const checkHover = () => {
         if(hovered===true){
@@ -23,6 +23,16 @@ export default function ProjectCard({data, type}) {
         }else{
             setHovered(true)
         }
+    }
+
+    const setNot = () => {
+        //dapat ma set sa database na false
+        setStar(false)
+    }
+
+    const setYes = () => {
+        //dapat ma set sa database na true
+        setStar(true)
     }
 
     return (
@@ -49,13 +59,13 @@ export default function ProjectCard({data, type}) {
             </Link>
             {hovered ? (
                 <div className="absolute transition-all bottom-2 right-2">
-                {star ? 
+                {!star ? 
                     (
-                    <button onClick={()=> setStar(false)} className="hover:cursor-pointer scale-100 hover:scale-125 active:scale-105 ">
+                    <button onClick={setNot} className="hover:cursor-pointer scale-100 hover:scale-125 active:scale-105 ">
                         <FontAwesomeIcon className="text-whtie " icon={starEmpty} />
                     </button>
                     ) : (
-                    <button onClick={()=> setStar(true)} className="hover:cursor-pointer hover:scale-125 active:scale-105">
+                    <button onClick={setYes} className="hover:cursor-pointer hover:scale-125 active:scale-105">
                         <FontAwesomeIcon className="text-white " icon={starFilled} />
                     </button>
                     )
@@ -63,7 +73,7 @@ export default function ProjectCard({data, type}) {
                 </div>
             ) : (
                 <div className="absolute transition-all bottom-2 -right-5">
-                {star ? 
+                {!star ? 
                     (
                     <FontAwesomeIcon className="text-white" icon={starEmpty} />
                     ) : (

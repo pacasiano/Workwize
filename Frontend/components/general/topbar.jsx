@@ -28,7 +28,6 @@ export default function Topbar({setTitle, search}) {
                         </Link>
                     </div>
                     <div>
-                    
                         {setTitle}
                     </div>
                 </div>
