@@ -14,12 +14,15 @@ const Header = ({loggedIn}) => {
     return (
         <div className="fixed z-50 top-0 w-full p-3 px-5 bg-neutral-900">
             <div className="flex flex-row justify-between items-center">
-                <Link to={"/"} className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</Link>
-
+                <Link to={"/"} className="flex flex-row justify-center items-center gap-2 ">
+                    <FontAwesomeIcon className="text-3xl text-pink-500" icon={faFolder} />
+                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-3xl font-black'>Projects</div>
+                </Link>
+                
                 <div className='mr-24 flex flex-row gap-5'>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</p>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</p>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</p>
+                    <Link to="/about" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
+                    <Link to="/contact" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
+                    <Link to="/faq" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
                 </div>
 
                 <div className='flex flex-row justify-center items-center gap-5 '>
@@ -39,7 +42,6 @@ const Header = ({loggedIn}) => {
                         <FontAwesomeIcon className="w-10 h-7 pt-1 text-white" icon={faUserCircle} />
                     </div>
                     }
-                
 
                 </div>
             </div>

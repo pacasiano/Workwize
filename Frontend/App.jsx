@@ -14,10 +14,13 @@ import Task from "./pages/task.jsx"
 import Landing from './pages/landing.jsx'
 import Home from './pages/home.jsx'
 import SpinnerOfDoom from "./components/general/spinnerOfDoom"
-import Error404 from "./components/general/error404.jsx";
-import Header from "./components/general/header.jsx";
-import Footer from "./components/general/footer.jsx";
+import Error404 from "./components/general/error404.jsx"
+import Header from "./components/general/header.jsx"
+import Footer from "./components/general/footer.jsx"
 import Users from "./pages/users.jsx"
+import Faq from "./pages/faq.jsx"
+import Contact from "./pages/contact.jsx"
+import About from "./pages/about.jsx"
 
 function App() {
 
@@ -39,9 +42,9 @@ function App() {
     {
       index: true,
       element: (
-        <div className={`h-screen w-full`}>
+        <div className={`h-screen w-full bg-[#EBDFD7]`}>
           <Header loggedIn={loggedIn} />
-          <Landing loggedIn={loggedIn} />
+          <Landing />
           <Footer />
         </div>
       ),
@@ -51,7 +54,7 @@ function App() {
       element: (
       <div className={`h-screen w-full`}>
         <Header loggedIn={loggedIn} />
-        <Home loggedIn={loggedIn} />
+        <Home />
         <Footer />
       </div>
       ),
@@ -160,6 +163,42 @@ function App() {
           {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
         </div>
       )
+    },
+    {
+      path: "/about",
+      element: (
+      <div className={`h-screen w-full`}>
+        <Header loggedIn={loggedIn} />
+        <div className="flex flex-col pt-[60px] h-screen">
+          <About />
+        </div>
+        <Footer />
+      </div>
+      ),
+    },
+    {
+      path: "/contact",
+      element: (
+      <div className={`h-screen w-full`}>
+        <Header loggedIn={loggedIn} />
+        <div className="flex flex-col pt-[60px] h-screen">
+          <Contact />
+        </div>
+        <Footer />
+      </div>
+      ),
+    },
+    {
+      path: "/faq",
+      element: (
+      <div className={`h-screen w-full`}>
+        <Header loggedIn={loggedIn} />
+        <div className="flex flex-col pt-[60px] h-screen">
+          <Faq />
+        </div>
+        <Footer />
+      </div>
+      ),
     },
   ]);
   

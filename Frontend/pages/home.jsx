@@ -43,9 +43,9 @@ export default function Home({loggedIn}) {
     }, [project_ids])
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#EBDFD7]">
-            <div className="flex flex-row gap-2 pt-32 px-20">
-                <div className="flex flex-col gap-5 w-56 h-full drop-shadow-sm">
+        <div className="pt-28 px-16 min-h-screen bg-[#EBDFD7]">
+            <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl ">
+                <div className="flex flex-col gap-5 w-56 h-full drop-shadow-sm ">
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
@@ -64,6 +64,7 @@ export default function Home({loggedIn}) {
                     {data.map((data, index) => (
                         <ProjectCard key={index} data={data} />
                     ))}
+                    <ProjectCard type={1} />
                 </div>
             </div>
         </div>
