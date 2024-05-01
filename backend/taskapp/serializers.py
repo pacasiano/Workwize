@@ -2,17 +2,22 @@
 # Like taking an object in JS and passing it to JSON.stringify()
 
 from rest_framework import serializers
-from .models import User, Project, Task, Subtask, UserSubtask, Label
+from .models import User, Project, UserProject, Task, Subtask, UserSubtask, Label
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('user_id', 'email', 'username', 'password', 'first_name', 'last_name', 'role')
+        fields = ('user_id', 'email', 'username', 'password', 'first_name', 'last_name')
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ('project_id', 'project_name')
+
+class UserProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProject
+        fields = ('user_id', 'project_id', 'role')
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:

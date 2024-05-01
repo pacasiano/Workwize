@@ -11,8 +11,6 @@ class User(models.Model):
     password = models.CharField(max_length=100)  # Password encryption?
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
 
     def __str__(self):
         return f'{self.user_id} {self.first_name} {self.last_name} - {self.email}'
@@ -27,6 +25,8 @@ class Project(models.Model):
 class UserProject(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
+    ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
