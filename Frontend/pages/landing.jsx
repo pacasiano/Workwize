@@ -1,9 +1,9 @@
 
-import Header from "./header"
+import Header from "../components/general/header"
 // import Projects svg file from assets
-import Projects from "../../assets/homepic.svg"
+import Projects from "../assets/homepic.svg"
 import { Link } from "react-router-dom"
-import Footer from "./footer"
+import Footer from "../components/general/footer"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
