@@ -19,7 +19,6 @@ import SpinnerOfDoom from "./components/general/spinnerOfDoom"
 import Error404 from "./components/general/error404.jsx";
 import Header from "./components/general/header.jsx";
 import Users from "./pages/users.jsx"
-import AddProject from "./pages/project.jsx"
 
 
 
