@@ -22,6 +22,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'users', views.UserView, 'user')
 router.register(r'projects', views.ProjectView, 'project')
+router.register(r'user-projects', views.UserProjectView, 'userproject')
 router.register(r'tasks', views.TaskView, 'task')
 router.register(r'subtasks', views.SubtaskView, 'subtask')
 router.register(r'user-subtasks', views.UserSubtaskView, 'usersubtask')
@@ -30,5 +31,15 @@ router.register(r'labels', views.LabelView, 'label')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('tasks/', views.TaskList.as_view()),
+    path('tasks/<int:pk>/', views.TaskDetail.as_view()),
+    path('subtasks/', views.SubtaskList.as_view()),
+    path('subtasks/<int:pk>/', views.SubtaskDetail.as_view()),
+    path('projects/', views.ProjectList.as_view()),
+    path('projects/<int:pk>/', views.ProjectDetail.as_view()),
+    path('labels/', views.LabelList.as_view()),
+    path('labels/<int:pk>/', views.LabelDetail.as_view()),
+    path('users/', views.UserList.as_view()),
+    path('users/<int:pk>/', views.UserDetail.as_view()),
 ]

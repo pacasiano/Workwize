@@ -5,7 +5,7 @@ import Topbar from '../../components/general/topbar';
 describe('Topbar', () => {
 
   it('Should be rendered', () => {
-    render(<Topbar setTitle={"title"} />);
+    render(<Topbar setTitle={"title"} search={true} />);
     const title = screen.getByText(/title/i);
     expect(title).toBeInTheDocument();
   });

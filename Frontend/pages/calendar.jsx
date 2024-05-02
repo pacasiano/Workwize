@@ -1,14 +1,18 @@
-import Topbar from '../general/topbar'
+import Topbar from '../components/general/topbar'
 import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import Label from '../general/label';
+import Label from '../components/general/label';
 import { useParams } from 'react-router-dom';
 
-export default function MyCalendar({ setChosenProj, setAddProj}){
+export default function MyCalendar({setAddProj}){
+
+  MyCalendar.propTypes = {
+    setAddProj: PropTypes.func.isRequired
+  };
 
   const { id } = useParams();
   const [project, setProject] = useState({})
@@ -27,13 +31,7 @@ export default function MyCalendar({ setChosenProj, setAddProj}){
     fetch(`http://localhost:8000/api/labels/`)
     .then(res => res.json())
     .then(data => {setLabels(data)});
-  }, [])
-
-  MyCalendar.propTypes = {
-    projectInfo: PropTypes.object.isRequired,
-    setChosenProj: PropTypes.func.isRequired,
-    setAddProj: PropTypes.func.isRequired
-  };
+  }, [id])
 
   // get all subtask where project.task_id is in subtasks.task_id
   const data = subtasks.filter((subtask) => subtask.task_id === project.task_id);
@@ -54,14 +52,8 @@ export default function MyCalendar({ setChosenProj, setAddProj}){
   }
   )
 
-  console.log(myEventsList)
-
-  const goToProject = (id) => {
-    // find the subtask where subtask_id is equal to id
-    const intId = parseInt(id, 10);
-    const task = subtasks.find((subtask) => subtask.subtask_id === intId)
-    setChosenProj(task)
-    window.location.href = '/project/calendar';
+  const goToProject = (subtask_id) => {
+    window.location.href = `/project/${id}/tasks/${subtask_id}`
   }
 
   const handleDateSelect = (info) => {
@@ -81,7 +73,7 @@ export default function MyCalendar({ setChosenProj, setAddProj}){
         events={myEventsList}
         eventContent={(eventInfo) => {
           return (
-            <div className="p-1">
+            <div className="p-2">
               <div className="flex flex-wrap gap-1">
               {eventInfo.event.extendedProps.states.map((tag, index) => (
                 <Label key={index} word={tag.word} color={tag.color} type={"1"} />
@@ -92,7 +84,7 @@ export default function MyCalendar({ setChosenProj, setAddProj}){
             </div>
           );
         }}
-        height={640}
+        height={580}
         editable={true}
         selectable={true}
         initialView="dayGridMonth"
