@@ -3,27 +3,44 @@ import { useEffect, useState } from "react"
 
 import Selectable from "../components/general/selectable"
 import ProjectCard from "../components/general/projectCard"
-import Header from "../components/general/header"
 
 export default function Home() {
 
-    const [data, setProject] = useState([])
+    // di ito normal, dapat kunin ang user_id somewhere
+    const [user_id, setUser_id] = useState(1)
 
-    // dapat get all projects where user-projects = user_id
-    // doesnt matter if manager ba sila or member
+    const [project_ids, setProject] = useState([])
+    const [data, setData] = useState([])
+    const [reload, setReload] = useState(false)
+
+    const [selected, setSelected] = useState("projects")
+    
+    // dapat get all projects where user_id = user_id
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/user-projects/`)
+        .then(res => res.json())
+        .then(data => {
+            // get all projects where user_id = user_id
+            let projects = data.filter(project => project.user_id === user_id)
+            setProject(projects)
+        });
+    }, [user_id, reload])
+
+    // gets all projects where project_id = projects_ids.project_id
     useEffect(() => {
         fetch(`http://localhost:8000/api/projects/`)
         .then(res => res.json())
-        .then(data => {setProject(data)});
-      }, [])
-
-    const [selected, setSelected] = useState("projects")
+        .then(data => {
+            // get all projects where project_id = projects_ids.project_id (array of objects)
+            let projects = data.filter(project2 => project_ids.some(project_id => project_id.project_id === project2.project_id))
+            setData(projects)
+        });
+    }, [project_ids, reload])
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#EBDFD7]">
-            <Header />
-            <div className="flex flex-row gap-2 pt-32 px-20">
-                <div className="flex flex-col gap-5 w-56 h-full drop-shadow-sm">
+        <div className="pt-28 px-16 min-h-screen bg-[#EBDFD7]">
+            <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl ">
+                <div className="flex flex-col gap-5 w-56 h-full drop-shadow-sm ">
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
@@ -39,9 +56,22 @@ export default function Home() {
                 </div>
                 <div className="border-l-2 h-11/12 border-black/40 pr-5 "></div>
                 <div className="flex flex-row flex-wrap gap-5 py-5">
-                    {data.map((data, index) => (
-                        <ProjectCard key={index} data={data} />
+                    {selected === "projects" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
                     ))}
+                    </>)}
+                    {selected === "recents" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
+                    ))}
+                    </>)}
+                    {selected === "starred" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).filter(item => item.isStarred).map((item) => (
+                    <ProjectCard key={item.project_id} data={item} reload={reload} setReload={setReload} />
+                    ))}
+                    </>)}
+                    <ProjectCard data={{isStarred: false}} type={1} />
                 </div>
             </div>
         </div>
