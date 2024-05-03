@@ -8,9 +8,10 @@ import Sidebar from "./components/general/sidebar"
 import Tasks from "./pages/tasks.jsx"
 import Settings from "./pages/settings.jsx"
 import Dashboard from "./pages/dashboard.jsx"
-import NewTask from "./components/task/newTask"
+import NewSubtask from "./components/subtask/newSubtask.jsx"
+import NewTask from "./components/task/newTask.jsx";
 import Calendar from "./pages/calendar.jsx"
-import Task from "./pages/task.jsx"
+import Subtask from "./pages/subtask.jsx"
 import Landing from './pages/landing.jsx'
 import Home from './pages/home.jsx'
 import SpinnerOfDoom from "./components/general/spinnerOfDoom"
@@ -22,12 +23,14 @@ import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
 import FormSample from "./pages/formSample.jsx"
+import NewProject from "./components/project/newProject.jsx";
 
 function App() {
 
   const [Wide, setWide] = useState(false)
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
-  const [chosenProj, setChosenProj] = useState("")
+  const [showAddTask, setAddTask] = useState({ show: false, data: {} })
+  const [showAddSubtask, setAddSubtask] = useState({ show: false, data: {} })
   const [loggedIn, setLoggedIn] = useState(true)
 
   const router = createBrowserRouter([
@@ -55,8 +58,9 @@ function App() {
       element: (
       <div className={`h-screen w-full`}>
         <Header loggedIn={loggedIn} />
-        <Home />
+        <Home showAddProj={showAddProj} setAddProj={setAddProj} />
         <Footer />
+        {showAddProj.show ? <NewProject showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
       </div>
       ),
     },
@@ -66,12 +70,13 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
-            <Tasks  setChosenProj={setChosenProj} setAddProj={setAddProj} />
+            <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
-          {showAddProj.show ? <NewTask showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -81,12 +86,13 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
-            <Tasks  setChosenProj={setChosenProj} setAddProj={setAddProj} />
+            <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
-          {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -96,12 +102,12 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
             <Users />
             </div>
           </div>
-          {showAddProj.show ? <NewTask showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -111,12 +117,12 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
             <Settings />
             </div>
           </div>
-          {showAddProj.show ? <NewTask showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -126,12 +132,12 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
-            <Task />
+            <Subtask />
             </div>
           </div>
-          {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -141,12 +147,12 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
             <Dashboard />
             </div>
           </div>
-          {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -156,12 +162,13 @@ function App() {
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
-            <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
+            <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
-            <Calendar setAddProj={setAddProj} />
+            <Calendar setAddSubtask={setAddSubtask} />
             </div>
           </div>
-          {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
+          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },

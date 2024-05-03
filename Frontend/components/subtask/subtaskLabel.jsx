@@ -3,7 +3,7 @@ import Compact from '@uiw/react-color-compact';
 import Tag from '../general/label';
 import { useParams } from "react-router-dom";
 
-export default function Labels () {
+export default function NewSublabel() {
 
     const { subtask_id } = useParams();
     const [labelsData, setLabelsData] = useState([]);

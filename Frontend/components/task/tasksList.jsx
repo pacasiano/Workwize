@@ -8,12 +8,12 @@ import { useForm  } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 
-const TasksList = ({ task, subtasks, setAddProj, reload, setReload }) => {
+const TasksList = ({ task, subtasks, setAddSubtask, reload, setReload }) => {
 
     TasksList.propTypes = {
         task: propTypes.object,
         subtasks: propTypes.array,
-        setAddProj: propTypes.func,
+        setAddSubtask: propTypes.func,
         reload: propTypes.bool,
         setReload: propTypes.func,
     };
@@ -101,7 +101,7 @@ const TasksList = ({ task, subtasks, setAddProj, reload, setReload }) => {
                         </div>
                     ))}
                 </div>
-                <div onClick={() => setAddProj({ show: true, data: { name: task.task_name, color: task.color } })} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
+                <div onClick={() => setAddSubtask({ show: true, data: { name: task.task_name, color: task.color } })} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
                     <FontAwesomeIcon className="text-md text-black/20 group-hover:text-black" icon={faPlus} />
                     <div className="text-md text-black/20 font-medium text-nowrap group-hover:text-black">Add Task</div>
                 </div>
