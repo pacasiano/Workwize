@@ -44,9 +44,9 @@ class Subtask(models.Model):
     subtask_id = models.AutoField(primary_key=True)
     task_id = models.ForeignKey(Task, on_delete=models.CASCADE)
     subtask_name = models.CharField(max_length=100)
-    description = models.TextField() 
-    end_date = models.DateTimeField()
-    start_date = models.DateTimeField()
+    description = models.TextField(blank=True) 
+    end_date = models.DateTimeField(blank=True)
+    start_date = models.DateTimeField(blank=True)
     order_num = models.SmallIntegerField(blank=True, null=True)
 
     def __str__(self):

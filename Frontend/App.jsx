@@ -21,7 +21,6 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
-
 import FormSample from "./pages/formSample.jsx"
 
 function App() {
