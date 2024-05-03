@@ -21,7 +21,8 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
-import AddProject from "./pages/project.jsx"
+
+import FormSample from "./pages/formSample.jsx"
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
     {
       // for testing purposes
       path : "/test",
-      element: <SpinnerOfDoom />,
+      element: <FormSample />,
     },
     {
       path: "*",
@@ -121,14 +122,14 @@ function App() {
       )
     },
     {
-      path: "/project/:id/tasks/:task_id",
+      path: "/project/:id/tasks/:task_id/subtask/:subtask_id",
       element:(
         <div className={`h-screen w-full`}>
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddProj={setAddProj} />
             <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
-            <Task data={chosenProj} />
+            <Task />
             </div>
           </div>
           {showAddProj.show ? <NewTask  showAddProj={showAddProj} setAddProj={setAddProj} /> : null}

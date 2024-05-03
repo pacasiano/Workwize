@@ -1,14 +1,12 @@
 import Topbar from "../components/general/topbar.jsx"
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 // import task from Task inside data folder
 // import Task from "../../data/Task";
 // import Subtask from "../../data/Subtask";
-import TaskCard from "../components/task/taskCard.jsx";
 import {useState, useEffect} from 'react'
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Error from "../assets/Error.svg"
+import TaskList from "../components/task/tasksList.jsx"
 
 export default function Tasks({setAddProj}) {
 
@@ -20,8 +18,8 @@ export default function Tasks({setAddProj}) {
     const [tasks, setTasks] = useState([])
     const [subtasks, setSubtasks] = useState([])
     const [project, setProject] = useState({})
-
-
+    const [reload, setReload] = useState(true)
+    
     useEffect(() => {
         fetch(`http://localhost:8000/api/tasks/`)
         .then(res => res.json())
@@ -30,7 +28,7 @@ export default function Tasks({setAddProj}) {
             const tasks = data.filter(task => task.project_id === parseInt(id));
             setTasks(tasks)
         })
-    }, [id]) 
+    }, [id, reload]) 
 
     useEffect(() => {
         fetch('http://localhost:8000/api/subtasks/')
@@ -40,7 +38,7 @@ export default function Tasks({setAddProj}) {
         fetch(`http://localhost:8000/api/projects/${id}/`)
         .then(res => res.json())
         .then(data => setProject(data))
-    }, [id])
+    }, [id, reload])
 
     // get all Task where project_id is 1
     const uniqueCategoriesData = tasks.filter((task) => task.project_id === parseInt(id))
@@ -51,35 +49,11 @@ export default function Tasks({setAddProj}) {
             <div className="p-10">
                 <div className="flex flex-row gap-5 overflow-x-auto ">
                     {!(uniqueCategoriesData.length === 0) ? ( 
-                    
                     <>
-                    {uniqueCategoriesData.map((task, index) => (
-                    <div key={index} className="flex flex-row gap-2 p-4 rounded-xl h-full bg-[#fbf9f7] ">
-                        <div className="flex flex-col gap-3 ">
-                            <div className="flex flex-row justify-between">
-                                <div className="rounded-md font-bold text-xl text-black" >{task.task_name}</div>
-                                <Link to={`${task.task_id}/edit`} relative="path" className="hover:font-bold">...</Link>
-                            </div>
-                            <div className="flex flex-col p-[3px] gap-1 rounded-md" style={{ background: task.color }}>
-                                {(subtasks.filter((subtask) => subtask.task_id === task.task_id).length === 0) &&
-                                    <div className="flex justify-center items-center text-center font-thin h-20 w-52 text-md bg-white/70 rounded-sm px-2 whitespace-break-spaces">
-                                        There are currently no Tasks in {task.task_name}
-                                    </div>}
-                                {subtasks.filter((subtask) => subtask.task_id === task.task_id).map((data, index) => (
-                                    <div key={index} draggable="true" className="rounded-md">
-                                    <TaskCard subtask_data={data} />
-                                    </div>
-                                ))}
-                            </div>
-                            <div onClick={() => setAddProj({ show: true, data: { name: task.task_name, color: task.color } })} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
-                                <FontAwesomeIcon className="text-md text-black/20 group-hover:text-black" icon={faPlus} />
-                                <div className="text-md text-black/20 font-medium text-nowrap group-hover:text-black">Add Task</div>
-                            </div>
-                        </div>
-                    </div>
+                    {uniqueCategoriesData.sort((a, b) => a.order_num - b.order_num).map((task) => (
+                        <TaskList key={task.task_id} task={task} subtasks={subtasks} setAddProj={setAddProj} reload={reload} setReload={setReload}  />
                     ))}
                     </>
-
                     ) : (
 
                     <div className="h-full w-full flex justify-center items-center bg-[#EBDFD7]">

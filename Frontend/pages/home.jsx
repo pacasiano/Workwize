@@ -11,6 +11,7 @@ export default function Home() {
 
     const [project_ids, setProject] = useState([])
     const [data, setData] = useState([])
+    const [reload, setReload] = useState(false)
 
     const [selected, setSelected] = useState("projects")
     
@@ -23,7 +24,7 @@ export default function Home() {
             let projects = data.filter(project => project.user_id === user_id)
             setProject(projects)
         });
-      }, [user_id])
+    }, [user_id, reload])
 
     // gets all projects where project_id = projects_ids.project_id
     useEffect(() => {
@@ -34,7 +35,7 @@ export default function Home() {
             let projects = data.filter(project2 => project_ids.some(project_id => project_id.project_id === project2.project_id))
             setData(projects)
         });
-    }, [project_ids])
+    }, [project_ids, reload])
 
     return (
         <div className="pt-28 px-16 min-h-screen bg-[#EBDFD7]">
@@ -55,9 +56,21 @@ export default function Home() {
                 </div>
                 <div className="border-l-2 h-11/12 border-black/40 pr-5 "></div>
                 <div className="flex flex-row flex-wrap gap-5 py-5">
-                    {data.map((data, index) => (
-                        <ProjectCard key={index} data={data} />
+                    {selected === "projects" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
                     ))}
+                    </>)}
+                    {selected === "recents" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
+                    ))}
+                    </>)}
+                    {selected === "starred" && ( <>
+                    {data.sort((a, b) => a.project_id - b.project_id).filter(item => item.isStarred).map((item) => (
+                    <ProjectCard key={item.project_id} data={item} reload={reload} setReload={setReload} />
+                    ))}
+                    </>)}
                     <ProjectCard data={{isStarred: false}} type={1} />
                 </div>
             </div>
