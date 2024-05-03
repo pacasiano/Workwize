@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom"
+
 import { useEffect, useState } from "react"
+import PropTypes from "prop-types"
 
-import Selectable from "../components/general/selectable"
-import ProjectCard from "../components/general/projectCard"
+import Selectable from "../components/project/selectable"
+import ProjectCard from "../components/project/projectCard"
 
-export default function Home() {
+export default function Home({setAddProj}) {
+
+    Home.propTypes = {
+        setAddProj: PropTypes.func,
+    };
 
     // di ito normal, dapat kunin ang user_id somewhere
-    const [user_id, setUser_id] = useState(1)
+    const [user_id] = useState(1)
 
     const [project_ids, setProject] = useState([])
     const [data, setData] = useState([])
@@ -37,6 +42,11 @@ export default function Home() {
         });
     }, [project_ids, reload])
 
+    const addProject = () => {
+        console.log("clicked Add Project")
+        setAddProj({show: true, data: {}})
+    }
+
     return (
         <div className="pt-28 px-16 min-h-screen bg-[#EBDFD7]">
             <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl ">
@@ -44,7 +54,7 @@ export default function Home() {
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
-                            <Link to="/project" className="flex flex-row gap-1 text-nowrap" ><div className="-mt-[0.5px]">+</div>New Project</Link>
+                            <div onClick={addProject} className="flex flex-row gap-1 text-nowrap" ><div className="-mt-[0.5px]">+</div>New Project</div>
                         </button>
                         <div className="flex flex-col w-full border-t-2 border-black/40">
                             <div className="pt-2"></div>
@@ -71,7 +81,9 @@ export default function Home() {
                     <ProjectCard key={item.project_id} data={item} reload={reload} setReload={setReload} />
                     ))}
                     </>)}
-                    <ProjectCard data={{isStarred: false}} type={1} />
+                    <div onClick={addProject} >
+                        <ProjectCard data={{isStarred: false}} type={1} />
+                    </div>
                 </div>
             </div>
         </div>

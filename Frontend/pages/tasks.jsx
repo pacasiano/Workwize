@@ -1,17 +1,15 @@
+
 import Topbar from "../components/general/topbar.jsx"
 import PropTypes from 'prop-types';
-// import task from Task inside data folder
-// import Task from "../../data/Task";
-// import Subtask from "../../data/Subtask";
 import {useState, useEffect} from 'react'
 import { useParams } from "react-router-dom";
 import Error from "../assets/Error.svg"
 import TaskList from "../components/task/tasksList.jsx"
 
-export default function Tasks({setAddProj}) {
+export default function Tasks({setAddSubtask}) {
 
     Tasks.propTypes = {
-        setAddProj: PropTypes.func,
+        setAddSubtask: PropTypes.func,
     };
 
     const { id } = useParams()
@@ -51,7 +49,7 @@ export default function Tasks({setAddProj}) {
                     {!(uniqueCategoriesData.length === 0) ? ( 
                     <>
                     {uniqueCategoriesData.sort((a, b) => a.order_num - b.order_num).map((task) => (
-                        <TaskList key={task.task_id} task={task} subtasks={subtasks} setAddProj={setAddProj} reload={reload} setReload={setReload}  />
+                        <TaskList key={task.task_id} task={task} subtasks={subtasks} setAddSubtask={setAddSubtask} reload={reload} setReload={setReload}  />
                     ))}
                     </>
                     ) : (
@@ -63,7 +61,7 @@ export default function Tasks({setAddProj}) {
                             </object>
                             <div className='flex flex-col justify-center items-center gap-3'>
                                 <h1 className="text-1xl font-semibold">There are currently no list&apos;s available</h1>
-                                <div onClick={() => setAddProj({ show: true, data: "" })} className="flex flex-row group gap-2 justify-start items-center w-min px-3 py-1 rounded-md hover:bg-neutral-300 bg-neutral-200 hover:cursor-pointer">
+                                <div onClick={() => setAddSubtask({ show: true, data: "" })} className="flex flex-row group gap-2 justify-start items-center w-min px-3 py-1 rounded-md hover:bg-neutral-300 bg-neutral-200 hover:cursor-pointer">
                                 <div className="text-md text-black/90 font-medium text-nowrap group-hover:text-black">New list!</div>
                                 </div>
                             </div>
