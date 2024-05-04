@@ -23,6 +23,7 @@
     "@uiw/react-color-block": "^2.1.1",
     "@uiw/react-color-circle": "^2.1.1",
     "@uiw/react-color-compact": "^2.1.1",
+    "@uiw/react-color-sketch": "^2.1.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "moment": "^2.30.1",

@@ -87,7 +87,7 @@ export default function Order() {
                                 </select>
 
                             </div>
-                            <input type='submit' className='w-full h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
+                            <input type='submit' className='w-28 h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
                         </div>
                     </form>
                     )}

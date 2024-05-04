@@ -5,18 +5,25 @@ import PropTypes from "prop-types"
 import Selectable from "../components/project/selectable"
 import ProjectCard from "../components/project/projectCard"
 
+// Context Imports
+import { ReloadContext } from "../context/contexts"
+import { useContext } from 'react';
+
+
 export default function Home({setAddProj}) {
 
     Home.propTypes = {
         setAddProj: PropTypes.func,
     };
 
+    // context
+    const { reload } = useContext(ReloadContext);
+
     // di ito normal, dapat kunin ang user_id somewhere
     const [user_id] = useState(1)
 
     const [project_ids, setProject] = useState([])
     const [data, setData] = useState([])
-    const [reload, setReload] = useState(false)
 
     const [selected, setSelected] = useState("projects")
     
@@ -49,8 +56,8 @@ export default function Home({setAddProj}) {
 
     return (
         <div className="pt-28 px-16 min-h-screen bg-[#EBDFD7]">
-            <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl ">
-                <div className="flex flex-col gap-5 w-56 h-full drop-shadow-sm ">
+            <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl min-w-[800px] ">
+                <div className="flex flex-col gap-5 min-w-56 h-full drop-shadow-sm ">
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
@@ -68,17 +75,17 @@ export default function Home({setAddProj}) {
                 <div className="flex flex-row flex-wrap gap-5 py-5">
                     {selected === "projects" && ( <>
                     {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
-                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
+                        <ProjectCard key={index} data={item} />
                     ))}
                     </>)}
                     {selected === "recents" && ( <>
                     {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
-                        <ProjectCard key={index} data={item} reload={reload} setReload={setReload} />
+                        <ProjectCard key={index} data={item} />
                     ))}
                     </>)}
                     {selected === "starred" && ( <>
                     {data.sort((a, b) => a.project_id - b.project_id).filter(item => item.isStarred).map((item) => (
-                    <ProjectCard key={item.project_id} data={item} reload={reload} setReload={setReload} />
+                    <ProjectCard key={item.project_id} data={item} />
                     ))}
                     </>)}
                     <div onClick={addProject} >

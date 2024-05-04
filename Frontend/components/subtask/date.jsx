@@ -86,7 +86,7 @@ export default function Date() {
                         <div className='absolute z-50 -top-3 left-3 bg-[#fbf9f7] translate-y-[9px] h-1'><div className='-translate-y-[7px] text-sm'>to</div></div>
                         <input  type="datetime-local" placeholder="end_date" {...register("end_date", {})} className='w-full h-9 pl-2 rounded-sm bg-neutral-200 outline-none border border-black px-1' />
                     </div>
-                    <input type='submit' className='w-full h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
+                    <input type='submit' className='w-28 h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
                 </div>
             </form>
             )}

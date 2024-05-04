@@ -24,7 +24,6 @@ export default function Subtask() {
         .then(data => {setSubtasks(data)});
 
     }, [subtask_id]);
-    
 
     return (
         <div className="min-h-screen">
