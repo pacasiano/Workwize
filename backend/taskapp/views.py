@@ -218,6 +218,21 @@ class SubtaskDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
+class UserSubtaskDetail(APIView):
+    # Delete a User from a subtask
+
+    def get_object(self, userid, subtaskid):
+        try:
+            return UserSubtask.objects.get(user_id = userid, subtask_id = subtaskid)
+        except UserSubtask.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, userid, subtaskid, format=None):
+        usersubtask = self.get_object(userid, subtaskid)
+        usersubtask.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class LabelList(APIView):
     # List all labels, or create a new label.
     
