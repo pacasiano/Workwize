@@ -21,7 +21,7 @@ export default function NewProject({setAddProj}) {
     const { reload, setReload } = useContext(ReloadContext);
 
     // form
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const [hex, setHex] = useState('#ffffff');
 
     // data

@@ -67,12 +67,12 @@ export default function Date() {
             {!edit ? (
             <div className="flex flex-col gap-2">
                 <div className="relative ">
-                    <div className='absolute -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>from</div></div>
-                    <input type='datetime-local' value={date.from} disabled={true} className='w-full h-9 rounded-sm bg-inherit outline-none border border-black/30 px-1' />
+                    <div className={`absolute -top-3 left-3 translate-y-[11px] h-1`}><div className='-translate-y-[9px] text-sm'>from</div></div>
+                    <input type='datetime-local' value={date.from} disabled={true} className='w-full h-9 rounded-sm bg-inherit outline-none border bg-neutral-200 px-1' />
                 </div>
                 <div className="relative ">
-                    <div className='absolute -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>to</div></div>
-                    <input type='datetime-local' value={date.to} disabled={true} className='w-full h-9 pl-2 rounded-sm bg-inherit outline-none border border-black/30 px-1' />
+                    <div className='absolute -top-3 left-3 translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>to</div></div>
+                    <input type='datetime-local' value={date.to} disabled={true} className='w-full h-9 pl-2 rounded-sm bg-inherit outline-none border bg-neutral-200 px-1' />
                 </div>
             </div>
             ) : (

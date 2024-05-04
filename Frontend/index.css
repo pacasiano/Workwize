@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for the container */
+.react-select-container {
+    @apply h-full focus:outline-none;
+}
+
+/* Custom styles for the control element */
+.react-select__control {
+    @apply h-full focus:outline-none active:outline-none outline-none border-black;
+}
+

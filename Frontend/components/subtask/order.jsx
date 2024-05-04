@@ -65,13 +65,13 @@ export default function Order() {
                 
                     {!edit ? (
                         <div className="relative ">
-                            <div className='absolute z-10 -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>Order</div></div>
-                            <input value={currentOrder} disabled className='w-full h-9 rounded-sm bg-inherit outline-none border border-black/30 px-3' />
+                            <div className='absolute z-10 -top-3 left-3 translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>Order</div></div>
+                            <input value={currentOrder} disabled className='w-full h-9 rounded-sm bg-inherit outline-none border bg-neutral-200 px-3' />
                         </div>
                     ) : (
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="relative flex flex-col gap-2">
-                            <div className='absolute z-10 -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>Order</div></div>
+                            <div className='absolute z-10 -top-3 left-3 bg-[#fbf9f7] translate-y-[9px] h-1'><div className='-translate-y-[7px] text-sm'>Order</div></div>
                             <div className=' bg-neutral-200 outline-none border border-black w-full px-2'>
                                 
                                 <select {...register("order_num")} className='w-full h-9 rounded-sm bg-inherit outline-none' >
