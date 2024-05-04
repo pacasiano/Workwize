@@ -6,15 +6,18 @@ import { faStar as starFilled } from "@fortawesome/free-solid-svg-icons";
 import { faStar as starEmpty } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 
+// Context Imports
+import { ReloadContext } from "../../context/contexts";
+import { useContext } from 'react';
 
-export default function ProjectCard({data, type, reload, setReload}) {
+export default function ProjectCard({data, type}) {
 
     ProjectCard.propTypes = {
         data: PropTypes.object.isRequired,
-        type: PropTypes.number,
-        reload: PropTypes.bool,
-        setReload: PropTypes.func,
+        type: PropTypes.number
     };
+
+    const { reload, setReload } = useContext(ReloadContext);
 
     const [hovered, setHovered] = useState(false)
     const [star, setStar] = useState(data.isStarred)
@@ -65,7 +68,8 @@ export default function ProjectCard({data, type, reload, setReload}) {
             </div>
         </div>
         ) : (
-        <div onMouseEnter={checkHover} onMouseLeave={checkHover} className="relative h-28 w-56 text-white bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer rounded-md overflow-hidden">
+        
+        <div onMouseEnter={checkHover} onMouseLeave={checkHover} className="relative h-28 w-56 text-white bg-neutral-700 hover:bg-neutral-600 hover:cursor-pointer rounded-md overflow-hidden" style={{backgroundColor: data.background}}>
             <Link to={`${data.project_id}`}>
                 <div className=" p-5">
                     <div className="flex flex-col gap-2">
@@ -101,6 +105,7 @@ export default function ProjectCard({data, type, reload, setReload}) {
                 </div>
             )}
         </div>
+        
         )}
     </>
     )

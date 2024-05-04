@@ -9,7 +9,7 @@ export default function NewSublabel() {
     const [labelsData, setLabelsData] = useState([]);
     const [show, setShow] = useState(false);
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
-     const [tagName, setTagName] = useState('');
+    const [tagName, setTagName] = useState('');
     const [hex, setHex] = useState('#F44E3B');
     const [reload, setReload] = useState(false);
 

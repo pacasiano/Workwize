@@ -64,7 +64,7 @@ export default function Description() {
                     <div className='absolute -top-3 z-50 left-3 bg-[#fbf9f7] translate-y-[9px] h-1'><div className='-translate-y-[7px] text-sm'>Description</div></div>
                     <textarea type="text" placeholder="description" {...register("description", {})} className='w-full p-5 h-60 resize-none rounded-sm bg-neutral-200 outline-none border border-black' />
                 </div>
-                <input type='submit' className='w-full h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
+                <input type='submit' className='w-28 h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
                 </div>
                 </form>
                 )}

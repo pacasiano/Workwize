@@ -19,6 +19,7 @@ export default function Tasks({setAddSubtask}) {
     const [reload, setReload] = useState(true)
     
     useEffect(() => {
+
         fetch(`http://localhost:8000/api/tasks/`)
         .then(res => res.json())
         .then(data => {
@@ -26,6 +27,7 @@ export default function Tasks({setAddSubtask}) {
             const tasks = data.filter(task => task.project_id === parseInt(id));
             setTasks(tasks)
         })
+
     }, [id, reload]) 
 
     useEffect(() => {

@@ -23,7 +23,10 @@ import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
 import FormSample from "./pages/formSample.jsx"
-import NewProject from "./components/project/newProject.jsx";
+import NewProject from "./components/project/newProject";
+
+// Context
+import { ReloadContext } from "./context/contexts.jsx";
 
 function App() {
 
@@ -32,6 +35,9 @@ function App() {
   const [showAddTask, setAddTask] = useState({ show: false, data: {} })
   const [showAddSubtask, setAddSubtask] = useState({ show: false, data: {} })
   const [loggedIn, setLoggedIn] = useState(true)
+
+  // context
+  const [reload, setReload] = useState(false);
 
   const router = createBrowserRouter([
     {
@@ -56,7 +62,7 @@ function App() {
     {
       path: "/project",
       element: (
-      <div className={`h-screen w-full`}>
+      <div className={`h-screen w-full bg-[#EBDFD7]`}>
         <Header loggedIn={loggedIn} />
         <Home showAddProj={showAddProj} setAddProj={setAddProj} />
         <Footer />
@@ -213,7 +219,9 @@ function App() {
 
   return (
     <div className="bg-[#EBDFD7]">
+    <ReloadContext.Provider value={{reload, setReload}}>
     <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
+    </ReloadContext.Provider>
     </div>
   )
 }
