@@ -4,7 +4,7 @@ from django.db import models
 
 from django.db import models
 
-class User(models.Model):
+class User(models.Model):    
     user_id = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
@@ -13,6 +13,9 @@ class User(models.Model):
     last_name = models.CharField(max_length=50)
     ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
     role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['username', 'password']
 
     def __str__(self):
         return f'{self.user_id} {self.first_name} {self.last_name} - {self.email}'
