@@ -2,12 +2,16 @@ from django.shortcuts import render
 
 # Create your views here.
 
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwner
-from .serializers import UserSerializer, ProjectSerializer, UserProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
-from .models import User, Project, UserProject, Task, Subtask, UserSubtask, Label
+from .serializers import UserSerializer, ProjectSerializer, UserProjectSerializer, UserProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
+from .models import User, Project, UserProject, UserProject, Task, Subtask, UserSubtask, Label
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -16,6 +20,10 @@ class UserView(viewsets.ModelViewSet):
 class ProjectView(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
+
+class UserProjectView(viewsets.ModelViewSet):
+    serializer_class = UserProjectSerializer
+    queryset = UserProject.objects.all()
 
 class TaskView(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
@@ -46,7 +54,7 @@ class UserList(APIView):
     # List all users, or create a new user.
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [IsAuthenticated, IsOwner]
-    
+
     def get(self, request, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)

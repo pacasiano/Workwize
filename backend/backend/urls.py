@@ -22,6 +22,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'users', views.UserView, 'user')
 router.register(r'projects', views.ProjectView, 'project')
+router.register(r'user-projects', views.UserProjectView, 'userproject')
 router.register(r'tasks', views.TaskView, 'task')
 router.register(r'subtasks', views.SubtaskView, 'subtask')
 router.register(r'user-subtasks', views.UserSubtaskView, 'usersubtask')

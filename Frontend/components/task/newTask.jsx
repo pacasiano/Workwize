@@ -6,47 +6,21 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import List from './newTaskList';
 import Tags from './newTaskLabel';
+import { useParams  } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import UserProject from '../../data/UserProject';
-import User from '../../data/User';
-
-export default function NewTask({projectInfo, showAddProj, setAddProj}) {
+export default function NewTask({showAddProj, setAddProj}) {
 
     NewTask.propTypes = {
         setAddProj: PropTypes.func,
         showAddProj: PropTypes.object.isRequired,
-        projectInfo: PropTypes.object.isRequired,
     };
 
-    // get Users from UsersProject where project_id is projectInfo.project_id
-    const userIds = UserProject.filter((user) => user.project_id === projectInfo.project_id)
-    // get the names of the users in Users data by using user_id from userIds
-    const users = userIds.map((user) => User.find((u) => u.user_id === user.user_id))
-
-    // get the users from the database
-    const [unAssgined, setUnAssgined] = useState([
-        // show all users in the project
-        ...users.map((user) => user.username)
-    ])
-
+    const { id } = useParams();
+    const [usersInProject, setUsersInProject] = useState([]);
+    const [unAssgined, setUnAssgined] = useState([]);
     const [assigned, setAssigned] = useState([])
-
-    const assignUser = (name) => {
-        setAssigned([...assigned, name]);
-        setUnAssgined(unAssgined.filter(n => n !== name));
-    };
-
-    const unassignUser = (name) => {
-        setUnAssgined([...unAssgined, name]);
-        setAssigned(assigned.filter(n => n !== name));
-    };
-    
-    const [chosenTags, setChosenTags] = useState([
-        {
-            word: "try",
-            color: "#10B981"
-        }
-    ])
+    const [chosenTags, setChosenTags] = useState([])
     const [chosenList, setChosenList] = useState({name: showAddProj.data.name, color: showAddProj.data.color }||{})
 
     const [task, setTask] = useState({
@@ -58,6 +32,42 @@ export default function NewTask({projectInfo, showAddProj, setAddProj}) {
         list: "",
         assigned: ""
     })
+
+    useEffect(() => {
+
+        // api is not working yet since the backend is not yet implemented
+        fetch(`http://localhost:8000/api/user-project/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            // get all from user-project where project_id = id
+            setUsersInProject(data)
+            console.log(data)
+        });
+    
+    }, [id]);
+
+    useEffect(() => {
+
+        fetch(`http://localhost:8000/api/users/`)
+        .then(res => res.json())
+        .then(data => {
+            //get all user names where user_id is in usersInProject
+            const users = data.filter(user => usersInProject.map(user => user.user_id).includes(user.user_id));
+            setUnAssgined(users.map(user => user.username));
+            console.log(data)
+        });
+    
+    }, [usersInProject]);
+
+    const assignUser = (name) => {
+        setAssigned([...assigned, name]);
+        setUnAssgined(unAssgined.filter(n => n !== name));
+    };
+
+    const unassignUser = (name) => {
+        setUnAssgined([...unAssgined, name]);
+        setAssigned(assigned.filter(n => n !== name));
+    };
 
     const addTask = () => {
         //instaed of setStates, update the database of the changes to the users states

@@ -11,8 +11,6 @@ class User(models.Model):
     password = models.CharField(max_length=100)  # Password encryption?
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['username', 'password']
@@ -23,6 +21,8 @@ class User(models.Model):
 class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=100)
+    background = models.CharField(max_length=255, default="#000000")
+    isStarred = models.BooleanField(default=False)
 
     def __str__(self):
         return '{} {}'.format(self.project_id, self.project_name)
@@ -30,12 +30,15 @@ class Project(models.Model):
 class UserProject(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
+    ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
     task_name = models.CharField(max_length=100)
     color = models.CharField(max_length=7)
+    order_num = models.SmallIntegerField(blank=True, null=True)
 
     def __str__(self):
         return '{} {}'.format(self.task_id, self.task_name)
@@ -44,9 +47,10 @@ class Subtask(models.Model):
     subtask_id = models.AutoField(primary_key=True)
     task_id = models.ForeignKey(Task, on_delete=models.CASCADE)
     subtask_name = models.CharField(max_length=100)
-    description = models.TextField() 
-    end_date = models.DateTimeField()
-    start_date = models.DateTimeField()
+    description = models.TextField(blank=True) 
+    end_date = models.DateTimeField(blank=True)
+    start_date = models.DateTimeField(blank=True)
+    order_num = models.SmallIntegerField(blank=True, null=True)
 
     def __str__(self):
         return '{} {}'.format(self.subtask_id, self.description)
