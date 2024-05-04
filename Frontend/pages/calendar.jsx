@@ -6,58 +6,78 @@ import interactionPlugin from '@fullcalendar/interaction' // a plugin!
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import Label from '../components/general/label';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-export default function MyCalendar({setAddProj}){
+export default function MyCalendar({setAddSubtask}){
 
   MyCalendar.propTypes = {
-    setAddProj: PropTypes.func.isRequired
+    setAddSubtask: PropTypes.func.isRequired
   };
 
   const { id } = useParams();
-  const [project, setProject] = useState({})
+  const navigate = useNavigate();
+  const [tasks, setTasks] = useState([])
   const [subtasks, setSubtasks] = useState([])
-  const [Labels, setLabels] = useState([])
+  const [labels, setLabels] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/tasks/${id}/`)
+    fetch(`http://localhost:8000/api/tasks/`)
     .then(res => res.json())
-    .then(data => {setProject(data)});
-
-    fetch('http://localhost:8000/api/subtasks/')
-    .then(res => res.json())
-    .then(data => {setSubtasks(data)});
-
-    fetch(`http://localhost:8000/api/labels/`)
-    .then(res => res.json())
-    .then(data => {setLabels(data)});
+    .then(data => {
+      // get all tasks where project_id = id
+      let task = data.filter(u => u.project_id === parseInt(id))
+      setTasks(task)
+    });
   }, [id])
 
-  // get all subtask where project.task_id is in subtasks.task_id
-  const data = subtasks.filter((subtask) => subtask.task_id === project.task_id);
-  // get all labels where label.subtask_id is in data.subtask_id
-  const labels = Labels.filter((label) => data.map((t) => t.subtask_id).includes(label.subtask_id));
+  useEffect(() => {
+    fetch('http://localhost:8000/api/subtasks/')
+    .then(res => res.json())
+    .then(data => {
+      // get all subtasks where data.task_id = tasks.task_id
+      let subtask = data.filter(sub => tasks.some(task => task.task_id === sub.task_id))
+      setSubtasks(subtask)
+    });
+  }, [tasks])
 
-  const myEventsList = data.map((subtask) => {
+  useEffect(() => {
+    fetch('http://localhost:8000/api/labels/')
+    .then(res => res.json())
+    .then(data => {
+      // get all labels where data.subtask_id = subtasks.subtask_id
+      let label = data.filter(label => subtasks.some(subtask => subtask.subtask_id === label.subtask_id))
+      setLabels(label)
+    });
+  }, [subtasks])
+
+  const myEventsList = subtasks.map((subtask) => {
     const label = labels.filter((label) => label.subtask_id === subtask.subtask_id);
+    const filteredTasks = tasks.filter((task) => task.task_id === subtask.task_id).map((task) => task.task_id)
+    // just get the first task_id
+    const task_id = filteredTasks[0]
+
     return {
+      // task_id based on is tasks.task_id is equal to subtask.task_id, dont turn into an array
+      task_id: task_id,
       id: subtask.subtask_id,
       title: subtask.subtask_name,
       start: subtask.start_date,
       end: subtask.end_date,
       desc: subtask.description,
       states: label.map((tag) => ({word: tag.label_name, color: tag.color})),
-      color: project.color,
+      // color based on task 
+      color: tasks.filter((task) => task.task_id === subtask.task_id).map((task) => task.color)
     }
   }
   )
 
-  const goToProject = (subtask_id) => {
-    window.location.href = `/project/${id}/tasks/${subtask_id}`
+  const goToProject = ({task_id, subtask_id}) => {
+    // console.log(JSON.stringify(task_id) + " " + subtask_id)
+    navigate(`/project/${id}/tasks/${task_id}/subtask/${subtask_id}`)
   }
 
   const handleDateSelect = (info) => {
-    setAddProj({show: true, data: {start: info.startStr, end: moment(info.endStr).subtract(1, 'days').format('YYYY-MM-DD')}})
+    setAddSubtask({show: true, data: {start: info.startStr, end: moment(info.endStr).subtract(1, 'days').format('YYYY-MM-DD')}})
   };
   
   return (
@@ -69,7 +89,7 @@ export default function MyCalendar({setAddProj}){
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
         select={(info) => handleDateSelect(info)}
-        eventClick={(info) => goToProject(info.event.id)}
+        eventClick={(info) => goToProject({ task_id: info.event.extendedProps.task_id, subtask_id: info.event.id })}
         events={myEventsList}
         eventContent={(eventInfo) => {
           return (

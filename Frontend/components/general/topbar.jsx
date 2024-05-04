@@ -11,7 +11,7 @@ export default function Topbar({setTitle, search}) {
     //const [searchData, setSearchData] = useState([])
 
     Topbar.propTypes = {
-        setTitle: PropTypes.string.isRequired,
+        setTitle: PropTypes.string,
         search: PropTypes.bool,
     };
 
@@ -28,7 +28,6 @@ export default function Topbar({setTitle, search}) {
                         </Link>
                     </div>
                     <div>
-                    
                         {setTitle}
                     </div>
                 </div>

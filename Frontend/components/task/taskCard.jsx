@@ -3,9 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Label from '../general/label';
 
-export default function TaskCard({subtask_data}) {
+export default function TaskCard({task_id, subtask_data}) {
 
     TaskCard.propTypes = {
+        task_id: PropTypes.number.isRequired,
         subtask_data: PropTypes.object.isRequired,
     };
 
@@ -23,6 +24,7 @@ export default function TaskCard({subtask_data}) {
 
     return (
         <div className="flex flex-row gap-0 ">
+            <Link to={`/project/${id}/tasks/${task_id}/subtask/${subtask_data.subtask_id}`} relative='path' className="hover:cursor-pointer">
             <div className="flex flex-col gap-2 bg-white/70 shadow-md rounded-md w-56">
                 <div className="px-5 pt-5">
                     <div className="flex justify-between gap-1">
@@ -34,17 +36,16 @@ export default function TaskCard({subtask_data}) {
                         {/* The add button for tags */}
                     </div>
                 </div>
-                <Link to={`/project/${id}/tasks/${subtask_data.subtask_id}`} relative='path' className="hover:cursor-pointer">
-                    <div className="pb-5 px-5 flex flex-col gap-2">
-                        <div  className="text-xl font-bold">
-                            {subtask_data.subtask_name}
-                        </div>
-                        <p className=" overflow-wrap break-words font-light">
-                            {subtask_data.description}
-                        </p>
+                <div className="pb-5 px-5 flex flex-col gap-2">
+                    <div  className="text-xl font-bold">
+                        {subtask_data.subtask_name}
                     </div>
-                </Link>
+                    <p className=" overflow-wrap break-words font-light">
+                        {subtask_data.description}
+                    </p>
+                </div>
             </div>
+            </Link>
         </div>
     )    
 }

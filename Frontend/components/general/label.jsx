@@ -3,29 +3,41 @@ import { faCaretDown, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useState } from "react";
 
-export default function Label({word, color, type}) {
+export default function Label({tag_id, word, color, type, reload, setReload}) {
 
     Label.propTypes = {
+        tag_id: PropTypes.number,
         word: PropTypes.string,
         color: PropTypes.string,
         type: PropTypes.string,
+        reload: PropTypes.bool,
+        setReload: PropTypes.func
     }; 
 
     const [isHovered, setIsHovered] = useState(false);
 
     function delTag() {
-        // delete the tag from the database
+        fetch(`http://localhost:8000/api/labels/${parseInt(tag_id)}/`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            console.log('Deleted')
+            setReload(!reload);
+        })
+        .catch(err => console.error(err));
+
+        
     }
 
     if (type === "2"){
         return (
-        <div className="relative ">
+        <div className="relative select-none ">
             <div className={` flex flex-row justify-center items-center gap-1 group text-white w-full px-2 py-1 rounded-md `} style={{ background: color }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
                 {word}
                 <button onClick={delTag} >
-                <FontAwesomeIcon className={` ${isHovered ? 'block' : 'hidden'} hover:cursor-pointer `} icon={faXmarkSquare} />
+                <FontAwesomeIcon className={` ${isHovered ? 'block' : 'hidden'} hover:cursor-pointer hover:scale-105 `} icon={faXmarkSquare} />
                 </button>
             </div>
         </div>

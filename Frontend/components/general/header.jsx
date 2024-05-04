@@ -2,30 +2,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-const Header = () => {
+const Header = ({loggedIn}) => {
 
     Header.propTypes = {
-        type: PropTypes.string,
+        loggedIn: PropTypes.bool.isRequired
     }; 
 
-    const [loggedIn, setLoggedIn] = useState(true)
-
     return (
-        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-black/90">
-            <div className="flex flex-row justify-between items-center">
-                <Link to={"/"} className="flex flex-row gap-2 text-white text-2xl font-mono"><FontAwesomeIcon className="text-3xl" icon={faFolder} />Projects</Link>
+        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-neutral-900">
+            <div className="flex flex-row gap-10 justify-between items-center">
 
-                <div className='mr-24 flex flex-row gap-5'>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</p>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</p>
-                    <p className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</p>
+                <Link to={"/"} className="flex flex-row justify-start items-center gap-2 ">
+                    <FontAwesomeIcon className="text-3xl text-pink-500" icon={faFolder} />
+                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-3xl font-black'>Projects</div>
+                </Link>
+                
+                <div className=' flex flex-row gap-5 justify-center'>
+                    <Link to="/about" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
+                    <Link to="/contact" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
+                    <Link to="/faq" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
                 </div>
 
-                <div className='flex flex-row justify-center items-center gap-5 '>
+                <div className='flex flex-row justify-end items-center gap-5 '>
 
                     {loggedIn &&
                     <div className='flex flex-row gap-5'>
@@ -42,7 +43,6 @@ const Header = () => {
                         <FontAwesomeIcon className="w-10 h-7 pt-1 text-white" icon={faUserCircle} />
                     </div>
                     }
-                
 
                 </div>
             </div>

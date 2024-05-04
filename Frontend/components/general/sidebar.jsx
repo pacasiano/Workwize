@@ -7,37 +7,37 @@ import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons"
 import { faUsers } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar } from "@fortawesome/free-solid-svg-icons"
-import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Sidebar({Wide, setWide, setAddProj}) {
+export default function Sidebar({Wide, setWide, setAddTask}) {
 
     Sidebar.propTypes = {
         Wide: PropTypes.bool.isRequired,
         setWide: PropTypes.func,
-        setAddProj: PropTypes.func,
+        setAddTask: PropTypes.func,
     };
 
     const { id } = useParams();
 
+    const handleAddTask = () => {
+        console.log("add task Clicked")
+        setAddTask({show: true, data: "" })
+    }
+
     return (
-        <div className={` ${Wide ? ("w-60") : ("w-20")} h-full bg-neutral-800 transition-all ease-in-out`}>
+        <div className={` ${Wide ? ("w-52") : ("w-20")} max-w-52 h-full bg-neutral-800 transition-all ease-in-out`}>
 
             {Wide ? (
             <div className="relative flex flex-col h-full items-start justify-start pl-5 p-4 pt-8">
 
-                {/* <Link to={"/project"} className="flex flex-row transition-all justify-start items-start flex-nowrap text-white font-thin text-md group rounded-xl bg-white/0 hover:cursor-pointer hover:bg-white hover:text-black">
-                    <FontAwesomeIcon className="text-white group-hover:text-black p-1 text-3xl" icon={faFolder} />
-                    <h1 className="flex flex-row text-center justify-center items-center h-full px-1 gap-2 text-xl font-mono ">Projects</h1>
-                </Link> */}
-
-                <button className="absolute transform-gpu transition-all rounded-full translate-x-40 translate-y-80" onClick={()=> setWide(false)}>
-                        <FontAwesomeIcon className=" bg-black  ease-in-out hover:scale-110 text-3xl translate-x-3 rounded-full text-white " icon={faCircleChevronLeft} />
+                <button className="absolute transform-gpu transition-all rounded-full -right-4 bottom-1/2" onClick={()=> setWide(false)}>
+                        <FontAwesomeIcon className=" bg-black  ease-in-out hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronLeft} />
                 </button>
         
-                <div className="flex flex-col items-start justify-start gap-10">
+                <div className="flex flex-col items-start justify-start gap-6">
 
-                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                    <div onClick={handleAddTask} className="transition-all ease-in-out w-full bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                         <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                         <p className="" >New&nbsp;List</p>
                     </div>
@@ -64,19 +64,15 @@ export default function Sidebar({Wide, setWide, setAddProj}) {
 
             </div>
             ):(
-            <div className="flex flex-col items-start h-full justify-start pt-8 px-4 pl-5 transition-transform ease-in-out">
-
-                {/* <Link to={"/project"} relative="path" className="flex flex-row group transition-all gap-2 text-white font-bold text-3xl rounded-md bg-white/0 text-white/70 hover:cursor-pointer hover:bg-white hover:text-black">
-                    <FontAwesomeIcon className="text-white group-hover:text-black p-1 text-3xl" icon={faFolder} />
-                </Link> */}
+            <div className="relative flex flex-col items-start h-full justify-start pt-8 px-4 pl-5 transition-transform ease-in-out">
                 
-                <button className="absolute transform-gpu transition-all rounded-full translate-x-10 translate-y-80" onClick={()=> setWide(true)}>
+                <button className="absolute transform-gpu transition-all rounded-full -right-4 bottom-1/2" onClick={()=> setWide(true)}>
                     <FontAwesomeIcon className=" bg-black  hover:scale-110 text-3xl rounded-full text-white " icon={faCircleChevronRight} />
                 </button>
 
-                <div className="flex flex-col items-start justify-start gap-10">
+                <div className="flex flex-col items-start justify-start gap-6">
 
-                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                    <div onClick={handleAddTask} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                         <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                     </div>
 
