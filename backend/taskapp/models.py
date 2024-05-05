@@ -8,7 +8,7 @@ from django.db import models
 class MyUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         user = self.model(username=username, **extra_fields)
-        user.set_password(password)  # Set password securely
+        user.set_password(password)
         user.save(using=self._db)
         return user
 

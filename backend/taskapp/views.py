@@ -52,8 +52,8 @@ Warning: Doesn't follow DRY principle AT ALL :(
 
 class UserList(APIView):
     # List all users, or create a new user.
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated, IsOwner]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get(self, request, format=None):
         users = User.objects.all()
