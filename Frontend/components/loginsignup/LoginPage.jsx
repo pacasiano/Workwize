@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import SignUpPage from './SignUpPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
+import Project from "../../assets/homepic.svg";
 
 function LoginPage() {
 
@@ -23,54 +23,64 @@ function LoginPage() {
   };
 
   return (
-    <div class="flex justify-center items-center h-screen">
-      <div class="bg-orange-200 p-4 rounded-lg shadow-md">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div class="mb-4">
-            <label class="font-bold" htmlFor="email">Email</label>
-            <input class="w-72 px-2 py-1 border border-gray-300 rounded"
-              type="text" 
-              id="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div class="mb-4">
-            <label class="font-bold" htmlFor="password">Password</label>
-            <input class="w-72 px-2 py-1 border border-gray-300 rounded"
-              type="password" 
-              id="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-        </form>
-        <div class="flex justify-between mb-2">
-          <button class="bg-transparent rounded hover:bg-orange-100 border-none" onClick={() => setShowForgotPassword(true)}>Forgot Password?</button>
-          <button class="px-1 py-1 mb-2 bg-orange-100 rounded hover:bg-orange-50 border-gray-100" onClick={() => setShowSignUp(true)}>Sign Up</button>
-        </div>
-        <button class="px-1 py-1 mb-2 text-center bg-orange-100 rounded hover:bg-orange-50 border-gray-100" type="submit">Login</button>
+    <>
+      {/* Background Container */}
+      <div className="background-container">
+        <img src={Project} className="absolute inset-0 object-cover w-full h-full" alt="Background" />
       </div>
-      
-      {showSignUp && (
-        <div class="fixed justify-center items-center bg-black bg-opacity-50">
-          <div class="bg-orange-200 top-0 rounded-lg shadow-md">
-            <SignUpPage onReturn={handleReturn} />
 
+      {/* Form Container */}
+      <div className="bg-[#EBDFD7] flex justify-start items-center h-screen pl-20"> 
+        <div className="form-container bg-white p-4 rounded-lg shadow-md relative z-10">
+          <h2 className="text-center font-bold">Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4 flex flex-col">
+              <label className="font-bold" htmlFor="email">Email</label>
+              <input className="w-72 px-2 py-1 border border-gray-300 rounded"
+                type="text" 
+                id="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4 flex flex-col">
+              <label className="font-bold" htmlFor="password">Password</label>
+              <input className="w-72 px-2 py-1 border border-gray-300 rounded"
+                type="password" 
+                id="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex justify-between mb-2">
+              <button className="bg-transparent rounded border-none" onClick={() => setShowForgotPassword(true)}>Forgot Password?</button>
+              <button className="px-1 py-1 mb-2 text-center bg-black/10 text-black rounded hover:bg-black/70 border-gray-100" type="submit">Login</button>
+              
+            </div>
+            <div className="flex justify-center">
+              <button className="px-1 py-1 mb-2 bg-black/10 text-black rounded hover:bg-black/70 border-gray-100" onClick={() => setShowSignUp(true)}>Sign Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {/* Conditionally Rendered Modals */}
+      {showSignUp && (
+        <div className="fixed flex justify-start items-center inset-0 z-20 pl-20">
+          <div className="bg-white rounded-lg">
+            <SignUpPage onReturn={handleReturn} />
           </div>
         </div>
       )}
       {showForgotPassword && (
-        <div class="fixed justify-center items-center bg-black bg-opacity-50">
-          <div class="bg-orange-200 top-0 rounded-lg shadow-md">
+        <div className="fixed flex justify-start items-center inset-0 z-20 pl-12 ">
+          <div className="bg-white rounded-lg">
             <ForgotPasswordPage onReturn={handleReturn} />
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

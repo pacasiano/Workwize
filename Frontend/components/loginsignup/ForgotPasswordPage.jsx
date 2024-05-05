@@ -30,8 +30,8 @@ function ForgotPasswordPage() {
   };
 
   return (
-    <div className="bg-orange-50 flex justify-center items-center h-screen">
-      <div className="bg-orange-200 p-4 rounded-lg shadow-md">
+    <div className="flex justify-center items-center border-none">
+      <div className="bg-white p-4 rounded-lg">
         <h2 className="text-lg font-semibold mb-2">Forgot Password</h2>
         <p className="text-sm mb-4">Please enter your email address to reset your password.</p>
         <form onSubmit={handleSubmit}>
@@ -48,11 +48,11 @@ function ForgotPasswordPage() {
               required
             />
           </div>
-          <button className="bg-orange-100 text-orange-800 rounded px-4 py-2" type="submit">
+          <button className="bg-black/10 text-black rounded hover:bg-black/70 border-gray-100 px-4 py-2" type="submit">
             Reset Password
           </button>
         </form>
-        <Link to="/login" className="block mt-2 text-sm text-blue-500">Return to Login</Link>
+        <Link to="/LoginPage" className="block mt-2 text-sm text-black">Return to Login</Link>
       </div>
       {showOverlay && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-75">
@@ -72,7 +72,7 @@ function ForgotPasswordPage() {
                   required
                 />
               </div>
-              <button className="bg-blue-500 text-white rounded px-4 py-2" type="submit">
+              <button className="bg-black/10 text-black rounded hover:bg-black/70 border-gray-100 px-4 py-2" type="submit">
                 Reset Password
               </button>
             </form>
