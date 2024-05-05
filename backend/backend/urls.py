@@ -44,4 +44,5 @@ urlpatterns = [
     path('labels/<int:pk>/', views.LabelDetail.as_view()),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
+    path('user-subtask/<int:userid>/<int:subtaskid>/', views.UserSubtaskDetail.as_view()),
 ]
