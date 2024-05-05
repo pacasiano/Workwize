@@ -22,6 +22,11 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
+// ito lang galawin mo remz
+import LoginPage from "./components/loginsignup/LoginPage.jsx";
+import SignUpPage from "./components/loginsignup/SignUpPage.jsx";
+import ForgotPasswordPage from "./components/loginsignup/ForgotPasswordPage.jsx"
+// hangang dito lang
 import FormSample from "./pages/formSample.jsx"
 import NewProject from "./components/project/newProject";
 
@@ -41,9 +46,9 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      // for testing purposes
+      // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
-      element: <FormSample />,
+      element: <SpinnerOfDoom />,
     },
     {
       path: "*",
