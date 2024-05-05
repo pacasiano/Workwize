@@ -2,7 +2,8 @@
 export default function Contact() {
 
     return (
-        <div>
+        <div className="flex justify-center items-center">
+            
             Contacts
         </div>
     )

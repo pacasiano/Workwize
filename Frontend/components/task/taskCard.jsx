@@ -40,7 +40,7 @@ export default function TaskCard({task_id, subtask_data}) {
                     <div  className="text-xl font-bold">
                         {subtask_data.subtask_name}
                     </div>
-                    <p className=" overflow-wrap break-words font-light">
+                    <p className="overflow-auto max-h-20 break-words font-light">
                         {subtask_data.description}
                     </p>
                 </div>

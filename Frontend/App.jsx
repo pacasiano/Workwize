@@ -22,7 +22,11 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
-import FormSample from "./pages/formSample.jsx"
+
+// ito lang galawin mo remz
+import LoginSignin from "./pages/UserLoginSignin.jsx";
+
+// hangang dito lang
 import NewProject from "./components/project/newProject";
 
 // Context
@@ -34,6 +38,8 @@ function App() {
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [showAddTask, setAddTask] = useState({ show: false, data: {} })
   const [showAddSubtask, setAddSubtask] = useState({ show: false, data: {} })
+
+  // ilagay ko pa ito sa context, but idk how kunin or what, so i'll just leave it here
   const [loggedIn, setLoggedIn] = useState(true)
 
   // context
@@ -41,9 +47,9 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      // for testing purposes
+      // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
-      element: <FormSample />,
+      element: <SpinnerOfDoom />,
     },
     {
       path: "*",
@@ -54,7 +60,43 @@ function App() {
       element: (
         <div className={`h-screen w-full bg-[#EBDFD7]`}>
           <Header loggedIn={loggedIn} />
-          <Landing />
+          <div className="bg-[#EBDFD7]">
+            <Landing />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+          <Header loggedIn={loggedIn} />
+          <div className="bg-[#EBDFD7]">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <div className={`h-screen w-full `}>
+          <Header loggedIn={loggedIn} />
+          <div className="bg-[#EBDFD7]">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/forgotpassword",
+      element: (
+        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+          <Header loggedIn={loggedIn} />
+          <LoginSignin />
           <Footer />
         </div>
       ),
@@ -62,7 +104,7 @@ function App() {
     {
       path: "/project",
       element: (
-      <div className={`h-screen w-full bg-[#EBDFD7]`}>
+      <div className={`min-h-screen w-full bg-[#EBDFD7]`}>
         <Header loggedIn={loggedIn} />
         <Home showAddProj={showAddProj} setAddProj={setAddProj} />
         <Footer />
@@ -77,7 +119,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
@@ -93,7 +135,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
@@ -109,7 +151,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Users />
             </div>
           </div>
@@ -124,7 +166,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Settings />
             </div>
           </div>
@@ -139,7 +181,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Subtask />
             </div>
           </div>
@@ -154,7 +196,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Dashboard />
             </div>
           </div>
@@ -169,7 +211,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-clip bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
             <Calendar setAddSubtask={setAddSubtask} />
             </div>
           </div>
