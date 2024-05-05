@@ -22,12 +22,11 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
+
 // ito lang galawin mo remz
-import LoginPage from "./components/loginsignup/LoginPage.jsx";
-import SignUpPage from "./components/loginsignup/SignUpPage.jsx";
-import ForgotPasswordPage from "./components/loginsignup/ForgotPasswordPage.jsx"
+import LoginSignin from "./pages/UserLoginSignin.jsx";
+
 // hangang dito lang
-import FormSample from "./pages/formSample.jsx"
 import NewProject from "./components/project/newProject";
 
 // Context
@@ -39,6 +38,8 @@ function App() {
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [showAddTask, setAddTask] = useState({ show: false, data: {} })
   const [showAddSubtask, setAddSubtask] = useState({ show: false, data: {} })
+
+  // ilagay ko pa ito sa context, but idk how kunin or what, so i'll just leave it here
   const [loggedIn, setLoggedIn] = useState(true)
 
   // context
@@ -59,7 +60,43 @@ function App() {
       element: (
         <div className={`h-screen w-full bg-[#EBDFD7]`}>
           <Header loggedIn={loggedIn} />
-          <Landing />
+          <div className="bg-[#EBDFD7]">
+            <Landing />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+          <Header loggedIn={loggedIn} />
+          <div className="bg-[#EBDFD7]">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <div className={`h-screen w-full `}>
+          <Header loggedIn={loggedIn} />
+          <div className="bg-[#EBDFD7]">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/forgotpassword",
+      element: (
+        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+          <Header loggedIn={loggedIn} />
+          <LoginSignin />
           <Footer />
         </div>
       ),

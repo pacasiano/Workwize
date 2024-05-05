@@ -17,6 +17,7 @@ function SignUpPage() {
   };
 
   return (
+    <>
     <div className="flex justify-start ">
       <div className="bg-white p-4 rounded-lg max-w-sm mx-auto">
         <h2 className="text-center font-bold">Sign Up</h2>
@@ -55,7 +56,7 @@ function SignUpPage() {
           </div>
         
           <div className="mb-4">
-            <label className="font-bold" htmlFor="password">Password</label>
+            <label className="font-bold">Password</label>
             <input className="w-full px-1 py-1 border border-gray-300 rounded"
               type="password" 
               id="password" 
@@ -66,9 +67,10 @@ function SignUpPage() {
           </div>
           <button className="bg-black/10 text-black rounded hover:bg-black/70 border-gray-100 px-4 py-2 mt-4" type="submit">Sign Up</button>
         </form>
-        <Link to={"/LoginPage"} className="block mt-2 text-center">Return to Login</Link>
+        <Link to={"/login"} className="block mt-2 text-center">Return to Login</Link>
       </div>
     </div>
+    </>
   );
 }
 
