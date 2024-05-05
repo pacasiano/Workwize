@@ -33,8 +33,6 @@ function App() {
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [chosenProj, setChosenProj] = useState("")
 
-  // get the project where href is /projectID
-  const [projectInfo] = useState(Project[0])
 
   const router = createBrowserRouter([
     {

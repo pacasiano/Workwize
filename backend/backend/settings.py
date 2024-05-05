@@ -54,11 +54,19 @@ REST_FRAMEWORK = {
 }
 
 from datetime import timedelta
-
+AUTH_USER_MODEL = 'taskapp.User'
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    'USER_ID_FIELD': 'user_id',
+}
+
+DJOSER = {
+    'USER_ID_FIELD': 'user_id',
+    'SERIALIZERS': {
+        'user': 'taskapp.serializers.UserSerializer',
+    }
 }
 
 MIDDLEWARE = [
