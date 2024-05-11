@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TaskCard from "./taskCard.jsx";
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
 
 import TaskChangeName from './taskChangeName.jsx';
 import TaskColor from './taskColor.jsx';
@@ -20,7 +19,6 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
         setReload: propTypes.func,
     };
 
-    const { id } = useParams()
     const [show, setShow] = useState(false)
 
     const dropdownRef = useRef(null);
@@ -34,8 +32,23 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
         };
     }, []);
 
+    const deleteThis = () => {
+        fetch(`http://localhost:8000/tasks/${task.task_id}/`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Task deleted successfully");
+            } else {
+                throw new Error('Failed to delete task');
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
     return (
-        <div className="flex flex-row gap-2 p-4 rounded-xl h-full bg-[#fbf9f7] select-none">
+        <div className="flex flex-row gap-2 p-4 rounded-xl h-fit bg-[#fbf9f7] select-none">
             <div className="relative flex flex-col gap-3 ">
                 <div className="flex flex-row justify-between items-center">
                     <div className="rounded-md font-bold text-xl text-black" >{task.task_name}</div>
@@ -62,7 +75,7 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
                                 </div>
                                 
                                 <div className='flex flex-col gap-1'>
-                                    <div className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-red-200 p-1'>Delete</div>
+                                    <div onClick={deleteThis} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-red-200 p-1'>Delete</div>
                                 </div>
                                 
                                 

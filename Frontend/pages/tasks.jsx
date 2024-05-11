@@ -50,16 +50,19 @@ export default function Tasks({setAddSubtask}) {
     const uniqueCategoriesData = tasks.filter((task) => task.project_id === parseInt(id))
 
     return (
-        <div className="min-h-screen overflow-y-scroll scroll-smooth ">
+        <div className="h-full overflow-y-scroll scroll-smooth ">
             <Topbar setTitle={project.project_name} />
-            <div className="p-10">
-                <div className="flex flex-row gap-5 h-full">
+            <div className="p-10 h-full">
+                <div className="flex flex-row gap-5 overflow-x-auto h-full ">
+
                     {!(uniqueCategoriesData.length === 0) ? ( 
+
                     <>
                     {uniqueCategoriesData.sort((a, b) => a.order_num - b.order_num).map((task) => (
                         <TaskList key={task.task_id} task={task} subtasks={subtasks} setAddSubtask={setAddSubtask}  />
                     ))}
                     </>
+
                     ) : (
 
                     <div className="h-full w-full flex justify-center items-center bg-[#e4dede]">
@@ -77,6 +80,7 @@ export default function Tasks({setAddSubtask}) {
                     </div>
 
                     )}
+
                 </div>
             </div>
         </div>
