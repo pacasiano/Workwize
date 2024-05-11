@@ -26,7 +26,7 @@ export default function Sidebar({Wide, setWide, setAddTask}) {
     }
 
     return (
-        <div className={` ${Wide ? ("w-52") : ("w-20")} max-w-52 h-full bg-neutral-800 transition-all ease-in-out`}>
+        <div className={` ${Wide ? ("w-52") : ("w-20")} max-w-52 h-full bg-[#27303B] transition-all ease-in-out`}>
 
             {Wide ? (
             <div className="relative flex flex-col h-full items-start justify-start pl-5 p-4 pt-8">

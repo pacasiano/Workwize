@@ -58,9 +58,9 @@ function App() {
     {
       index: true,
       element: (
-        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+        <div className={`h-screen w-full bg-[#e4dede]`}>
           <Header loggedIn={loggedIn} />
-          <div className="bg-[#EBDFD7]">
+          <div className="bg-[#e4dede]">
             <Landing />
           </div>
           <Footer />
@@ -70,9 +70,9 @@ function App() {
     {
       path: "/login",
       element: (
-        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+        <div className={`h-screen w-full bg-[#e4dede]`}>
           <Header loggedIn={loggedIn} />
-          <div className="bg-[#EBDFD7]">
+          <div className="bg-[#e4dede]">
             <LoginSignin />
           </div>
           <Footer />
@@ -84,7 +84,7 @@ function App() {
       element: (
         <div className={`h-screen w-full `}>
           <Header loggedIn={loggedIn} />
-          <div className="bg-[#EBDFD7]">
+          <div className="bg-[#e4dede]">
             <LoginSignin />
           </div>
           <Footer />
@@ -94,7 +94,7 @@ function App() {
     {
       path: "/forgotpassword",
       element: (
-        <div className={`h-screen w-full bg-[#EBDFD7]`}>
+        <div className={`h-screen w-full bg-[#e4dede]`}>
           <Header loggedIn={loggedIn} />
           <LoginSignin />
           <Footer />
@@ -104,7 +104,7 @@ function App() {
     {
       path: "/project",
       element: (
-      <div className={`min-h-screen w-full bg-[#EBDFD7]`}>
+      <div className={`min-h-screen w-full bg-[#e4dede]`}>
         <Header loggedIn={loggedIn} />
         <Home showAddProj={showAddProj} setAddProj={setAddProj} />
         <Footer />
@@ -119,7 +119,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
@@ -135,7 +135,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Tasks setAddSubtask={setAddSubtask} />
             </div>
           </div>
@@ -151,7 +151,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Users />
             </div>
           </div>
@@ -166,7 +166,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Settings />
             </div>
           </div>
@@ -181,7 +181,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Subtask />
             </div>
           </div>
@@ -196,7 +196,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Dashboard />
             </div>
           </div>
@@ -211,7 +211,7 @@ function App() {
           <Header loggedIn={loggedIn} />
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
-            <div className="w-full max-h-screen overflow-auto bg-[#EBDFD7] scroll-smooth">
+            <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
             <Calendar setAddSubtask={setAddSubtask} />
             </div>
           </div>
@@ -260,7 +260,7 @@ function App() {
   
 
   return (
-    <div className="bg-[#EBDFD7]">
+    <div className="bg-[#e4dede]">
     <ReloadContext.Provider value={{reload, setReload}}>
     <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
     </ReloadContext.Provider>

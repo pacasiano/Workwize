@@ -5,6 +5,20 @@ export default function Actions() {
 
     const { subtask_id } = useParams();
 
+    const deleteSubtask = () => {
+        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Subtask deleted")
+            console.log(data)
+        });
+    }
+
     return (
         <div className='flex flex-col gap-2'>
             <h1 className="text-lg font-semibold">Actions</h1>
