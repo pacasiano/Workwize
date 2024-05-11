@@ -54,7 +54,7 @@ const TaskColor = ({task}) => {
     return (
         <>
         {!changeColor ?
-        <div onClick={() => setChangeColor(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Change Name</div>
+        <div onClick={() => setChangeColor(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Change Color</div>
         :
         (
         <div className='relative flex flex-col bg-neutral-200 rounded-md'>

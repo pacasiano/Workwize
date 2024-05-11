@@ -4,11 +4,10 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
 import { useState, useEffect } from 'react';
-import moment from 'moment';
 import Label from '../components/general/label';
 import { useParams, useNavigate } from 'react-router-dom';
 
-export default function MyCalendar({setAddSubtask}){
+export default function MyCalendar(){
 
   MyCalendar.propTypes = {
     setAddSubtask: PropTypes.func.isRequired
@@ -76,9 +75,9 @@ export default function MyCalendar({setAddSubtask}){
     navigate(`/project/${id}/tasks/${task_id}/subtask/${subtask_id}`)
   }
 
-  const handleDateSelect = (info) => {
-    setAddSubtask({show: true, data: {start: info.startStr, end: moment(info.endStr).subtract(1, 'days').format('YYYY-MM-DD')}})
-  };
+  // const handleDateSelect = (info) => {
+  //   setAddSubtask({show: true, data: {start: info.startStr, end: moment(info.endStr).subtract(1, 'days').format('YYYY-MM-DD')}})
+  // };
   
   return (
   <div className="max-h-screen overflow-y-scroll">
@@ -88,7 +87,7 @@ export default function MyCalendar({setAddSubtask}){
 
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
-        select={(info) => handleDateSelect(info)}
+        // select={(info) => handleDateSelect(info)}
         eventClick={(info) => goToProject({ task_id: info.event.extendedProps.task_id, subtask_id: info.event.id })}
         events={myEventsList}
         eventContent={(eventInfo) => {
