@@ -22,7 +22,8 @@ export default function NewSublabel() {
         });
     }, [subtask_id, reload])
 
-    const addTag = () => {
+    const addTag = (e) => {
+        e.preventDefault();
         
         if (tagName === '') return;
         if (tagName.length < 3) return;
@@ -69,17 +70,19 @@ export default function NewSublabel() {
                 <div onClick={()=> setShow(false)} className="absolute right-3 top-1 text-black/50 hover font-bold hover:scale-125 cursor-pointer">
                     x
                 </div>
-                <div className="">
-                    <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-inherit outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
-                </div>
-                <Compact
-                
-                colors={colors}
-                color={hex}
-                onChange={(color) => {setHex(color.hex);}}
-                style={{backgroundColor: "inherit"}}
-                />
-                <button onClick={addTag} className="bg-blue-900/80 rounded-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                <form onSubmit={addTag}>
+                    <div className="">
+                        <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-inherit outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
+                    </div>
+                    <Compact
+                    
+                    colors={colors}
+                    color={hex}
+                    onChange={(color) => {setHex(color.hex);}}
+                    style={{backgroundColor: "inherit"}}
+                    />
+                    <button type="submit" className="bg-blue-900/80 rounded-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                </form>
             </div>
         </div>
     )

@@ -5,11 +5,17 @@ import { useParams } from 'react-router-dom';
 import Select from 'react-select';
 import Delete from './userIconDelete';
 
+// Context Imports
+import { ReloadContext } from "../../context/contexts"
+import { useContext } from 'react';
 
 export default function UserIcon() {
 
     const { id, subtask_id } = useParams();
     const [show, setShow] = useState(true);
+
+    // context
+    const { reload, setReload } = useContext(ReloadContext);
     
     // the user data
     const [user_ids_in_subtask, setUser_ids_in_subtask] = useState([]);
@@ -17,12 +23,22 @@ export default function UserIcon() {
     const [usersInProject, setUsersInProject] = useState([]);
     const [usersInSubtask, setUsersInSubtask] = useState([]);
 
-    // random data
+    // data to be handled
     const [initial, setDefault] = useState([])
+    const [selected, setSelected] = useState([])
 
     useEffect(() => {
-        setDefault(usersInSubtask.map(user => ({value: user.user_id, label: user.username})))
-    }, [usersInSubtask]);
+        // setDefault, if user in subtask, remove it from project list
+        const initialData = usersInProject.map(user => {
+            if (usersInSubtask.some(u => u.user_id === user.user_id)) {
+                return null;
+            }
+            return {value: user.user_id, label: user.username};
+        }
+        ).filter(user => user !== null);
+        setDefault(initialData);
+
+    }, [usersInProject, usersInSubtask, reload]);
 
     useEffect(() => {
     fetch(`http://localhost:8000/api/user-subtasks/`)
@@ -39,7 +55,7 @@ export default function UserIcon() {
             setUser_ids_in_project(filteredUsers);
         });
     
-    }, [subtask_id, id]);
+    }, [subtask_id, id, reload]);
 
     useEffect(() => {
 
@@ -63,7 +79,7 @@ export default function UserIcon() {
     const onsubmit = () => {
         
         // if initial.value is not in user_ids_in_subtask, add it
-        initial.forEach(user => {
+        selected.forEach(user => {
             if (!user_ids_in_subtask.some(userIdObj => userIdObj.user_id === user.value)) {
                 fetch('http://localhost:8000/api/user-subtasks/', {
                     method: 'POST',
@@ -75,10 +91,14 @@ export default function UserIcon() {
                 })
                 .then(res => res.json())
                 .then(data => {
-                    setUser_ids_in_subtask([...user_ids_in_subtask, data]);
+                    console.log("Added user to subtask")
+                    console.log(data)
                 });
             }
         });
+        
+        setSelected([]);
+        setReload(!reload);
 
     }
 
@@ -103,7 +123,7 @@ export default function UserIcon() {
                         x
                     </div>
                     <div className='flex flex-row gap-1'>
-                    {initial.map((user, index) => (
+                    {selected.map((user, index) => (
                     <div key={index} className="rounded-full w-8 h-8 text-center flex flex-row items-center justify-center hover:scale-105 hover:cursor-pointer bg-orange-300">
                         <div className="font-bold font-mono text-black">{user.label.charAt(0)}</div>
                     </div>
@@ -114,11 +134,11 @@ export default function UserIcon() {
                             
                             <div className='absolute z-10 -top-3 left-3 translate-y-[9px] bg-white h-1'><div className='-translate-y-[7px] text-sm'>Select Users</div></div>
                             <Select
-                                value={initial}
-                                onChange={(e) => setDefault(e)}
+                                value={selected}
+                                onChange={(e) => setSelected(e)}
                                 isMulti
                                 name="users"
-                                options={usersInProject.map(user => ({value: user.user_id, label: user.username}))}
+                                options={initial}
                                 className="react-select-container"
                                 classNamePrefix="react-select"
                             />

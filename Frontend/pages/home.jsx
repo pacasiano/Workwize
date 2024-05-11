@@ -55,7 +55,7 @@ export default function Home({setAddProj}) {
     }
 
     return (
-        <div className="py-28 px-16 min-h-screen bg-[#EBDFD7]">
+        <div className="py-28 px-16 min-h-screen bg-[#e4dede]">
             <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl min-w-[800px] ">
                 <div className="flex flex-col gap-5 min-w-56 h-full drop-shadow-sm ">
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
