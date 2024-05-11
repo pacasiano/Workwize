@@ -13,6 +13,8 @@ import TaskMove from './taskMove.jsx';
 import { ReloadContext } from "../../context/contexts.jsx"
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 const TasksList = ({ task, subtasks }) => {
 
     TasksList.propTypes = {
@@ -33,15 +35,15 @@ const TasksList = ({ task, subtasks }) => {
     const onClick = () => {
 
         if (subtaskName === '') {
-            alert('Please enter a task name');
+            toast.warning('Task name is empty');
             return;
         }
         if (subtaskName.length > 50) {
-            alert('Task name is too long');
+            toast.warning('Task name is too long');
             return;
         }
         if (subtaskName.length < 3) {
-            alert('Task name is too short');
+            toast.warning('Task name is too short');
             return;
         }
 
@@ -57,6 +59,7 @@ const TasksList = ({ task, subtasks }) => {
         })
         .then(res => res.json())
         .then(data => {
+            toast.success(`Task ${subtaskName} has been created successfully!`);
             console.log(data)
             setReload(!reload)
             setAddSubtask(false)
@@ -83,7 +86,8 @@ const TasksList = ({ task, subtasks }) => {
         })
         .then(res => {
             if (res.ok) {
-                console.log("Task deleted successfully");
+                toast.success(`List ${task.task_name} has been deleted successfully!`);
+                setReload(!reload);
             } else {
                 throw new Error('Failed to delete task');
             }

@@ -1,6 +1,7 @@
 
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export default function Actions() {
 
@@ -18,13 +19,13 @@ export default function Actions() {
         .then(res => {
             if (res.ok) {
                 console.log("Task deleted successfully");
+                toast.success('Task deleted successfully');
             } else {
                 throw new Error('Failed to delete task');
             }
         })
         .catch(err => console.error(err));
 
-        console.log("Subtask deleted")
         navigate("../../../..", { relative: "path"})
 
     }

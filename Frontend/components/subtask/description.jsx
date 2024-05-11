@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons';
@@ -26,8 +27,22 @@ export default function Description() {
 
     const onSubmit = (data) => {
             
-        if (data.description === undefined) return;
-        if (data.description.length === 0) return;
+        if (data.description === undefined){
+            toast.warning('Please enter a description');
+            return;
+        }
+        if (data.description.length === 0){
+            toast.warning('Please enter a description');
+            return;
+        }
+        if (data.description.length > 1000){
+            toast.warning('Description too long');
+            return;
+        }
+        if (data.description === desc){
+            toast.error('Description is the same');
+            return;
+        } 
 
         fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
@@ -36,6 +51,7 @@ export default function Description() {
         })
         .then(res => res.json())
         .then(data => {
+            toast.success('Description Updated');
             setDesc(data.description);
             setEdit(false);
         });

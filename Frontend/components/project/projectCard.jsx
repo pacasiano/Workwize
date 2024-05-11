@@ -10,6 +10,8 @@ import { useState } from "react";
 import { ReloadContext } from "../../context/contexts";
 import { useContext } from 'react';
 
+import { toast } from "react-toastify";
+
 export default function ProjectCard({data, type}) {
 
     ProjectCard.propTypes = {
@@ -39,6 +41,7 @@ export default function ProjectCard({data, type}) {
         })
         .then(res => {res.json()})
         .catch(error => {console.error(error)})
+        toast.info(`${data.project_name} has been unstarred!`)
         setStar(false)
         setReload(!reload)
     }
@@ -52,6 +55,7 @@ export default function ProjectCard({data, type}) {
         })
         .then(res => {res.json()})
         .catch(error => {console.error(error)})
+        toast.info(`${data.project_name} has been starred!`)
         setStar(true)
         setReload(!reload)
     }

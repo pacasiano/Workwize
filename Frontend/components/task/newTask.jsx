@@ -10,6 +10,8 @@ import Sketch from '@uiw/react-color-sketch';
 import { ReloadContext } from '../../context/contexts';
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 export default function NewTask({setAddTask}) {
 
     NewTask.propTypes = {
@@ -23,17 +25,17 @@ export default function NewTask({setAddTask}) {
 
     // form
     const { register, handleSubmit } = useForm();
-    const [hex, setHex] = useState('#ffffff');
+    const [hex, setHex] = useState('');
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
 
     const onSubmit = (data) => {
 
-        if (data.task_name === undefined) return;
-        if (data.task_name.length < 1) return;
-        if (data.task_name.length > 25) return;
-        if (hex === undefined) return;
-        if (hex.length < 1) return;
-        if (hex.length > 7) return;
+        if (data.task_name === undefined) {toast.warning("List name is undefined"); return;}
+        if (data.task_name.length < 1) {toast.warning("List name is too short"); return;}
+        if (data.task_name.length > 25) {toast.warning("List name is too long"); return;}
+        if (hex === undefined) {toast.warning("Color is undefined"); return;}
+        if (hex.length < 1) {toast.warning("Please select a color"); return;}
+        if (hex.length > 7) {toast.warning("Please select a color"); return;}
 
         fetch('http://localhost:8000/api/tasks/', {
             method: 'POST',
@@ -45,6 +47,7 @@ export default function NewTask({setAddTask}) {
             })
         }).then(res => res.json())
         .then(newTask => {
+            toast.success(`List ${newTask.task_name} has been created successfully!`);
             setAddTask({ show: false, data: {} });
             setReload(!reload);
             console.log("This is the data from task creation" + newTask)

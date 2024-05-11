@@ -21,11 +21,12 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
+import FormSample from "./pages/formSample.jsx"
 
 // ito lang galawin mo remz
 import LoginSignin from "./pages/UserLoginSignin.jsx";
-
 // hangang dito lang
+
 import NewProject from "./components/project/newProject";
 
 // Context
@@ -47,7 +48,7 @@ function App() {
     {
       // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
-      element: <SpinnerOfDoom />,
+      element: <FormSample />,
     },
     {
       path: "*",

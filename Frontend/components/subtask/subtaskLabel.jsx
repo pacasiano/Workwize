@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Compact from '@uiw/react-color-compact';
 import Tag from '../general/label';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export default function NewSublabel() {
 
@@ -10,7 +11,7 @@ export default function NewSublabel() {
     const [show, setShow] = useState(false);
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
     const [tagName, setTagName] = useState('');
-    const [hex, setHex] = useState('#F44E3B');
+    const [hex, setHex] = useState('');
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
@@ -25,12 +26,14 @@ export default function NewSublabel() {
     const addTag = (e) => {
         e.preventDefault();
         
-        if (tagName === '') return;
-        if (tagName.length < 3) return;
+        if (tagName === '') {toast.warning(`Label name too short`); return;}
+        if (tagName.length < 1) {toast.warning(`Label name too short`); return;}
         if (tagName.length > 20) {
-            alert('Tag name should be less than 20 characters');
+            toast.warning(`Label name too long`);
             return;
         }
+        if (hex === '') {toast.warning(`Color not selected`); return;}
+
 
         fetch('http://localhost:8000/labels/', {
             method: 'POST',
@@ -43,6 +46,7 @@ export default function NewSublabel() {
         })
         .then(res => res.json())
         .then(newLabels => {
+            toast.success(`Label ${tagName} has been added`);
             setLabelsData([...labelsData, newLabels]);
             setTagName('');
             setHex('#F44E3B');
