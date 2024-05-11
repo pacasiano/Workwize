@@ -11,6 +11,8 @@ class User(models.Model):
     password = models.CharField(max_length=100)  # Password encryption?
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    STATUS_CHOICES = [('inactive', 'inactive'), ('active', 'active')]
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES) 
 
     def __str__(self):
         return f'{self.user_id} {self.first_name} {self.last_name} - {self.email}'
@@ -20,6 +22,8 @@ class Project(models.Model):
     project_name = models.CharField(max_length=100)
     background = models.CharField(max_length=255, default="#000000")
     isStarred = models.BooleanField(default=False)
+    STATUS_CHOICES = [('inactive', 'inactive'), ('active', 'active')]
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES) 
 
     def __str__(self):
         return '{} {}'.format(self.project_id, self.project_name)
@@ -36,6 +40,8 @@ class Task(models.Model):
     task_name = models.CharField(max_length=100)
     color = models.CharField(max_length=7)
     order_num = models.SmallIntegerField(blank=True, null=True)
+    STATUS_CHOICES = [('inactive', 'inactive'), ('active', 'active')]
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES) 
 
     def __str__(self):
         return '{} {}'.format(self.task_id, self.task_name)
@@ -48,6 +54,8 @@ class Subtask(models.Model):
     end_date = models.DateTimeField(blank=True)
     start_date = models.DateTimeField(blank=True)
     order_num = models.SmallIntegerField(blank=True, null=True)
+    STATUS_CHOICES = [('inactive', 'inactive'), ('active', 'active')]
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES) 
 
     def __str__(self):
         return '{} {}'.format(self.subtask_id, self.description)
