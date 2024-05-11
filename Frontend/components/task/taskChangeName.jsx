@@ -7,6 +7,8 @@ import propTypes from 'prop-types';
 import { ReloadContext } from "../../context/contexts"
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 const TaskChangeName = ({task}) => {
 
     TaskChangeName.propTypes = {
@@ -23,9 +25,11 @@ const TaskChangeName = ({task}) => {
         // console.log(data)
 
         if(data.task_name === '') {
+            toast.warning('Task name is empty');
             return
         }
         if(data.task_name === task.task_name) {
+            toast.warning('Task name is the same as the current task name');
             return
         }
 
@@ -38,6 +42,7 @@ const TaskChangeName = ({task}) => {
         })
         .then(res => res.json())
         .then(() => {
+            toast.success('Task name has been changed successfully!');
             setChangeName(false)
             setReload(!reload)
         })

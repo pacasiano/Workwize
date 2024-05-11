@@ -8,20 +8,20 @@ import Compact from '@uiw/react-color-compact';
 import { ReloadContext } from "../../context/contexts"
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 const TaskColor = ({task}) => {
 
     TaskColor.propTypes = {
         task: propTypes.object,
     };
 
-    
-
     // context
     const { reload, setReload } = useContext(ReloadContext);
 
     const [changeColor, setChangeColor] = useState(false)
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
-    const [hex, setHex] = useState('#F44E3B');
+    const [hex, setHex] = useState('');
 
     const { handleSubmit } = useForm();
 
@@ -29,9 +29,11 @@ const TaskColor = ({task}) => {
         // console.log(hex)
 
         if(hex === '') {
+            toast.warning('Color is empty');
             return
         }
         if(hex === task.color) {
+            toast.warning('Color is the same as the current color');
             return
         }
 
@@ -44,6 +46,7 @@ const TaskColor = ({task}) => {
         })
         .then(res => res.json())
         .then(() => {
+            toast.success('Task color has been changed successfully!');
             setChangeColor(false)
             setReload(!reload)
         })

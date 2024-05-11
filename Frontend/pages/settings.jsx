@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import ProjectName from "../components/settings/projectName"
 import Background from "../components/settings/background";
-import Starred from "../components/settings/starred";
 
+import { toast } from 'react-toastify';
 
 export default function Settings() {
 
@@ -30,11 +30,13 @@ export default function Settings() {
             return res.json(); // Parse JSON response
         })
         .then(data => {
+            toast.success(`Project has been deleted successfully!`);
             navigate('/project');
             console.log(data);
         })
         .catch(error => {
             console.error('Error deleting project:', error);
+            toast.error('Error deleting project');
             // Handle the error, e.g., show an error message to the user
         });
     }

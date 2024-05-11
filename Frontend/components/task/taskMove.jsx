@@ -8,6 +8,8 @@ import propTypes from 'prop-types';
 import { ReloadContext } from "../../context/contexts"
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 export default function TaskMove({task}) {
 
     TaskMove.propTypes = {
@@ -45,6 +47,7 @@ export default function TaskMove({task}) {
         })
         .then(res => {res.json()})
         .catch(error => {console.error(error)})
+        toast.success("Task has been moved successfully!")
         setChangeMove(false)
         reload ? setReload(false) : setReload(true)
     }

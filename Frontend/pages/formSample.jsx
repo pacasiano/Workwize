@@ -4,6 +4,8 @@ import { useForm  } from 'react-hook-form';
 
 // use "https://react-hook-form.com/form-builder"
 
+import { toast } from 'react-toastify';
+
 export default function TaskSet() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -20,13 +22,21 @@ export default function TaskSet() {
 
     const onSubmit = (data) => {
         //dapat ma set sa database na false
-        fetch(`http://localhost:8000/tasks/${data.task_id}/`,{
-            method: 'PATCH',
-            headers: { 'content-Type': 'application/json' },
-            body: JSON.stringify({order_num: data.order_num})
-        })
-        .then(res => {res.json()})
-        .catch(error => {console.error(error)})
+        // fetch(`http://localhost:8000/tasks/${data.task_id}/`,{
+        //     method: 'PATCH',
+        //     headers: { 'content-Type': 'application/json' },
+        //     body: JSON.stringify({order_num: data.order_num})
+        // })
+        // .then(res => {res.json()})
+        // .catch(error => {console.error(error)})
+
+        toast.success("This is a toast notification !")
+        
+    }
+
+    const submit2 = (e) =>{
+        e.preventDefault();
+        toast.error("This is a toast notification !")
     }
 
     return (
@@ -39,6 +49,9 @@ export default function TaskSet() {
             </select>
             <input type="number" placeholder="order_num" {...register("order_num", {})} />
             <input type="submit" />
+            </form>
+            <form onClick={submit2}>
+                <button>Submit</button>
             </form>
         </div>
     )
