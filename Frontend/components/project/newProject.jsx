@@ -80,7 +80,7 @@ export default function NewProject({setAddProj}) {
 
     return (
     <div className="justify-center flex items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none backdrop-brightness-90 focus:outline-none select-none">
-        <div className="relative bg-white rounded-xl w-1/3 px-10 py-6 flex flex-col gap-1">
+        <div className="relative bg-white rounded-xl w-96 px-10 py-6 flex flex-col gap-1">
             <h1 className="text-xl font-bold pb-2">New Project</h1>
             <section className='flex flex-col w-full'>
                 <div onClick={()=> setAddProj({ show: false, data: {} })} className="absolute top-4 right-4 hover:cursor-pointer">

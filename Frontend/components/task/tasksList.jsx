@@ -4,13 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import TaskCard from "./taskCard.jsx";
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
 
 import TaskChangeName from './taskChangeName.jsx';
 import TaskColor from './taskColor.jsx';
 import TaskMove from './taskMove.jsx';
 
-const TasksList = ({ task, subtasks, setAddSubtask}) => {
+//context imports
+import { ReloadContext } from "../../context/contexts.jsx"
+import { useContext } from 'react';
+
+const TasksList = ({ task, subtasks }) => {
 
     TasksList.propTypes = {
         task: propTypes.object,
@@ -20,8 +23,47 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
         setReload: propTypes.func,
     };
 
-    const { id } = useParams()
+    // context
+    const { reload, setReload } = useContext(ReloadContext);
+
     const [show, setShow] = useState(false)
+    const [addSubtask, setAddSubtask] = useState(false)
+    const [subtaskName, setSubtaskName] = useState('')
+
+    const onClick = () => {
+
+        if (subtaskName === '') {
+            alert('Please enter a task name');
+            return;
+        }
+        if (subtaskName.length > 50) {
+            alert('Task name is too long');
+            return;
+        }
+        if (subtaskName.length < 3) {
+            alert('Task name is too short');
+            return;
+        }
+
+        fetch(`http://localhost:8000/subtasks/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                task_id: task.task_id,
+                subtask_name: subtaskName,
+                start_date: new Date().toISOString(),
+                end_date: new Date().toISOString(),
+            }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            setReload(!reload)
+            setAddSubtask(false)
+        })
+
+    }
+
 
     const dropdownRef = useRef(null);
     useEffect(() => {
@@ -34,8 +76,23 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
         };
     }, []);
 
+    const deleteThis = () => {
+        fetch(`http://localhost:8000/tasks/${task.task_id}/`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Task deleted successfully");
+            } else {
+                throw new Error('Failed to delete task');
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
     return (
-        <div className="flex flex-row gap-2 p-4 rounded-xl h-full bg-[#fbf9f7] select-none">
+        <div className="flex flex-row gap-2 p-4 rounded-xl h-fit bg-[#fbf9f7] select-none">
             <div className="relative flex flex-col gap-3 ">
                 <div className="flex flex-row justify-between items-center">
                     <div className="rounded-md font-bold text-xl text-black" >{task.task_name}</div>
@@ -52,7 +109,7 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
                             <div className='flex flex-col gap-2'>
 
                                 <div className='relative flex gap-1 flex-col border-b pb-2'>
-                                    <div onClick={() => setAddSubtask({ show: true, data: { name: task.task_name, color: task.color } })} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Add Task</div>
+                                    <div onClick={() => {setAddSubtask(true), setShow(false)}} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Add Task</div>
                                     <TaskMove task={task} />
                                 </div>
 
@@ -62,7 +119,7 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
                                 </div>
                                 
                                 <div className='flex flex-col gap-1'>
-                                    <div className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-red-200 p-1'>Delete</div>
+                                    <div onClick={deleteThis} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-red-200 p-1'>Delete</div>
                                 </div>
                                 
                                 
@@ -80,11 +137,27 @@ const TasksList = ({ task, subtasks, setAddSubtask}) => {
                         <TaskCard task_id={task.task_id} subtask_data={data} />
                         </div>
                     ))}
+                    {addSubtask &&
+                    <div className="flex flex-col gap-2 bg-white/70 shadow-md rounded-md w-56 p-5">
+                        <input onChange={(e)=> setSubtaskName(e.target.value)} type='text' placeholder='task name' className="bg-white/0 outline-none text-md font-bold" />
+                    </div>
+                    }
                 </div>
-                <div onClick={() => setAddSubtask({ show: true, data: { name: task.task_name, color: task.color } })} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
+                
+                {!addSubtask ? (
+                <div onClick={() => setAddSubtask(true)} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
                     <FontAwesomeIcon className="text-md text-black/20 group-hover:text-black" icon={faPlus} />
                     <div className="text-md text-black/20 font-medium text-nowrap group-hover:text-black">Add Task</div>
                 </div>
+                ) : (
+                    <>
+                    <button onClick={onClick} className="bg-blue-500 hover:bg-blue-600 text-white rounded-md p-1">Add Task</button>
+                    <div onClick={() => setAddSubtask(false)} className="flex flex-row group gap-2 justify-start items-center w-min px-1 rounded-md hover:bg-neutral-200 hover:cursor-pointer">
+                    <div className="text-md text-black/20 font-medium text-nowrap group-hover:text-black">Cancel</div>
+                    </div>
+                    </>
+                )}
+                
             </div>
         </div>
     )

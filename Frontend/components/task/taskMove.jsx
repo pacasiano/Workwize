@@ -53,11 +53,11 @@ export default function TaskMove({task}) {
 
         <>
         {!changeMove ?
-        <div onClick={() => setChangeMove(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Move Task</div>
+        <div onClick={() => setChangeMove(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Move List</div>
         :
         (
         <div className='relative flex flex-col bg-neutral-200 rounded-md'>
-            <div className='font-medium text-sm px-2    p-1'>Move Task</div>
+            <div className='font-medium text-sm px-2    p-1'>Move List</div>
             <div onClick={() => setChangeMove(false)} className='absolute right-3 font-medium hover:font-bold cursor-pointer '>x</div>
             <div className='px-2 pb-2 w-full'>
                 <form onSubmit={handleSubmit(onSubmit)}>
