@@ -16,7 +16,7 @@ export default function Description() {
     const { subtask_id } = useParams();
     const [desc, setDesc] = useState();
     const [edit, setEdit] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     
     useEffect(() => {
     fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
@@ -26,12 +26,10 @@ export default function Description() {
 
     const onSubmit = (data) => {
             
-        if (desc === undefined) return;
-        if (desc.length === 0) return;
-        console.log(errors)
-        console.log(data)
+        if (data.description === undefined) return;
+        if (data.description.length === 0) return;
 
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
@@ -67,13 +65,13 @@ export default function Description() {
                 </div>
                 ) : (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='flex flex-col pl-6'>
-                <div className="relative">
-                    {/* <div className='absolute -top-3 z-50 left-3 bg-[#fbf9f7] translate-y-[9px] h-1'><div className='-translate-y-[7px] text-sm'>Description</div></div> */}
-                    <textarea type="text" placeholder={desc} {...register("description", {})} className='w-full p-5 h-64 resize-none rounded-sm bg-neutral-200 outline-none border border-black' />
-                </div>
-                <input type='submit' className='w-28 h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 cursor-pointer' />
-                </div>
+                    <div className='flex flex-col pl-6'>
+                        <div className="relative">
+                            {/* <div className='absolute -top-3 z-50 left-3 bg-[#fbf9f7] translate-y-[9px] h-1'><div className='-translate-y-[7px] text-sm'>Description</div></div> */}
+                            <textarea type="text" placeholder={desc} {...register("description", {})} className='w-full p-5 h-64 resize-none rounded-sm bg-neutral-200 outline-none border border-black' />
+                        </div>
+                    <input type='submit' className='w-28 h-9 rounded-sm text-black/50 hover:text-black bg-green-500 hover:bg-green-300 active:scale-110 cursor-pointer' />
+                    </div>
                 </form>
                 )}
                 

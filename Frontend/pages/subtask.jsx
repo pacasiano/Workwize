@@ -46,7 +46,7 @@ export default function Subtask() {
 
 
         // change the title of the subtask
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

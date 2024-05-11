@@ -32,7 +32,7 @@ export default function NewSublabel() {
             return;
         }
 
-        fetch('http://localhost:8000/api/labels/', {
+        fetch('http://localhost:8000/labels/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

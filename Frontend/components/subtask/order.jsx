@@ -40,7 +40,7 @@ export default function Order() {
         console.log(errors)
 
         if (data.order_num === currentOrder) return;
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
