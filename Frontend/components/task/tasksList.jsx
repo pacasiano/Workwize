@@ -99,7 +99,7 @@ const TasksList = ({ task, subtasks }) => {
         <div className="flex flex-row gap-2 p-4 rounded-xl h-fit bg-[#fbf9f7] select-none">
             <div className="relative flex flex-col gap-3 ">
                 <div className="flex flex-row justify-between items-center">
-                    <div className="rounded-md font-bold text-xl text-black" >{task.task_name}</div>
+                    <div className="rounded-md font-bold text-xl text-black text-wrap w-48" >{task.task_name}</div>
                     <div className="hover:bg-neutral-300 active:bg-neutral-200 h-6 flex flexrow justify-center items-center text-center rounded-md">
                         <button onClick={()=> setShow(!show)} className="hover:font-bold px-2 -translate-y-1">...</button>
                     </div>
@@ -133,7 +133,7 @@ const TasksList = ({ task, subtasks }) => {
 
                 <div className="flex flex-col p-[3px] gap-1 rounded-md" style={{ background: task.color }}>
                     {(subtasks.filter((subtask) => subtask.task_id === task.task_id).length === 0) &&
-                        <div className="flex justify-center items-center text-center font-thin h-20 w-52 text-md bg-white/70 rounded-sm px-2 whitespace-break-spaces">
+                        <div className="flex justify-center items-center text-center font-thin h-20 w-56 text-md bg-white/70 rounded-md px-2 whitespace-break-spaces">
                             There are currently no Tasks in {task.task_name}
                         </div>}
                     {subtasks.filter((subtask) => subtask.task_id === task.task_id).map((data, index) => (
