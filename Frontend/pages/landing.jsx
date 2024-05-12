@@ -5,7 +5,31 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+
 export default function Landing() {
+
+  const location = useLocation();
+  const lastHash = useRef('');
+
+
+  // listen to location change using useEffect with location as dependency
+  // https://jasonwatmore.com/react-router-v6-listen-to-location-route-change-without-history-listen
+  useEffect(() => {
+    if (location.hash) {
+      lastHash.current = location.hash.slice(1); // safe hash for further use after navigation
+    }
+
+    if (lastHash.current && document.getElementById(lastHash.current)) {
+      setTimeout(() => {
+        document
+          .getElementById(lastHash.current)
+          ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        lastHash.current = '';
+      }, 100);
+    }
+  }, [location]);
 
   return (
     <div className="flex flex-col bg-[#e4dede]">
@@ -36,7 +60,29 @@ export default function Landing() {
               </div>
             </div>
 
-            <div>
+            <div className="flex flex-col gap-1">
+
+              {/* about */}
+              <div className="flex flex-col gap-5 text-center">
+                <div className="p-10">
+                  <div id="about" className="text-3xl font-bold">About Us</div>
+                  <div className="text-md">We are a team of developers who are passionate about creating tools that help people work more efficiently. Our goal is to create software that is intuitive and easy to use.</div>
+                </div>
+              </div>
+              {/* contact */}
+              <div className="flex flex-col gap-5 text-center">
+                <div className="p-10">
+                  <div id="contact" className="text-3xl font-bold">Contact Us</div>
+                  <div className="text-md">If you have any questions or feedback, please feel free to contact us. We would love to hear from you!</div>
+                </div>
+              </div>
+              {/* faq */}
+              <div className="flex flex-col gap-5 text-center">
+                <div className="p-10">
+                  <div id="faq" className="text-3xl font-bold">FAQ</div>
+                  <div className="text-md">Have a question? Check out our FAQ page for answers to common questions.</div>
+                </div>
+              </div>
               
             </div>
 

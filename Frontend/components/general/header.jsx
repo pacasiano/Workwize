@@ -21,9 +21,9 @@ const Header = ({loggedIn}) => {
                 </Link>
                 
                 <div className=' flex flex-row gap-5 justify-center'>
-                    <Link to="/about" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
-                    <Link to="/contact" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
-                    <Link to="/faq" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
+                    <Link to="/#about" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
+                    <Link to="/#contact" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
+                    <Link to="/#faq" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
                 </div>
 
                 <div className='flex flex-row justify-end items-center gap-5 '>
