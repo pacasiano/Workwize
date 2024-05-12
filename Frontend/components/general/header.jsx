@@ -1,9 +1,9 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import Activity from '../../assets/activity.svg';
 
 const Header = ({loggedIn}) => {
 
@@ -16,8 +16,8 @@ const Header = ({loggedIn}) => {
             <div className="flex flex-row gap-10 justify-between items-center">
 
                 <Link to={"/"} className="flex flex-row justify-start items-center gap-2 ">
-                    <FontAwesomeIcon className="text-3xl text-[#e4dede]" icon={faFolder} />
-                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-[#e4dede] to-[#e4dede] text-3xl font-black'>Projects</div>
+                    <img src={Activity } alt="logo" className='h-8 ' />
+                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-[#e4dede] to-[#e4dede] text-3xl font-black'>Workwize</div>
                 </Link>
                 
                 <div className=' flex flex-row gap-5 justify-center'>

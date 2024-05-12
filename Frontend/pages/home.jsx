@@ -56,14 +56,14 @@ export default function Home({setAddProj}) {
 
     return (
         <div className="py-28 px-16 min-h-screen bg-[#e4dede]">
-            <div className="flex flex-row gap-2 p-5 min-h-96 bg-[#fbf9f7] rounded-xl min-w-[800px] ">
+            <div className="flex flex-row gap-2 p-5 min-h-96 backdrop-blur-sm drop-shadow bg-white/50 rounded-xl min-w-[800px] ">
                 <div className="flex flex-col gap-5 min-w-56 h-full drop-shadow-sm ">
                     <div className="flex flex-col items-center justify-center gap-5 pr-2 py-5">
                         <button className="transition-all ease-in-out bg-green-500/90 py-3 flex flex-row gap-2 w-10/12 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-md">
                             {/* change to create new Project page or modal */}
                             <div onClick={addProject} className="flex flex-row gap-1 text-nowrap" ><div className="-mt-[0.5px]">+</div>New Project</div>
                         </button>
-                        <div className="flex flex-col w-full border-t-2 border-black/40">
+                        <div className="flex flex-col w-full border-t-2 border-black/10">
                             <div className="pt-2"></div>
                             <Selectable input={"projects"} child={"Projects"} selected={selected} setSelected={setSelected} />
                             <Selectable input={"recents"} child={"Recents"} selected={selected} setSelected={setSelected} />
@@ -71,7 +71,7 @@ export default function Home({setAddProj}) {
                         </div>
                     </div>
                 </div>
-                <div className="border-l-2 h-11/12 border-black/40 pr-5 "></div>
+                <div className="border-l-2 h-11/12 border-black/10 pr-5 "></div>
                 <div className="flex flex-row flex-wrap gap-5 py-5">
                     {selected === "projects" && ( <>
                     {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (

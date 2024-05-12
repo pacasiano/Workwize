@@ -63,7 +63,7 @@ export default function ProjectCard({data, type}) {
     return (
     <>
         {type === 1 ? (
-        <div className="p-5 h-28 group bg-neutral-200 hover:bg-neutral-400 hover:cursor-pointer hover drop-shadow-sm rounded-md w-56 select-none">
+        <div className="p-5 h-28 group bg-neutral-300 hover:bg-neutral-400/40 hover:cursor-pointer hover drop-shadow-sm rounded-md w-56 select-none">
             <div className="flex flex-col justify-center items-center h-full gap-2">
                 <div  className="text-md font-light text-black/50 group-hover:text-black">
                     Add new Poject
