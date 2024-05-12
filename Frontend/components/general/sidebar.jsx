@@ -7,21 +7,26 @@ import { faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons"
 import { faCircleChevronRight } from "@fortawesome/free-solid-svg-icons"
 import { faUsers } from "@fortawesome/free-solid-svg-icons"
 import { faCalendar } from "@fortawesome/free-solid-svg-icons"
-import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Sidebar({Wide, setWide, setAddProj}) {
+export default function Sidebar({Wide, setWide, setAddTask}) {
 
     Sidebar.propTypes = {
         Wide: PropTypes.bool.isRequired,
         setWide: PropTypes.func,
-        setAddProj: PropTypes.func,
+        setAddTask: PropTypes.func,
     };
 
     const { id } = useParams();
 
+    const handleAddTask = () => {
+        console.log("add task Clicked")
+        setAddTask({show: true, data: "" })
+    }
+
     return (
-        <div className={` ${Wide ? ("w-52") : ("w-20")} max-w-52 h-full bg-neutral-800 transition-all ease-in-out`}>
+        <div className={` ${Wide ? ("w-52") : ("w-20")} max-w-52 h-full bg-[#27303B] transition-all ease-in-out`}>
 
             {Wide ? (
             <div className="relative flex flex-col h-full items-start justify-start pl-5 p-4 pt-8">
@@ -32,7 +37,7 @@ export default function Sidebar({Wide, setWide, setAddProj}) {
         
                 <div className="flex flex-col items-start justify-start gap-6">
 
-                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out w-full bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                    <div onClick={handleAddTask} className="transition-all ease-in-out w-full bg-white flex flex-row gap-2 h-9 px-1 pr-4 justify-start items-center text-black py-2 text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                         <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                         <p className="" >New&nbsp;List</p>
                     </div>
@@ -67,7 +72,7 @@ export default function Sidebar({Wide, setWide, setAddProj}) {
 
                 <div className="flex flex-col items-start justify-start gap-6">
 
-                    <div onClick={()=> setAddProj({show: true, data: "" })} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
+                    <div onClick={handleAddTask} className="transition-all ease-in-out bg-white flex flex-row gap-2 h-9 px-1 justify-center items-center text-black text-md font-bold tansform-gpu hover:scale-105 hover:cursor-pointer rounded-full">
                         <FontAwesomeIcon className="text-3xl text-green-600/90" icon={faCirclePlus} />
                     </div>
 
