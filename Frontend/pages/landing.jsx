@@ -4,6 +4,7 @@ import Projects from "../assets/homepic.svg"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Wave from "../assets/wave.svg"
 
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -30,23 +31,25 @@ export default function Landing() {
       }, 100);
     }
   }, [location]);
-
+  // bg-[#e4dede]
   return (
-    <div className="flex flex-col bg-[#e4dede]">
+    <div className="flex flex-col justify-start bg-[#e4dede]">
         <div className="relative top-0  border-b translate-y-[60px]">
-            <div className="shrink-0"><object type="image/svg+xml" data={Projects} className="object-cover w-full" alt="HomeBodyPic">Your browser does not support SVG</object></div>
-            <div className="absolute flex flex-col text-black/80 justify-start items-start text-left bottom-1/3 ml-44 w-80 -translate-x-5">
-              <div className="flex justify-center text-center text-md flex-nowrap">Welcome to <div className="font-mono pl-2">Projects.</div></div>
-              <div className="lg:text-5xl/tight md:text-3xl/tight sm:text-2xl/tight text-xl font-bold">Streamline Your Workflow, Simplify Your Life</div>
+            <div className="shrink-0 -translate-y-11"><object type="image/svg+xml" data={Projects} className="object-cover w-full" alt="HomeBodyPic">Your browser does not support SVG</object></div>
+            <div className="absolute flex flex-col -translate-y-20 text-black/80 justify-start items-start text-left bottom-1/3 ml-44 w-80 -translate-x-5">
+              <div className="flex justify-center text-center text-md flex-nowrap">Welcome to <div className="font-mono pl-2">Workwize.</div></div>
+              <div className="lg:text-5xl/tight md:text-3xl/tight sm:text-2xl/tight text-xl font-bold w-96 ">Streamline Your Workflow, Simplify Your Life</div>
               <Link to={"/project"} className="bg-black transition-transform opacity-80 mt-2 text-white px-3 py-1 px1 text-md hover:scale-105 rounded-md">Projects <FontAwesomeIcon className="font-thin text-sm" icon={faArrowRight} style={{color: "#fffff",}} /></Link>
             </div>
         </div>
 
-        <div className="px-14">
-          
-          <div className="flex flex-col z-10 pt-14 pb-14 px-14 bg-white rounded-t-3xl drop-shadow-2xl">
+        <div className="relative">
+          <div className="absolute -top-44 w-full">
+            <img src={Wave} alt="wave" />
+          </div>
+          <div className="flex flex-col z-10 pt-20 pb-14 px-14  drop-shadow-2xl">
             <div className="flex flex-row justify-around items-center ">
-              <div className="flex flex-col gap-5 text-center w-1/2 border-r-[2px]">
+              <div className="flex flex-col gap-5 text-center w-1/2 border-r-[2px] border-black/20">
                 <div className="p-10">
                   <div className="text-3xl font-bold">Create Projects</div>
                   <div className="text-md">Create projects and organize your work with ease. Keep track of your projects and tasks with our intuitive dashboard.</div>

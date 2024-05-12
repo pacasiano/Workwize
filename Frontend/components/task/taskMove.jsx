@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm  } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
+import { Edit, Cancel, Confirm } from "../../assets/icons.jsx"
 
 // context
 import { ReloadContext } from "../../context/contexts"
@@ -56,12 +57,17 @@ export default function TaskMove({task}) {
 
         <>
         {!changeMove ?
-        <div onClick={() => setChangeMove(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Move List</div>
+        <div onClick={() => setChangeMove(true)} className='font-medium group flex flex-row justify-between text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>
+            Move List
+            <div className='hidden group-hover:block'>
+                <Edit />
+            </div>
+        </div>
         :
         (
         <div className='relative flex flex-col bg-neutral-200 rounded-md'>
             <div className='font-medium text-sm px-2    p-1'>Move List</div>
-            <div onClick={() => setChangeMove(false)} className='absolute right-3 font-medium hover:font-bold cursor-pointer '>x</div>
+            <div onClick={() => setChangeMove(false)} className='absolute right-1 top-1 font-medium hover:scale-110 cursor-pointer '><Cancel/></div>
             <div className='px-2 pb-2 w-full'>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -74,7 +80,7 @@ export default function TaskMove({task}) {
                     </select>
                 </div>
                 
-                <button type='submit' className=' w-full bg-blue-400 rounded-md font-medium text-sm' >Move</button>
+                <button type='submit' className=' w-full bg-blue-400 rounded-md flex flex-row justify-center font-normal hover:scale-[101%] text-sm' >Move<Confirm /></button>
                 </form>
             </div>
         </div>

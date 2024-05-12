@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import propTypes from 'prop-types';
 import Compact from '@uiw/react-color-compact';
+import { Edit, Cancel, Confirm } from "../../assets/icons.jsx"
 
 // Context Imports
 import { ReloadContext } from "../../context/contexts"
@@ -57,12 +58,17 @@ const TaskColor = ({task}) => {
     return (
         <>
         {!changeColor ?
-        <div onClick={() => setChangeColor(true)} className='font-medium text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>Change Color</div>
+        <div onClick={() => setChangeColor(true)} className='font-medium group flex flex-row justify-between text-sm px-2 rounded-md hover:font-semibold cursor-pointer hover:bg-neutral-200 p-1'>
+            Change Color
+            <div className='hidden group-hover:block'>
+                <Edit />
+            </div>
+            </div>
         :
         (
         <div className='relative flex flex-col bg-neutral-200 rounded-md'>
             <div className='font-medium text-sm px-2    p-1'>Change Color</div>
-            <div onClick={() => setChangeColor(false)} className='absolute right-3 font-medium hover:font-bold cursor-pointer '>x</div>
+            <div onClick={() => setChangeColor(false)} className='absolute right-1 top-1 font-medium hover:scale-110 cursor-pointer '><Cancel /></div>
             <div className='px-2 pb-2 w-full'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <Compact
@@ -71,7 +77,7 @@ const TaskColor = ({task}) => {
                 onChange={(color) => {setHex(color.hex);}}
                 style={{backgroundColor: "inherit", width: "100%"}}
                 />
-                <button type='submit' className=' w-full bg-blue-400 rounded-md font-medium text-sm' >Change</button>
+                <button type='submit' className=' w-full bg-green-400 flex flex-row justify-center hover:scale-[101%] rounded-md font-normal text-sm' >Change <Confirm /></button>
                 </form>
             </div>
         </div>
