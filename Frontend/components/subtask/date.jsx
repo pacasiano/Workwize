@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 export default function Date() {
 
@@ -14,7 +15,6 @@ export default function Date() {
     });
     const { register, handleSubmit, formState: { errors } } = useForm();
     
-
     useEffect(() => {
         fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
         .then(res => res.json())
@@ -30,9 +30,12 @@ export default function Date() {
     const onSubmit = (data) => {
 
         console.log(errors)
-        if (data.start_date === "" || data.end_date === "")return;
+        if (data.start_date === "" || data.end_date === ""){
+            toast.error('Please enter a start and end date');
+            return;
+        }
         if (moment(data.end_date).isBefore(data.start_date)) {
-            console.log("Error, end_date entered is before start_date")
+            toast.error('End date cannot be before start date');
             return;
         }
 
@@ -50,11 +53,10 @@ export default function Date() {
                 from: moment(data.start_date).format('YYYY-MM-DDTHH:mm'),
                 to: moment(data.end_date).format('YYYY-MM-DDTHH:mm')
             });
+            toast.success('Dates have been updated');
             setEdit(false);
         });
-
     }
-
 
     return (
         <div className='flex flex-col gap-2'>

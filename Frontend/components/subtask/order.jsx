@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 export default function Order() {
 
@@ -36,17 +37,23 @@ export default function Order() {
 
     const onSubmit = (data) => {
 
-        if (data.order_num === undefined) return;
-        console.log(errors)
+        if (data.order_num === undefined){
+            toast.error('Please select an order');
+            return;
+        }
+        if (data.order_num === currentOrder){
+            toast.error('Order is the same');
+            return;
+        }
 
-        if (data.order_num === currentOrder) return;
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         })
         .then(res => res.json())
         .then(data => {
+            toast.success('Order Updated');
             setCurrentOrder(data.order_num);
             setEdit(false);
         });

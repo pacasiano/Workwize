@@ -9,6 +9,9 @@ import Delete from './userIconDelete';
 import { ReloadContext } from "../../context/contexts"
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+import { set } from 'react-hook-form';
+
 export default function UserIcon() {
 
     const { id, subtask_id } = useParams();
@@ -26,19 +29,6 @@ export default function UserIcon() {
     // data to be handled
     const [initial, setDefault] = useState([])
     const [selected, setSelected] = useState([])
-
-    useEffect(() => {
-        // setDefault, if user in subtask, remove it from project list
-        const initialData = usersInProject.map(user => {
-            if (usersInSubtask.some(u => u.user_id === user.user_id)) {
-                return null;
-            }
-            return {value: user.user_id, label: user.username};
-        }
-        ).filter(user => user !== null);
-        setDefault(initialData);
-
-    }, [usersInProject, usersInSubtask, reload]);
 
     useEffect(() => {
     fetch(`http://localhost:8000/api/user-subtasks/`)
@@ -74,32 +64,44 @@ export default function UserIcon() {
             setUsersInSubtask(UsersInSubtask);
         });
     
-    }, [user_ids_in_project, user_ids_in_subtask]);
+    }, [user_ids_in_project, user_ids_in_subtask, reload]);
+
+    useEffect(() => {
+        // setDefault, if user in subtask, remove it from project list
+        const initialData = usersInProject.map(user => {
+            if (usersInSubtask.some(u => u.user_id === user.user_id)) {
+                return null;
+            }
+            return {value: user.user_id, label: user.username};
+        }
+        ).filter(user => user !== null);
+        setDefault(initialData);
+
+    }, [usersInProject, usersInSubtask, reload]);
 
     const onsubmit = () => {
         
         // if initial.value is not in user_ids_in_subtask, add it
         selected.forEach(user => {
-            if (!user_ids_in_subtask.some(userIdObj => userIdObj.user_id === user.value)) {
-                fetch('http://localhost:8000/api/user-subtasks/', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        user_id: user.value,
-                        subtask_id: subtask_id
-                    })
+            fetch('http://localhost:8000/api/user-subtasks/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    user_id: user.value,
+                    subtask_id: subtask_id
                 })
-                .then(res => res.json())
-                .then(data => {
-                    console.log("Added user to subtask")
-                    console.log(data)
-                });
-            }
-        });
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Added user to subtask")
+                setReload(!reload);
+                console.log(data)
+            });
+        })
         
+        toast.success('User has been added to subtask successfully!');
         setSelected([]);
         setReload(!reload);
-
     }
 
     return (

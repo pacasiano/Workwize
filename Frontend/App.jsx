@@ -8,7 +8,6 @@ import Sidebar from "./components/general/sidebar"
 import Tasks from "./pages/tasks.jsx"
 import Settings from "./pages/settings.jsx"
 import Dashboard from "./pages/dashboard.jsx"
-import NewSubtask from "./components/subtask/newSubtask.jsx"
 import NewTask from "./components/task/newTask.jsx";
 import Calendar from "./pages/calendar.jsx"
 import Subtask from "./pages/subtask.jsx"
@@ -22,11 +21,12 @@ import Users from "./pages/users.jsx"
 import Faq from "./pages/faq.jsx"
 import Contact from "./pages/contact.jsx"
 import About from "./pages/about.jsx"
+import FormSample from "./pages/formSample.jsx"
 
 // ito lang galawin mo remz
 import LoginSignin from "./pages/UserLoginSignin.jsx";
-
 // hangang dito lang
+
 import NewProject from "./components/project/newProject";
 
 // Context
@@ -37,7 +37,6 @@ function App() {
   const [Wide, setWide] = useState(false)
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
   const [showAddTask, setAddTask] = useState({ show: false, data: {} })
-  const [showAddSubtask, setAddSubtask] = useState({ show: false, data: {} })
 
   // ilagay ko pa ito sa context, but idk how kunin or what, so i'll just leave it here
   const [loggedIn, setLoggedIn] = useState(true)
@@ -49,7 +48,7 @@ function App() {
     {
       // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
-      element: <SpinnerOfDoom />,
+      element: <FormSample />,
     },
     {
       path: "*",
@@ -120,11 +119,10 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks setAddSubtask={setAddSubtask} />
+            <Tasks />
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -136,11 +134,10 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks setAddSubtask={setAddSubtask} />
+            <Tasks  />
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -155,7 +152,7 @@ function App() {
             <Users />
             </div>
           </div>
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
     },
@@ -170,7 +167,7 @@ function App() {
             <Settings />
             </div>
           </div>
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
     },
@@ -185,7 +182,7 @@ function App() {
             <Subtask />
             </div>
           </div>
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
     },
@@ -200,7 +197,7 @@ function App() {
             <Dashboard />
             </div>
           </div>
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
+          {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
     },
@@ -212,11 +209,10 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Calendar setAddSubtask={setAddSubtask} />
+            <Calendar />
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
-          {showAddSubtask.show ? <NewSubtask showAddSubtask={showAddSubtask} setAddSubtask={setAddSubtask} /> : null}
         </div>
       )
     },
@@ -269,3 +265,6 @@ function App() {
 }
 
 export default App
+
+
+  

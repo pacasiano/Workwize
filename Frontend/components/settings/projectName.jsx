@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const ProjectName = () => {
 
@@ -21,9 +22,17 @@ const ProjectName = () => {
 
     const onSubmit = (data) => {
         
-        if (data.project_name === undefined) return;
-        if (data.project_name.length < 1) return;
-        if (data.project_name.length > 25) return;
+        if (data.project_name === undefined){
+            toast.warning('Please enter a name');
+        }
+        if (data.project_name.length < 1){
+            toast.warning('Name too short');
+            return;
+        }
+        if (data.project_name.length > 25){
+            toast.warning('Name too long');
+            return;
+        }
 
         fetch(`http://localhost:8000/api/projects/${id}/`, {
             method: 'PATCH',
@@ -32,6 +41,7 @@ const ProjectName = () => {
         })
         .then(res => res.json())
         .then(data => {
+            toast.success('Project name updated');
             setProject(data);
             setEdit(false);
         });

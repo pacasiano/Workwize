@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCaretDown, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 export default function Label({tag_id, word, color, type, reload, setReload}) {
 
@@ -21,6 +22,7 @@ export default function Label({tag_id, word, color, type, reload, setReload}) {
             method: 'DELETE',
         })
         .then(() => {
+            toast.success('Label Deleted');
             console.log('Deleted')
             setReload(!reload);
         })

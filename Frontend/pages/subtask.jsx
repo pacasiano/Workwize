@@ -14,6 +14,8 @@ import Date from '../components/subtask/date';
 import Order from '../components/subtask/order';
 import Actions from '../components/subtask/actions';
 
+import { toast } from 'react-toastify';
+
 export default function Subtask() {
 
     const { subtask_id } = useParams();
@@ -46,7 +48,7 @@ export default function Subtask() {
 
 
         // change the title of the subtask
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,6 +58,7 @@ export default function Subtask() {
         .then(res => res.json())
         .then(data => {
             console.log("Subtask title changed")
+            toast.success('Task title has been changed successfully!');
             setReloadHere(!reloadHere);
             console.log(data)
         }
