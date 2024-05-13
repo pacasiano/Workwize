@@ -1,5 +1,4 @@
 import Topbar from '../components/general/topbar'
-import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction' // a plugin!
@@ -8,10 +7,6 @@ import Label from '../components/general/label';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function MyCalendar(){
-
-  MyCalendar.propTypes = {
-    setAddSubtask: PropTypes.func.isRequired
-  };
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -82,8 +77,8 @@ export default function MyCalendar(){
   return (
   <div className="max-h-screen overflow-y-scroll">
   <Topbar setTitle={"Calendar"} search={false} />
-  <div className="p-7">
-    <div className="bg-white/70 p-5 rounded-xl">
+  <div className="p-10">
+    <div className="backdrop-blur-sm bg-[#fbf9f7] p-5 rounded-xl">
 
       <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
@@ -92,18 +87,18 @@ export default function MyCalendar(){
         events={myEventsList}
         eventContent={(eventInfo) => {
           return (
-            <div className="p-2">
+            <div className="pt-1 px-1">
               <div className="flex flex-wrap gap-1">
               {eventInfo.event.extendedProps.states.map((tag, index) => (
                 <Label key={index} word={tag.word} color={tag.color} type={"1"} />
               ))}
               </div>
               <b>{eventInfo.event.title}</b>
-              <p className="text-wrap text-xs font-light">{eventInfo.event.extendedProps.desc}</p>
+              <p className="text-wrap text-xs font-light pb-1">{eventInfo.event.extendedProps.desc}</p>
             </div>
           );
         }}
-        height={580}
+        height={570}
         editable={true}
         selectable={true}
         initialView="dayGridMonth"

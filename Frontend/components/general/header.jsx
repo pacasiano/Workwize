@@ -40,7 +40,9 @@ const Header = ({loggedIn}) => {
                     </button>
                     :
                     <div>
-                        <FontAwesomeIcon className="w-10 h-7 pt-1 text-[#e6e4dd]" icon={faUserCircle} />
+                        <Link to={"/user/settings"} >
+                            <FontAwesomeIcon className="w-10 h-7 pt-1 text-[#e6e4dd]" icon={faUserCircle} />
+                        </Link>
                     </div>
                     }
 

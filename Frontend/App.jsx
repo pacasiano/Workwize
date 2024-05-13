@@ -18,10 +18,9 @@ import Error404 from "./components/general/error404.jsx"
 import Header from "./components/general/header.jsx"
 import Footer from "./components/general/footer.jsx"
 import Users from "./pages/users.jsx"
-import Faq from "./pages/faq.jsx"
-import Contact from "./pages/contact.jsx"
-import About from "./pages/about.jsx"
 import FormSample from "./pages/formSample.jsx"
+import NewUser from "./components/users/addUser.jsx";
+import UserSettings from "./pages/userSettings.jsx"
 
 // ito lang galawin mo remz
 import LoginSignin from "./pages/UserLoginSignin.jsx";
@@ -31,6 +30,7 @@ import NewProject from "./components/project/newProject";
 
 // Context
 import { ReloadContext } from "./context/contexts.jsx";
+import { AddUser } from "./context/addUser.jsx";
 
 function App() {
 
@@ -43,6 +43,7 @@ function App() {
 
   // context
   const [reload, setReload] = useState(false);
+  const [addUser, setAddUser] = useState(false);
 
   const router = createBrowserRouter([
     {
@@ -152,6 +153,7 @@ function App() {
             <Users />
             </div>
           </div>
+          {addUser ? <NewUser /> : null}
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
@@ -217,36 +219,12 @@ function App() {
       )
     },
     {
-      path: "/about",
+      path: "/user/settings",
       element: (
       <div className={`h-screen w-full`}>
         <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <About />
-        </div>
-        <Footer />
-      </div>
-      ),
-    },
-    {
-      path: "/contact",
-      element: (
-      <div className={`h-screen w-full`}>
-        <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <Contact />
-        </div>
-        <Footer />
-      </div>
-      ),
-    },
-    {
-      path: "/faq",
-      element: (
-      <div className={`h-screen w-full`}>
-        <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <Faq />
+        <div className="flex flex-col h-screen">
+          <UserSettings />
         </div>
         <Footer />
       </div>
@@ -257,9 +235,13 @@ function App() {
 
   return (
     <div className="bg-[#e4dede]">
-    <ReloadContext.Provider value={{reload, setReload}}>
-    <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
-    </ReloadContext.Provider>
+    
+    <AddUser.Provider value={{addUser, setAddUser}}>
+      <ReloadContext.Provider value={{reload, setReload}}>
+        <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
+      </ReloadContext.Provider>
+    </AddUser.Provider>
+    
     </div>
   )
 }

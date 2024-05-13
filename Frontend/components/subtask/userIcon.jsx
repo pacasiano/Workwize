@@ -9,8 +9,7 @@ import Delete from './userIconDelete';
 import { ReloadContext } from "../../context/contexts"
 import { useContext } from 'react';
 
-import { toast } from 'react-toastify';
-import { set } from 'react-hook-form';
+import { toast } from 'react-toastify'
 
 export default function UserIcon() {
 
