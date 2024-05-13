@@ -131,10 +131,10 @@ class ProjectDetail(APIView):
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class UserProjectView(APIView):
+class UserProjectDetail(APIView):
     # Update the role of a user in a project
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwner]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated, IsOwner]
 
     def patch(self, request, project_pk, user_pk, format=None):
         try:
