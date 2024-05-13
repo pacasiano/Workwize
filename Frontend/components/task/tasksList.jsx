@@ -98,7 +98,7 @@ const TasksList = ({ task, subtasks }) => {
 
     return (
         <div className="relative h-fit  select-none">
-            <div className="relative flex flex-col gap-3 p-4 rounded-xl backdrop-blur-sm drop-shadow bg-white/50">
+            <div className="relative flex flex-col gap-3 p-4 rounded-xl backdrop-blur-sm bg-[#fbf9f7]/60">
                 <div className="flex flex-row justify-between items-center">
                     <div className="rounded-md font-bold text-xl text-black text-wrap w-48" >{task.task_name}</div>
                     <div className="hover:bg-neutral-300 active:bg-neutral-200 h-6 flex flexrow justify-center items-center text-center rounded-md">

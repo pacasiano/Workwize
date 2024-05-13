@@ -31,8 +31,8 @@ class Project(models.Model):
 class UserProject(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     project_id = models.ForeignKey(Project, on_delete=models.CASCADE)
-    ROLE_CHOICES = [('manager', 'manager'), ('member', 'member')]
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES) 
+    ROLE_CHOICES = [('owner', 'owner'), ('manager', 'manager'), ('member', 'member')]
+    role = models.CharField(max_length=7, choices=ROLE_CHOICES) 
 
 class Task(models.Model):
     task_id = models.AutoField(primary_key=True)

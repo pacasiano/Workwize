@@ -31,9 +31,10 @@ export default function Landing() {
       }, 100);
     }
   }, [location]);
-  // bg-[#e4dede]
+  
   return (
-    <div className="flex flex-col justify-start bg-[#e4dede]">
+    // bg-[#e4dede]
+    <div className="flex flex-col justify-start bg-[#e4dede]"> 
         <div className="relative top-0  border-b translate-y-[60px]">
             <div className="shrink-0 -translate-y-11"><object type="image/svg+xml" data={Projects} className="object-cover w-full" alt="HomeBodyPic">Your browser does not support SVG</object></div>
             <div className="absolute flex flex-col -translate-y-20 text-black/80 justify-start items-start text-left bottom-1/3 ml-44 w-80 -translate-x-5">
@@ -44,8 +45,8 @@ export default function Landing() {
         </div>
 
         <div className="relative">
-          <div className="absolute -top-44 w-full">
-            <img src={Wave} alt="wave" />
+          <div className="absolute -top-52 w-full">
+            <img src={Wave} alt="wave" draggable={false} />
           </div>
           <div className="flex flex-col z-10 pt-20 pb-14 px-14  drop-shadow-2xl">
             <div className="flex flex-row justify-around items-center ">

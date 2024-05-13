@@ -71,7 +71,7 @@ export default function NewProject({setAddProj}) {
             body: JSON.stringify({
                 user_id: parseInt(user_id),
                 project_id: parseInt(project_id),
-                role: "manager"
+                role: "owner"
             })
         })
         .then(res => res.json())

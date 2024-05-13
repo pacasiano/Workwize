@@ -66,7 +66,7 @@ export default function Home({setAddProj}) {
                         <div className="flex flex-col w-full border-t-2 border-black/10">
                             <div className="pt-2"></div>
                             <Selectable input={"projects"} child={"Projects"} selected={selected} setSelected={setSelected} />
-                            <Selectable input={"recents"} child={"Recents"} selected={selected} setSelected={setSelected} />
+                            {/* <Selectable input={"recents"} child={"Recents"} selected={selected} setSelected={setSelected} /> */}
                             <Selectable input={"starred"} child={"Starred"} selected={selected} setSelected={setSelected} />
                         </div>
                     </div>
