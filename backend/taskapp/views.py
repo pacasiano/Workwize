@@ -130,6 +130,23 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class UserProjectView(APIView):
+    # Update the role of a user in a project
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
+
+    def patch(self, request, project_pk, user_pk, format=None):
+        try:
+            user_project = UserProject.objects.get(project_id=project_pk, user_id=user_pk)
+        except UserProject.DoesNotExist:
+            return Response({'error': 'UserProject not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserProjectSerializer(instance=user_project, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TaskList(APIView):
