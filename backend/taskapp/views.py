@@ -42,6 +42,26 @@ class LabelView(viewsets.ModelViewSet):
     queryset = Label.objects.all()
 
 
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        if not username or not password:
+            return Response({'error': 'Please provide username and password'}, status=400)
+
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'error': 'Invalid username or password'}, status=401)
+
+        #check_password is provided by django to check plain text pw (login input) against the db hashed password
+        if user and user.check_password(password): 
+            user_data = {'user_id': user.user_id, 'first_name': user.first_name, 'last_name': user.last_name, 'username': user.username, 'email': user.email}
+            return Response({'message': 'Login successful', 'user': user_data})
+        else:
+            return Response({'error': 'Invalid username or password'}, status=401)
+
 
 '''
 Actual API for CRUD
