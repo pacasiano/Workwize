@@ -35,7 +35,7 @@ export default function Landing() {
   return (
     // bg-[#e4dede]
     <div className="flex flex-col justify-start bg-[#e4dede]"> 
-        <div className="relative top-0  border-b translate-y-[60px]">
+        <div className="relative top-0 translate-y-[60px]">
             <div className="shrink-0 -translate-y-11"><object type="image/svg+xml" data={Projects} className="object-cover w-full" alt="HomeBodyPic">Your browser does not support SVG</object></div>
             <div className="absolute flex flex-col -translate-y-20 text-black/80 justify-start items-start text-left bottom-1/3 ml-44 w-80 -translate-x-5">
               <div className="flex justify-center text-center text-md flex-nowrap">Welcome to <div className="font-mono pl-2">Workwize.</div></div>
@@ -45,8 +45,8 @@ export default function Landing() {
         </div>
 
         <div className="relative">
-          <div className="absolute -top-52 w-full">
-            <img src={Wave} alt="wave" draggable={false} />
+          <div className="absolute w-full min-w-screen -top-16 sm:-top-32 md:-top-36 lg:-top-44 xl:-top-60 left-0 overflow-hiddenresize-none shrink-0 z-20">
+            <img src={Wave} alt="wave" draggable={true} />
           </div>
           <div className="flex flex-col z-10 pt-20 pb-14 px-14  drop-shadow-2xl">
             <div className="flex flex-row justify-around items-center ">
