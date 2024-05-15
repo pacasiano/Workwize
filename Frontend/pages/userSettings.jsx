@@ -16,6 +16,8 @@ export default function UserSettings() {
 
     const logout = () => {
         clearUserData();
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('userData');
         toast.success("Logged out successfully");
         navigate("/");
 
