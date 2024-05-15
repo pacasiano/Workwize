@@ -21,7 +21,7 @@ export default function Home({setAddProj}) {
     const { user } = useContext(UserContext);
 
     // di ito normal, dapat kunin ang user_id somewhere
-    const [user_id] = useState(2)
+    const [user_id] = useState(user.user_id)
 
     const [project_ids, setProjectIds] = useState([])
     const [projects, setProjects] = useState([])
