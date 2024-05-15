@@ -2,18 +2,15 @@
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
-import { UserContext } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
 
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate()
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
 
     if(data.password !== data.confirm_password) {
       toast.error("Passwords do not match");
@@ -68,6 +65,8 @@ function SignUpPage() {
       toast.error("Please enter a valid email");
       return;
     }
+
+    console.log(data)
 
     try {
       const res = await fetch('http://localhost:8000/auth/users/', {
