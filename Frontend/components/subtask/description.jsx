@@ -20,9 +20,23 @@ export default function Description() {
     const { register, handleSubmit } = useForm();
     
     useEffect(() => {
-    fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
-    .then(res => res.json())
-    .then(data => setDesc(data.description));
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(data => setDesc(data.description));
+
     }, [subtask_id]);
 
     const onSubmit = (data) => {
@@ -44,9 +58,19 @@ export default function Description() {
             return;
         } 
 
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(res => res.json())

@@ -13,14 +13,38 @@ export default function TaskCard({task_id, subtask_data}) {
     const { id } = useParams();
     const [labels, setLabels] = useState([]);
 
+
     useEffect(() => {
-        fetch(`http://localhost:8000/api/labels/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchLabels = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/labels/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching labels inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             const filteredLabels = data.filter(label => label.subtask_id === subtask_data.subtask_id);
             setLabels(filteredLabels);
-        });
-    }, [subtask_data]);    
+          } catch (error) {
+            console.error('Error fetching labels in catch block: ', error);
+          }
+        };
+      
+        fetchLabels();
+      }, [subtask_data]);
 
     return (
         <div className="flex flex-row gap-0 ">

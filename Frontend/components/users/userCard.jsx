@@ -18,9 +18,18 @@ export const UserCard = ({user, reload, setReload}) => {
     const setUserRole = (e) => {
         // change role of user
 
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         fetch(`http://localhost:8000/projects/${id}/users/${user.user_id}/`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `JWT ${accessToken}`, 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({role: e.value})
@@ -43,8 +52,20 @@ export const UserCard = ({user, reload, setReload}) => {
             return
         }
 
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         fetch(`http://localhost:8000/projects/${id}/users/${user.user_id}/`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
         })
         .then(() => {
         toast.success(`${user.first_name} ${user.last_name} removed from project`)

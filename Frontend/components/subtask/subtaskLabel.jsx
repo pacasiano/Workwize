@@ -15,7 +15,20 @@ export default function NewSublabel() {
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/labels/`)
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/labels/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => {
             const filteredLabels = data.filter(label => label.subtask_id === parseInt(subtask_id));
@@ -34,10 +47,19 @@ export default function NewSublabel() {
         }
         if (hex === '') {toast.warning(`Color not selected`); return;}
 
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
 
         fetch('http://localhost:8000/labels/', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 subtask_id: subtask_id,
                 label_name: tagName,

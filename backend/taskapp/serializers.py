@@ -38,3 +38,17 @@ class LabelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Label
         fields = ('label_id', 'subtask_id', 'label_name', 'color')
+
+
+# JWT Setup
+from djoser.serializers import UserSerializer as DjoserUserSerializer, UserCreateSerializer as BaseUserSerializer
+
+class UserCreateSerializer(BaseUserSerializer):
+    class Meta(BaseUserSerializer.Meta):
+        model = User
+        fields = ['id', 'email', 'username', 'password']
+
+class CurrentUserSerializer(DjoserUserSerializer):
+    class Meta(DjoserUserSerializer.Meta):
+        model = User
+        fields = ['id', 'email', 'username', 'password']

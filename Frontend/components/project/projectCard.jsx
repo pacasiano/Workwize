@@ -33,10 +33,20 @@ export default function ProjectCard({data, type}) {
     }
 
     const setNot = () => {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         //dapat ma set sa database na false
-        fetch(`http://localhost:8000/api/projects/${data.project_id}/`,{
+        fetch(`http://localhost:8000/projects/${data.project_id}/`,{
             method: 'PATCH',
-            headers: { 'content-Type': 'application/json' },
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({isStarred: false})
         })
         .then(res => {res.json()})
@@ -47,10 +57,20 @@ export default function ProjectCard({data, type}) {
     }
 
     const setYes = () => {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         //dapat ma set sa database na true
-        fetch(`http://localhost:8000/api/projects/${data.project_id}/`,{
+        fetch(`http://localhost:8000/projects/${data.project_id}/`,{
             method: 'PATCH',
-            headers: { 'content-Type': 'application/json' },
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({isStarred: true})
         })
         .then(res => {res.json()})

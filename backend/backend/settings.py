@@ -44,8 +44,32 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'taskapp',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'djoser'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',  # drf-spectacular settings
+}
+
+from datetime import timedelta
+AUTH_USER_MODEL = 'taskapp.User'
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+    'USER_ID_FIELD': 'user_id',
+}
+
+DJOSER = {
+    'USER_ID_FIELD': 'user_id',
+    'SERIALIZERS': {
+        'user': 'taskapp.serializers.UserSerializer',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

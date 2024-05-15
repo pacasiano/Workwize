@@ -2,18 +2,15 @@
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
-import { UserContext } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
 
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate()
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = data => {
+  const onSubmit = async (data) => {
 
     if(data.password !== data.confirm_password) {
       toast.error("Passwords do not match");
@@ -69,35 +66,43 @@ function SignUpPage() {
       return;
     }
 
-    fetch('http://localhost:8000/api/users/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: data.username,
-        email: data.email,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        password: data.password,
-      }),
-    })
-    .then(res => res.json())
-    .then(user => {
-      setUser({
-        user_id: user.user_id,
-        username: user.username,
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name,
-      });
-      toast.success(`Your account ${user.username} has been created successfully!`);
-      navigate("/");
-    })
+    console.log(data)
+
+    try {
+      const res = await fetch('http://localhost:8000/auth/users/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: data.username,
+          email: data.email,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          password: data.password,
+        }),
+      })
+  
+      if (!res.ok){
+        throw new Error(`Error: ${res.status}`)
+      }
+  
+      const resData = await res.json()
+      console.log("Sign up successful!")
+      toast.success(`Your account ${data.username} has been created successfully!`);
+      navigate("/login");
+    }
+    catch(error) {
+      console.error("Error:", error);
+      toast.error("An error occurred, please try again later.")
+
+      if (error.response && error.response.status === 400) {
+        console.error("Bad Request (400):", error.response.data); // Password too short
+        //Should prompt that password is too short or smtg
+      }
+    }
 
   }
-
-
 
   return (
     <>
@@ -130,7 +135,7 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="text" 
                     {...register("first_name", {})}
-                    required
+                    
                   />
                 </div>
                 <div className="flex-1">
@@ -138,7 +143,7 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="text" 
                     {...register("last_name", {})}
-                    required
+                    
                   />
                 </div>
               </div>
@@ -150,13 +155,13 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="password"  
                     {...register("password", {})}
-                    required
+                    
                   />
                   <label className='text-xs font-light -mb-1'>Confirm Password</label>
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="password"
                     {...register("confirm_password", {})}
-                    required
+                    
                   />
                 </div>
               </div>

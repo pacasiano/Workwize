@@ -19,23 +19,64 @@ export default function Users() {
     const [users, setUsers] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
 
+    // Fetch users in user-projects where project_id = id
     useEffect(() => {
-        // Fetch users in user-projects where project_id = id
-        fetch(`http://localhost:8000/api/user-projects/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchUserProjs = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/user-projects/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching user-projects inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             // get all users where project_id = id
             let users = data.filter(user => user.project_id === parseInt(id))
             setIdsOfUsers(users)
-            // console.log(users)
-        });
-    }, [id, reload])
+          } catch (error) {
+            console.error('Error fetching user-projects in catch block: ', error);
+          }
+        };
+      
+        fetchUserProjs();
+    }, [id, reload]);
 
+
+    // Fetch users in users where user_id = idsOfUsers.user_id
     useEffect(() => {
-        // Fetch users in users where user_id = idsOfUsers.user_id
-        fetch(`http://localhost:8000/api/users/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchUsers = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/users/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching users inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             // gets all users where user_id = idsOfUsers.user_id, then add a new value to the object (role)
             let users = data.filter(user => idsOfUsers.some(id => id.user_id === user.user_id)).map((user) => {
                 let role = idsOfUsers.filter(id => id.user_id === user.user_id).map((id) => id.role)
@@ -43,8 +84,14 @@ export default function Users() {
                 return user
             })
             setUsers(users)
-        });
-    }, [id, idsOfUsers, reload])
+          } catch (error) {
+            console.error('Error fetching users in catch block: ', error);
+          }
+        };
+      
+        fetchUsers();
+    }, [id, idsOfUsers, reload]);
+    
 
     useEffect(() => {
 

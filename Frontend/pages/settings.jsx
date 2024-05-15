@@ -14,18 +14,55 @@ export default function Settings() {
     const [deletable, setDeletable] = useState(false);
     const [project, setProject] = useState({});
 
+
     useEffect(() => {
-        fetch(`http://localhost:8000/api/projects/${id}/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchProject = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/projects/${id}/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching project with ID of ${id} inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             setProject(data);
-        })
-    }, [id]);
+          } catch (error) {
+            console.error(`Error fetching project with ID of ${id} in catch block: `, error);
+          }
+        };
+      
+        fetchProject();
+      }, [id]);
+
+    
 
     const onSubmit = () => {
-        fetch(`http://localhost:8000/api/projects/${id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/projects/${id}/`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json', 
+            },
         })
         .then(res => {
             if (!res.ok) {

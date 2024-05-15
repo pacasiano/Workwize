@@ -17,21 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from taskapp import views
-from rest_framework import routers
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserView, 'user')
-router.register(r'projects', views.ProjectView, 'project')
-router.register(r'user-projects', views.UserProjectView, 'userproject')
-router.register(r'tasks', views.TaskView, 'task')
-router.register(r'subtasks', views.SubtaskView, 'subtask')
-router.register(r'user-subtasks', views.UserSubtaskView, 'usersubtask')
-router.register(r'labels', views.LabelView, 'label')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    path('login/', views.LoginView.as_view()),
     path('tasks/', views.TaskList.as_view()),
     path('tasks/<int:pk>/', views.TaskDetail.as_view()),
     path('subtasks/', views.SubtaskList.as_view()),
@@ -43,5 +35,6 @@ urlpatterns = [
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
     path('user-subtasks/<int:userid>/<int:subtaskid>/', views.UserSubtaskDetail.as_view()),
+    path('user-projects/', views.UserProjectList.as_view()),
     path('projects/<int:project_pk>/users/<int:user_pk>/', views.UserProjectDetail.as_view()),
 ]

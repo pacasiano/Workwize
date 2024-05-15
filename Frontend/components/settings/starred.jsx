@@ -13,7 +13,19 @@ const Starred = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/projects/${id}/`)
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+        fetch(`http://localhost:8000/projects/${id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => setProject(data));
     }
@@ -21,22 +33,31 @@ const Starred = () => {
 
     const onSubmit = (data) => {
             
-            if (data.starred === undefined) return;
-            if (data.starred.length < 1) return;
-            if (data.starred.length > 25) return;
-    
-            fetch(`http://localhost:8000/api/projects/${id}/`, {
-                method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                setProject(data);
-                setEdit(false);
-            });
-    
+        if (data.starred === undefined) return;
+        if (data.starred.length < 1) return;
+        if (data.starred.length > 25) return;
+
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
         }
+    
+        fetch(`http://localhost:8000/projects/${id}/`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+            setProject(data);
+            setEdit(false);
+        });
+    }
 
     return (
         <div>
