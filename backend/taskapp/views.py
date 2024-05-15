@@ -59,6 +59,8 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+from django.contrib.auth.hashers import make_password
+
 class UserDetail(APIView):
     # Retrieve, update or delete a user instance.
     authentication_classes = [JWTAuthentication]
@@ -77,7 +79,14 @@ class UserDetail(APIView):
 
     def patch(self, request, pk, format=None):
         user = self.get_object(pk)
-        serializer = UserSerializer(instance = user, data=request.data, partial=True)
+
+        # We hash the password
+        if 'password' in request.data:
+            plain_password = request.data['password']
+            hashed_password = make_password(plain_password)
+            request.data['password'] = hashed_password 
+
+        serializer = UserSerializer(instance=user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
