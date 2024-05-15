@@ -92,9 +92,19 @@ const TasksList = ({ task, subtasks }) => {
     }, []);
 
     const deleteThis = () => {
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
         fetch(`http://localhost:8000/tasks/${task.task_id}/`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
         })
         .then(res => {
             if (res.ok) {
