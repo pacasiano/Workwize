@@ -37,8 +37,14 @@ import { useContext } from "react";
 function App() {
 
   // user information
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
+  // lagay ka dito ng checker ng session storage if may auth key?
+  // basta if meron kay meaning naka login yung user, idk pano siya tbh
+  // pero naga base rn if naka login yung user sa user context, PERO
+  // mawala yung user context pag nag refresh, so dapat kunin sa session storage
+  // if mag referesh ng page, so dapat may checker sa app.jsx na mag seset ng user
+  
   console.log(user)
 
   const [Wide, setWide] = useState(false)

@@ -14,8 +14,8 @@ export default function Login() {
 
     const onSubmit = async (data) => {
         if (data.username === "" || data.password === "") {
-          toast.error("Please fill in all fields");
-          return;
+            toast.error("Please fill in all fields");
+            return;
         }
 
         try {
@@ -27,11 +27,9 @@ export default function Login() {
                 body: JSON.stringify({username: data.username, password: data.password})
             });
             const loginData = await loginRes.json();
-            console.log(loginData);
-      
+
             if (loginData.message === 'Login successful') {
-                setUser(loginData.user);
-                console.log(user);
+                console.log(loginData.user);
             
                 const jwtRes = await fetch('http://localhost:8000/auth/jwt/create', {
                     method: "POST",
@@ -48,6 +46,8 @@ export default function Login() {
                     sessionStorage.setItem('accessToken', access);
                 }
                 console.log(jwtResData)
+                setUser(loginData.user)
+                console.log(user)
                 toast.success("Welcome! " + data.username);
                 navigate("/");
                 // window.location.href = "http://localhost:5173"
