@@ -18,10 +18,9 @@ import Error404 from "./components/general/error404.jsx"
 import Header from "./components/general/header.jsx"
 import Footer from "./components/general/footer.jsx"
 import Users from "./pages/users.jsx"
-import Faq from "./pages/faq.jsx"
-import Contact from "./pages/contact.jsx"
-import About from "./pages/about.jsx"
 import FormSample from "./pages/formSample.jsx"
+import NewUser from "./components/users/addUser.jsx";
+import UserSettings from "./pages/userSettings.jsx"
 
 // ito lang galawin mo remz
 import LoginSignin from "./pages/UserLoginSignin.jsx";
@@ -31,8 +30,16 @@ import NewProject from "./components/project/newProject";
 
 // Context
 import { ReloadContext } from "./context/contexts.jsx";
+import { AddUser } from "./context/addUser.jsx";
+import { UserContext } from "./context/userContext.jsx";
+import { useContext } from "react";
 
 function App() {
+
+  // user information
+  const { user } = useContext(UserContext);
+
+  console.log(user)
 
   const [Wide, setWide] = useState(false)
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
@@ -43,8 +50,64 @@ function App() {
 
   // context
   const [reload, setReload] = useState(false);
+  const [addUser, setAddUser] = useState(false);
 
-  const router = createBrowserRouter([
+  const notLoggedIn = createBrowserRouter([
+    {
+      path: "*",
+      element: <Error404 />,
+    },
+    {
+      index: true,
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={false} />
+          <div className="bg-[#e4dede]">
+            <Landing />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={false} disableMiddleLinks={true} />
+          <div className=" ">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/forgotpassword",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+  ]);
+
+  const isLoggedIn = createBrowserRouter([
     {
       // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
@@ -67,35 +130,13 @@ function App() {
       ),
     },
     {
-      path: "/login",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} />
-          <div className="bg-[#e4dede]">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
-      path: "/signup",
-      element: (
-        <div className={`h-screen w-full `}>
-          <Header loggedIn={loggedIn} />
-          <div className="bg-[#e4dede]">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
       path: "/forgotpassword",
       element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
+        <div className={`h-screen w-full bg-[#e4dede] `}>
           <Header loggedIn={loggedIn} />
-          <LoginSignin />
+          <div className="">
+            <LoginSignin />
+          </div>
           <Footer />
         </div>
       ),
@@ -119,7 +160,7 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks />
+            <Tasks setAddTask={setAddTask}/>
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
@@ -134,7 +175,7 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks  />
+            <Tasks setAddTask={setAddTask} />
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
@@ -152,6 +193,7 @@ function App() {
             <Users />
             </div>
           </div>
+          {addUser ? <NewUser /> : null}
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
         </div>
       )
@@ -217,49 +259,32 @@ function App() {
       )
     },
     {
-      path: "/about",
+      path: "/user/settings",
       element: (
       <div className={`h-screen w-full`}>
         <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <About />
-        </div>
-        <Footer />
-      </div>
-      ),
-    },
-    {
-      path: "/contact",
-      element: (
-      <div className={`h-screen w-full`}>
-        <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <Contact />
-        </div>
-        <Footer />
-      </div>
-      ),
-    },
-    {
-      path: "/faq",
-      element: (
-      <div className={`h-screen w-full`}>
-        <Header loggedIn={loggedIn} />
-        <div className="flex flex-col pt-[60px] h-screen">
-          <Faq />
+        <div className="flex flex-col h-screen">
+          <UserSettings />
         </div>
         <Footer />
       </div>
       ),
     },
   ]);
-  
 
   return (
     <div className="bg-[#e4dede]">
-    <ReloadContext.Provider value={{reload, setReload}}>
-    <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
-    </ReloadContext.Provider>
+    
+    <AddUser.Provider value={{addUser, setAddUser}}>
+      <ReloadContext.Provider value={{reload, setReload}}>
+        {user.user_id !== "" ? (
+        <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
+        ) : (
+        <RouterProvider router={notLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
+        )}
+      </ReloadContext.Provider>
+    </AddUser.Provider>
+    
     </div>
   )
 }

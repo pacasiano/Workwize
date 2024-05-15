@@ -8,7 +8,7 @@ import ProjectCard from "../components/project/projectCard"
 // Context Imports
 import { ReloadContext } from "../context/contexts"
 import { useContext } from 'react';
-
+import { UserContext } from "../context/userContext";
 
 export default function Home({setAddProj}) {
 
@@ -18,9 +18,10 @@ export default function Home({setAddProj}) {
 
     // context
     const { reload } = useContext(ReloadContext);
+    const { user } = useContext(UserContext);
 
     // di ito normal, dapat kunin ang user_id somewhere
-    const [user_id] = useState(1)
+    const [user_id] = useState(user.user_id)
 
     const [project_ids, setProject] = useState([])
     const [data, setData] = useState([])
@@ -66,7 +67,7 @@ export default function Home({setAddProj}) {
                         <div className="flex flex-col w-full border-t-2 border-black/10">
                             <div className="pt-2"></div>
                             <Selectable input={"projects"} child={"Projects"} selected={selected} setSelected={setSelected} />
-                            <Selectable input={"recents"} child={"Recents"} selected={selected} setSelected={setSelected} />
+                            {/* <Selectable input={"recents"} child={"Recents"} selected={selected} setSelected={setSelected} /> */}
                             <Selectable input={"starred"} child={"Starred"} selected={selected} setSelected={setSelected} />
                         </div>
                     </div>
