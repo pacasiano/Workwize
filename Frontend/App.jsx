@@ -31,8 +31,15 @@ import NewProject from "./components/project/newProject";
 // Context
 import { ReloadContext } from "./context/contexts.jsx";
 import { AddUser } from "./context/addUser.jsx";
+import { UserContext } from "./context/userContext.jsx";
+import { useContext } from "react";
 
 function App() {
+
+  // user information
+  const { user } = useContext(UserContext);
+
+  console.log(user)
 
   const [Wide, setWide] = useState(false)
   const [showAddProj, setAddProj] = useState({ show: false, data: {} })
@@ -45,7 +52,62 @@ function App() {
   const [reload, setReload] = useState(false);
   const [addUser, setAddUser] = useState(false);
 
-  const router = createBrowserRouter([
+  const notLoggedIn = createBrowserRouter([
+    {
+      path: "*",
+      element: <Error404 />,
+    },
+    {
+      index: true,
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={false} />
+          <div className="bg-[#e4dede]">
+            <Landing />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={false} disableMiddleLinks={true} />
+          <div className=" ">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/forgotpassword",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+  ]);
+
+  const isLoggedIn = createBrowserRouter([
     {
       // for testing purposes (dito mo ilagay ang link remz, change mo lang yung element)
       path : "/test",
@@ -68,35 +130,13 @@ function App() {
       ),
     },
     {
-      path: "/login",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} />
-          <div className="bg-[#e4dede]">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
-      path: "/signup",
-      element: (
-        <div className={`h-screen w-full `}>
-          <Header loggedIn={loggedIn} />
-          <div className="bg-[#e4dede]">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
       path: "/forgotpassword",
       element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
+        <div className={`h-screen w-full bg-[#e4dede] `}>
           <Header loggedIn={loggedIn} />
-          <LoginSignin />
+          <div className="">
+            <LoginSignin />
+          </div>
           <Footer />
         </div>
       ),
@@ -120,7 +160,7 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks />
+            <Tasks setAddTask={setAddTask}/>
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
@@ -135,7 +175,7 @@ function App() {
           <div className="pt-[60px] h-full w-full flex flex-row transition-all will-change-scroll">
             <Sidebar Wide={Wide} setWide={setWide}  setAddTask={setAddTask} />
             <div className="w-full max-h-screen overflow-auto bg-[#e4dede] scroll-smooth">
-            <Tasks  />
+            <Tasks setAddTask={setAddTask} />
             </div>
           </div>
           {showAddTask.show ? <NewTask setAddTask={setAddTask} /> : null}
@@ -231,14 +271,17 @@ function App() {
       ),
     },
   ]);
-  
 
   return (
     <div className="bg-[#e4dede]">
     
     <AddUser.Provider value={{addUser, setAddUser}}>
       <ReloadContext.Provider value={{reload, setReload}}>
-        <RouterProvider router={router} fallbackElement={<SpinnerOfDoom />}/>
+        {user.user_id !== "" ? (
+        <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
+        ) : (
+        <RouterProvider router={notLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
+        )}
       </ReloadContext.Provider>
     </AddUser.Provider>
     
