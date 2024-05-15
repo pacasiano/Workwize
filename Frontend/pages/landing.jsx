@@ -74,7 +74,7 @@ export default function Landing() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-20">
             {/* About */}
               <div className="flex flex-row gap-0 relative h-48 justify-start">
                   <div id="about" className="text-3xl/[11] font-bold text-center h-48 w-48 border-black/20 border-0 border-b-[2px] -rotate-90 ">About Us</div>
