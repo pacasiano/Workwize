@@ -25,13 +25,38 @@ export default function Subtask() {
     const [editTitle, setEditTitle] = useState(false);
     const { register, handleSubmit } = useForm();
 
+
     useEffect(() => {
+        const fetchSubtask = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching subtask with ID of ${subtask_id} inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
+            setSubtasks(data)
+          } catch (error) {
+            console.error(`Error fetching subtask with ID of ${subtask_id} in catch block: `, error);
+          }
+        };
+      
+        fetchSubtask();
+      }, [subtask_id, reloadHere]);
 
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
-        .then(res => res.json())
-        .then(data => {setSubtasks(data)});
-
-    }, [subtask_id, reloadHere]);
 
     const divRef = useRef(null);
 
@@ -46,11 +71,19 @@ export default function Subtask() {
             return
         }
 
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
 
         // change the title of the subtask
         fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
             headers: {
+                'Authorization': `JWT ${accessToken}`, 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)

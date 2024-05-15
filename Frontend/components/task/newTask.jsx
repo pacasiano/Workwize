@@ -37,9 +37,20 @@ export default function NewTask({setAddTask}) {
         if (hex.length < 1) {toast.warning("Please select a color"); return;}
         if (hex.length > 7) {toast.warning("Please select a color"); return;}
 
-        fetch('http://localhost:8000/api/tasks/', {
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch('http://localhost:8000/tasks/', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 project_id: parseInt(id),
                 task_name: data.task_name,

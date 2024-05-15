@@ -7,48 +7,46 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
-from .serializers import UserSerializer, ProjectSerializer, UserProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
-from .models import User, Project, UserProject, Task, Subtask, UserSubtask, Label
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsOwner
+from .serializers import UserSerializer, ProjectSerializer, UserProjectSerializer, UserProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
+from .models import User, Project, UserProject, UserProject, Task, Subtask, UserSubtask, Label
 
-class UserView(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
 
-class ProjectView(viewsets.ModelViewSet):
-    serializer_class = ProjectSerializer
-    queryset = Project.objects.all()
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-class UserProjectView(viewsets.ModelViewSet):
-    serializer_class = UserProjectSerializer
-    queryset = UserProject.objects.all()
+        if not username or not password:
+            return Response({'error': 'Please provide username and password'}, status=400)
 
-class TaskView(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
-    queryset = Task.objects.all()
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'error': 'Invalid username or password'}, status=401)
 
-class SubtaskView(viewsets.ModelViewSet):
-    serializer_class = SubtaskSerializer
-    queryset = Subtask.objects.all()
-
-class UserSubtaskView(viewsets.ModelViewSet):
-    serializer_class = UserSubtaskSerializer
-    queryset = UserSubtask.objects.all()
-
-class LabelView(viewsets.ModelViewSet):
-    serializer_class = LabelSerializer
-    queryset = Label.objects.all()
+        #check_password is provided by django to check plain text pw (login input) against the db hashed password
+        if user and user.check_password(password): 
+            user_data = {'user_id': user.user_id, 'first_name': user.first_name, 'last_name': user.last_name, 'username': user.username, 'email': user.email}
+            return Response({'message': 'Login successful', 'user': user_data})
+        else:
+            return Response({'error': 'Invalid username or password'}, status=401)
 
 
 '''
 Actual API for CRUD
 
-Warning: Doesn't follow DRY principle AT ALL :(
 Should use generics
+Warning: Doesn't follow DRY principle AT ALL :(
 '''
 
 class UserList(APIView):
     # List all users, or create a new user.
-    
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated, IsOwner]
+
     def get(self, request, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -61,8 +59,12 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+from django.contrib.auth.hashers import make_password
+
 class UserDetail(APIView):
     # Retrieve, update or delete a user instance.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, pk):
         try:
@@ -77,7 +79,14 @@ class UserDetail(APIView):
 
     def patch(self, request, pk, format=None):
         user = self.get_object(pk)
-        serializer = UserSerializer(instance = user, data=request.data, partial=True)
+
+        # We hash the password
+        if 'password' in request.data:
+            plain_password = request.data['password']
+            hashed_password = make_password(plain_password)
+            request.data['password'] = hashed_password 
+
+        serializer = UserSerializer(instance=user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -91,6 +100,8 @@ class UserDetail(APIView):
 
 class ProjectList(APIView):
     # List all projects, or create a new project.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
     def get(self, request, format=None):
         projects = Project.objects.all()
@@ -106,6 +117,8 @@ class ProjectList(APIView):
 
 class ProjectDetail(APIView):
     # Retrieve, update or delete a project instance.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, pk):
         try:
@@ -130,7 +143,24 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserProjectList(APIView):
+    # List all rows from UserProject model
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
+    def get(self, request, format=None):
+        projects = UserProject.objects.all()
+        serializer = UserProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class UserProjectDetail(APIView):
     # Update the role of a user in a project
     # authentication_classes = [JWTAuthentication]
@@ -164,6 +194,8 @@ class UserProjectDetail(APIView):
 
 class TaskList(APIView):
     # List all tasks, or create a new task.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
     def get(self, request, format=None):
         tasks = Task.objects.all()
@@ -179,6 +211,8 @@ class TaskList(APIView):
 
 class TaskDetail(APIView):
     # Retrieve, update or delete a task instance.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, pk):
         try:
@@ -207,6 +241,8 @@ class TaskDetail(APIView):
 
 class SubtaskList(APIView):
     # List all subtasks, or create a new subtask.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
     def get(self, request, format=None):
         subtasks = Subtask.objects.all()
@@ -222,6 +258,8 @@ class SubtaskList(APIView):
 
 class SubtaskDetail(APIView):
     # Retrieve, update or delete a subtask instance.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, pk):
         try:
@@ -247,15 +285,46 @@ class SubtaskDetail(APIView):
         subtask.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+class UserSubtaskList(APIView):
+    # List all user-subtask, or create a new user-subtask.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
+    
+    def get(self, request, format=None):
+        usersubtask = UserSubtask.objects.all()
+        serializer = UserSubtaskSerializer(usersubtask, many=True)
+        return Response(serializer.data)
 
+    def post(self, request, format=None):
+        serializer = UserSubtaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class UserSubtaskDetail(APIView):
     # Delete a User from a subtask
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, userid, subtaskid):
         try:
             return UserSubtask.objects.get(user_id = userid, subtask_id = subtaskid)
         except UserSubtask.DoesNotExist:
             raise Http404
+    
+    def get(self, request, pk, format=None):
+        usersubtask = self.get_object(pk)
+        serializer = UserSubtaskSerializer(instance = usersubtask)
+        return Response(serializer.data)
+
+    def patch(self, request, pk, format=None):
+        usersubtask = self.get_object(pk)
+        serializer = UserSubtaskSerializer(instance = usersubtask, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, userid, subtaskid, format=None):
         usersubtask = self.get_object(userid, subtaskid)
@@ -265,6 +334,8 @@ class UserSubtaskDetail(APIView):
 
 class LabelList(APIView):
     # List all labels, or create a new label.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
     def get(self, request, format=None):
         labels = Label.objects.all()
@@ -280,6 +351,8 @@ class LabelList(APIView):
 
 class LabelDetail(APIView):
     # Retrieve, update or delete a label instance.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, pk):
         try:

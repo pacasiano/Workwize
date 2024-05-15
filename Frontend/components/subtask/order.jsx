@@ -13,26 +13,69 @@ export default function Order() {
     const [edit, setEdit] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    useEffect(() => {
 
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
-        .then(res => res.json())
-        .then(data => {
+    useEffect(() => {
+        const fetchSubtask = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+            
+            if (!response.ok) {
+              throw new Error(`Error fetching subtask inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             if (data.order_num === null) {
                 setCurrentOrder(0);
                 return;
             }
             setCurrentOrder(data.order_num);
-        });
+          } catch (error) {
+            console.error('Error fetching subtask in catch block: ', error);
+          }
+        };
+        fetchSubtask();
 
-        fetch(`http://localhost:8000/api/subtasks/`)
-        .then(res => res.json())
-        .then(data => {
-            const filteredSubtasks = data.filter(subtask => subtask.task_id === parseInt(task_id));
-            const order = filteredSubtasks.map(subtask => subtask.order_num);
-            setOrder(order);
-        });
-
+        const fetchAllSubtasks = async () => {
+            try {
+              const accessToken = sessionStorage.getItem('accessToken');
+        
+              //Redirect to login if there's no access token
+              if (!accessToken) {
+                  window.location.href = "http://localhost:5173/login"
+                return;
+              }
+        
+              const response = await fetch(`http://localhost:8000/subtasks/`, {
+                  headers: {
+                      'Authorization': `JWT ${accessToken}`, 
+                  },
+              });
+              
+              if (!response.ok) {
+                throw new Error(`Error fetching subtasks inside try block: ${response.status}`);
+              }
+        
+              const data = await response.json();
+              const filteredSubtasks = data.filter(subtask => subtask.task_id === parseInt(task_id));
+              const order = filteredSubtasks.map(subtask => subtask.order_num);
+              setOrder(order);
+            } catch (error) {
+              console.error('Error fetching subtasks in catch block: ', error);
+            }
+          };
+          fetchAllSubtasks();
     }, [task_id, subtask_id]);
 
     const onSubmit = (data) => {
@@ -46,9 +89,19 @@ export default function Order() {
             return;
         }
 
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(res => res.json())

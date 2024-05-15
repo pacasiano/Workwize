@@ -27,9 +27,19 @@ const LastName = ({user, setUser}) => {
             return
         }
 
-        fetch(`http://localhost:8000/api/users/${user.user_id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/users/${user.user_id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(res => res.json())

@@ -12,27 +12,54 @@ export default function Login() {
 
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = data => {
-
-        if(data.username === "" || data.password === "") {
+    const onSubmit = async (data) => {
+        if (data.username === "" || data.password === "") {
             toast.error("Please fill in all fields");
             return;
         }
-        
-        fetch('http://localhost:8000/api/users/')
-        .then(res => res.json())
-        .then(users => {
-            console.log(users)
-            let userss = users.find(user => user.username === data.username && user.password === data.password);
-            if(userss) {
-                setUser(userss);
-                console.log(user);
+
+        try {
+            const loginRes = await fetch('http://localhost:8000/login/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username: data.username, password: data.password})
+            });
+            const loginData = await loginRes.json();
+
+            if (loginData.message === 'Login successful') {
+                console.log(loginData.user);
+            
+                const jwtRes = await fetch('http://localhost:8000/auth/jwt/create', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({username: data.username, password: data.password})
+                })
+
+                const jwtResData = await jwtRes.json();
+                const {access, refresh} = jwtResData;
+
+                if (access) {
+                    sessionStorage.setItem('accessToken', access);
+                    sessionStorage.setItem('userData', JSON.stringify(loginData.user));
+                }
+                console.log(jwtResData)
+                setUser(loginData.user)
+                console.log(user)
                 toast.success("Welcome! " + data.username);
-                navigate("/")
-            } else {
-                toast.error("Invalid email or password");
+                navigate("/");
+                // window.location.href = "http://localhost:5173"
+            } 
+            else {
+                toast.error("Invalid username or password");
             }
-        });
+        } 
+        catch (error) {
+            console.error("Error fetching users:", error);
+        }
     }
 
     return (
@@ -41,7 +68,7 @@ export default function Login() {
         <h2 className="text-center font-bold text-2xl">Login</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4 flex flex-col">
-            <label className="font-medium">Email</label>
+            <label className="font-medium">Username</label>
             <input className="w-full px-2 py-1 border border-gray-300 rounded"
                 type="text" 
                 id="email" 

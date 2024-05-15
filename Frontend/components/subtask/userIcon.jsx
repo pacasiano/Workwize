@@ -30,14 +30,33 @@ export default function UserIcon() {
     const [selected, setSelected] = useState([])
 
     useEffect(() => {
-    fetch(`http://localhost:8000/api/user-subtasks/`)
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/user-subtasks/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => {
             const filteredUsers = data.filter(user => user.subtask_id === parseInt(subtask_id));
             setUser_ids_in_subtask(filteredUsers);
         });
 
-    fetch(`http://localhost:8000/api/user-projects/`)
+        fetch(`http://localhost:8000/user-projects/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => {
             const filteredUsers = data.filter(user => user.project_id === parseInt(id));
@@ -47,8 +66,20 @@ export default function UserIcon() {
     }, [subtask_id, id, reload]);
 
     useEffect(() => {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
 
-        fetch(`http://localhost:8000/api/users/`)
+        fetch(`http://localhost:8000/users/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => {
             // filter the users that are in the project
@@ -79,12 +110,21 @@ export default function UserIcon() {
     }, [usersInProject, usersInSubtask, reload]);
 
     const onsubmit = () => {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
         
         // if initial.value is not in user_ids_in_subtask, add it
         selected.forEach(user => {
-            fetch('http://localhost:8000/api/user-subtasks/', {
+            fetch('http://localhost:8000/user-subtasks/', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     user_id: user.value,
                     subtask_id: subtask_id

@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -37,7 +37,21 @@ import { useContext } from "react";
 function App() {
 
   // user information
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  // lagay ka dito ng checker ng session storage if may auth key?
+  // basta if meron kay meaning naka login yung user, idk pano siya tbh
+  // pero naga base rn if naka login yung user sa user context, PERO
+  // mawala yung user context pag nag refresh, so dapat kunin sa session storage
+  // if mag referesh ng page, so dapat may checker sa app.jsx na mag seset ng user
+
+  const userData = sessionStorage.getItem('userData');
+  
+  useEffect(() => {
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, [userData, setUser]);
 
   console.log(user)
 
@@ -74,7 +88,7 @@ function App() {
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
           <Header loggedIn={false} disableMiddleLinks={true} />
-          <div className=" ">
+          <div className="">
             <LoginSignin />
           </div>
           <Footer />
@@ -85,7 +99,7 @@ function App() {
       path: "/signup",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <Header loggedIn={false} disableMiddleLinks={true} />
           <div className="">
             <LoginSignin />
           </div>
@@ -97,7 +111,7 @@ function App() {
       path: "/forgotpassword",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <Header loggedIn={false} disableMiddleLinks={true} />
           <div className="">
             <LoginSignin />
           </div>
@@ -282,6 +296,7 @@ function App() {
         ) : (
         <RouterProvider router={notLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
         )}
+        {/* <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/> */}
       </ReloadContext.Provider>
     </AddUser.Provider>
     
