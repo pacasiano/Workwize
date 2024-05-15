@@ -44,6 +44,7 @@ export default function Login() {
 
                 if (access) {
                     sessionStorage.setItem('accessToken', access);
+                    sessionStorage.setItem('userData', JSON.stringify(loginData.user));
                 }
                 console.log(jwtResData)
                 setUser(loginData.user)

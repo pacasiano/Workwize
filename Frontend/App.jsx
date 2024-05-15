@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -44,7 +44,15 @@ function App() {
   // pero naga base rn if naka login yung user sa user context, PERO
   // mawala yung user context pag nag refresh, so dapat kunin sa session storage
   // if mag referesh ng page, so dapat may checker sa app.jsx na mag seset ng user
+
+  const userData = sessionStorage.getItem('userData');
   
+  useEffect(() => {
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, [userData, setUser]);
+
   console.log(user)
 
   const [Wide, setWide] = useState(false)
@@ -76,6 +84,30 @@ function App() {
       ),
     },
     {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/siginup",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
       path: "/forgotpassword",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
@@ -98,30 +130,6 @@ function App() {
     {
       path: "*",
       element: <Error404 />,
-    },
-    {
-      path: "/login",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={false} disableMiddleLinks={true} />
-          <div className=" ">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
-      path: "/signup",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
-          <div className="">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
     },
     {
       index: true,
@@ -283,12 +291,12 @@ function App() {
     
     <AddUser.Provider value={{addUser, setAddUser}}>
       <ReloadContext.Provider value={{reload, setReload}}>
-        {/* {user.user_id !== "" ? (
+        {user.user_id !== "" ? (
         <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
         ) : (
         <RouterProvider router={notLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
-        )} */}
-        <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
+        )}
+        {/* <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/> */}
       </ReloadContext.Provider>
     </AddUser.Provider>
     
