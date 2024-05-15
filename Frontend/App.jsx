@@ -76,30 +76,6 @@ function App() {
       ),
     },
     {
-      path: "/login",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={false} disableMiddleLinks={true} />
-          <div className=" ">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
-      path: "/signup",
-      element: (
-        <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
-          <div className="">
-            <LoginSignin />
-          </div>
-          <Footer />
-        </div>
-      ),
-    },
-    {
       path: "/forgotpassword",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
@@ -122,6 +98,30 @@ function App() {
     {
       path: "*",
       element: <Error404 />,
+    },
+    {
+      path: "/login",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={false} disableMiddleLinks={true} />
+          <div className=" ">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
+    },
+    {
+      path: "/signup",
+      element: (
+        <div className={`h-screen w-full bg-[#e4dede]`}>
+          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <div className="">
+            <LoginSignin />
+          </div>
+          <Footer />
+        </div>
+      ),
     },
     {
       index: true,
@@ -283,11 +283,12 @@ function App() {
     
     <AddUser.Provider value={{addUser, setAddUser}}>
       <ReloadContext.Provider value={{reload, setReload}}>
-        {user.user_id !== "" ? (
+        {/* {user.user_id !== "" ? (
         <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
         ) : (
         <RouterProvider router={notLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
-        )}
+        )} */}
+        <RouterProvider router={isLoggedIn} fallbackElement={<SpinnerOfDoom />}/>
       </ReloadContext.Provider>
     </AddUser.Provider>
     

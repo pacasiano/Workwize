@@ -44,7 +44,7 @@ export default function Tasks({setAddTask}) {
             if (!response.ok) {
               throw new Error(`Error fetching tasks inside try block: ${response.status}`);
             }
-      
+            
             const data = await response.json();
             // get all tasks where project_id = id
             const tasks = data.filter(task => task.project_id === parseInt(id));
@@ -78,7 +78,6 @@ export default function Tasks({setAddTask}) {
             if (!response.ok) {
               throw new Error(`Error fetching subtasks inside try block: ${response.status}`);
             }
-      
             const data = await response.json();
             setSubtasks(data)
           } catch (error) {
@@ -103,6 +102,7 @@ export default function Tasks({setAddTask}) {
                       'Authorization': `JWT ${accessToken}`, 
                   },
               });
+
         
               if (!response.ok) {
                 throw new Error(`Error fetching project with ID of ${id} inside try block: ${response.status}`);

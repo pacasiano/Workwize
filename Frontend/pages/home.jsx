@@ -21,7 +21,7 @@ export default function Home({setAddProj}) {
     const { user } = useContext(UserContext);
 
     // di ito normal, dapat kunin ang user_id somewhere
-    const [user_id] = useState(user.user_id)
+    const [user_id] = useState(2)
 
     const [project_ids, setProjectIds] = useState([])
     const [projects, setProjects] = useState([])
@@ -53,6 +53,8 @@ export default function Home({setAddProj}) {
             const data = await response.json();
             // get all projects where user_id = user_id
             let projects = data.filter(project => project.user_id === user_id)
+            console.log('i am proojects')
+            console.log(projects)
             setProjectIds(projects)
           } catch (error) {
             console.error('Error fetching user-projects in catch block: ', error);
@@ -79,7 +81,7 @@ export default function Home({setAddProj}) {
                     'Authorization': `JWT ${accessToken}`, 
                 },
             });
-      
+            
             if (!response.ok) {
               throw new Error(`Error fetching projects inside try block: ${response.status}`);
             }
@@ -94,7 +96,6 @@ export default function Home({setAddProj}) {
             console.error('Error fetching projects in catch block: ', error);
           }
         };
-      
         fetchProjects();
       }, [project_ids, reload]);
 
