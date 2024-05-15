@@ -10,6 +10,8 @@ import { useState } from "react";
 import { ReloadContext } from "../../context/contexts";
 import { useContext } from 'react';
 
+import { toast } from "react-toastify";
+
 export default function ProjectCard({data, type}) {
 
     ProjectCard.propTypes = {
@@ -39,6 +41,7 @@ export default function ProjectCard({data, type}) {
         })
         .then(res => {res.json()})
         .catch(error => {console.error(error)})
+        toast.info(`${data.project_name} has been unstarred!`)
         setStar(false)
         setReload(!reload)
     }
@@ -52,6 +55,7 @@ export default function ProjectCard({data, type}) {
         })
         .then(res => {res.json()})
         .catch(error => {console.error(error)})
+        toast.info(`${data.project_name} has been starred!`)
         setStar(true)
         setReload(!reload)
     }
@@ -59,7 +63,7 @@ export default function ProjectCard({data, type}) {
     return (
     <>
         {type === 1 ? (
-        <div className="p-5 h-28 group bg-neutral-200 hover:bg-neutral-400 hover:cursor-pointer hover drop-shadow-sm rounded-md w-56 select-none">
+        <div className="p-5 h-28 group bg-neutral-300 hover:bg-neutral-400/40 hover:cursor-pointer hover drop-shadow-sm rounded-md w-56 select-none">
             <div className="flex flex-col justify-center items-center h-full gap-2">
                 <div  className="text-md font-light text-black/50 group-hover:text-black">
                     Add new Poject

@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-        <div className="w-full p-3 px-5 bg-black/90">
+        <div className="w-full p-3 px-5 bg-neutral-800">
             <div className="flex flex-row justify-between items-center">
                 {/* footer links */}
                 <div className='mr-24 flex flex-row gap-5'>

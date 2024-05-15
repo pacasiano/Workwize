@@ -11,6 +11,8 @@ import Sketch from '@uiw/react-color-sketch';
 import { ReloadContext } from '../../context/contexts';
 import { useContext } from 'react';
 
+import { toast } from 'react-toastify';
+
 export default function NewProject({setAddProj}) {
 
     NewProject.propTypes = {
@@ -22,7 +24,7 @@ export default function NewProject({setAddProj}) {
 
     // form
     const { register, handleSubmit } = useForm();
-    const [hex, setHex] = useState('#ffffff');
+    const [hex, setHex] = useState('');
 
     // data
     const [user_id] = useState(1)
@@ -31,11 +33,13 @@ export default function NewProject({setAddProj}) {
 
     // Create a new project
     const onSubmit = (data) => {
-        if (data.project_name === undefined) return;
-        if (data.project_name.length < 1) return;
-        if (data.project_name.length > 25) return;
-
-        console.log(data)
+        if (data.project_name === undefined){toast.warning('Project name is empty');return;}
+        if (data.project_name.length < 1){toast.warning('Project name is empty'); return;}
+        if (data.project_name.length > 25) {toast.warning('Project name is too long'); return;}
+        if (hex === undefined){toast.warning('Color is empty'); return;}
+        if (hex.length < 1){toast.warning('Color is empty, please select a color'); return;}
+        if (hex.length > 7){toast.warning('Color is too long'); return;}
+        if (hex === ""){toast.warning('Color is invalid'); return;}
 
         fetch('http://localhost:8000/api/projects/', {
             method: 'POST',
@@ -51,6 +55,7 @@ export default function NewProject({setAddProj}) {
             setAddProj({ show: false, data: {} });
             linkUser(newProj.project_id);
             console.log("This is the data from project creation" + newProj)
+            toast.success(`Project ${newProj.project_name} has been created successfully!`);
         })
         .catch(err => console.error(err));
     }
@@ -80,8 +85,8 @@ export default function NewProject({setAddProj}) {
 
     return (
     <div className="justify-center flex items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none backdrop-brightness-90 focus:outline-none select-none">
-        <div className="relative bg-white rounded-xl w-1/3 px-10 py-6 flex flex-col gap-1">
-            <h1 className="text-xl font-bold pb-2">New Project</h1>
+        <div className="relative bg-white rounded-xl w-96 px-10 py-6 flex flex-col gap-1">
+            <h1 className="text-xl font-bold pb-5">New Project</h1>
             <section className='flex flex-col w-full'>
                 <div onClick={()=> setAddProj({ show: false, data: {} })} className="absolute top-4 right-4 hover:cursor-pointer">
                     <FontAwesomeIcon icon={faCircleXmark} className="text-black/60 text-xl" />
@@ -90,7 +95,7 @@ export default function NewProject({setAddProj}) {
                     <div className='flex flex-col gap-3 w-full'>
                         <section className="relative ">
                             <div className='absolute z-10 -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm h-0'>Project Name</div></div>
-                            <input type="text" id='name' {...register("project_name", {required: true, max: 25, min: 1})} onChange={(e) => {setName(e.target.value)}} className='w-full h-11 rounded-sm bg-inherit outline-none border border-black/30 px-3' />
+                            <input type="text" id='name' {...register("project_name", {})} onChange={(e) => {setName(e.target.value)}} className='w-full h-11 rounded-sm bg-inherit outline-none border border-black/30 px-3' />
                         </section>
                         <section className='relative rounded-sm bg-inherit outline-none border border-black/30 p-2'>
                         <div className='absolute z-10 -top-3 left-3 bg-[#fbf9f7] translate-y-[11px] h-1'><div className='-translate-y-[9px] text-sm'>Color</div></div>

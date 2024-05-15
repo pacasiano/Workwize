@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Compact from '@uiw/react-color-compact';
 import Tag from '../general/label';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 export default function NewSublabel() {
 
@@ -10,7 +11,7 @@ export default function NewSublabel() {
     const [show, setShow] = useState(false);
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
     const [tagName, setTagName] = useState('');
-    const [hex, setHex] = useState('#F44E3B');
+    const [hex, setHex] = useState('');
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
@@ -22,16 +23,19 @@ export default function NewSublabel() {
         });
     }, [subtask_id, reload])
 
-    const addTag = () => {
+    const addTag = (e) => {
+        e.preventDefault();
         
-        if (tagName === '') return;
-        if (tagName.length < 3) return;
+        if (tagName === '') {toast.warning(`Label name too short`); return;}
+        if (tagName.length < 1) {toast.warning(`Label name too short`); return;}
         if (tagName.length > 20) {
-            alert('Tag name should be less than 20 characters');
+            toast.warning(`Label name too long`);
             return;
         }
+        if (hex === '') {toast.warning(`Color not selected`); return;}
 
-        fetch('http://localhost:8000/api/labels/', {
+
+        fetch('http://localhost:8000/labels/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -42,6 +46,7 @@ export default function NewSublabel() {
         })
         .then(res => res.json())
         .then(newLabels => {
+            toast.success(`Label ${tagName} has been added`);
             setLabelsData([...labelsData, newLabels]);
             setTagName('');
             setHex('#F44E3B');
@@ -69,17 +74,19 @@ export default function NewSublabel() {
                 <div onClick={()=> setShow(false)} className="absolute right-3 top-1 text-black/50 hover font-bold hover:scale-125 cursor-pointer">
                     x
                 </div>
-                <div className="">
-                    <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-inherit outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
-                </div>
-                <Compact
-                
-                colors={colors}
-                color={hex}
-                onChange={(color) => {setHex(color.hex);}}
-                style={{backgroundColor: "inherit"}}
-                />
-                <button onClick={addTag} className="bg-blue-900/80 rounded-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                <form onSubmit={addTag}>
+                    <div className="">
+                        <input onChange={(e)=> setTagName(e.target.value)} value={tagName} className="bg-inherit outline-none rounded-t-md w-60 h-10 pl-2" placeholder="Tag Name" />
+                    </div>
+                    <Compact
+                    
+                    colors={colors}
+                    color={hex}
+                    onChange={(color) => {setHex(color.hex);}}
+                    style={{backgroundColor: "inherit"}}
+                    />
+                    <button type="submit" className="bg-blue-900/80 rounded-[4px] text-white w-full hover:bg-blue-900/90 text-sm">Add</button>
+                </form>
             </div>
         </div>
     )

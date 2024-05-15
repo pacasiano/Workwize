@@ -1,17 +1,26 @@
 import Topbar from "../components/general/topbar"
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProjectName from "../components/settings/projectName"
 import Background from "../components/settings/background";
-import Starred from "../components/settings/starred";
 
+import { toast } from 'react-toastify';
 
 export default function Settings() {
 
     const { id } = useParams();
     const navigate = useNavigate();
     const [deletable, setDeletable] = useState(false);
+    const [project, setProject] = useState({});
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/api/projects/${id}/`)
+        .then(res => res.json())
+        .then(data => {
+            setProject(data);
+        })
+    }, [id]);
 
     const onSubmit = () => {
         fetch(`http://localhost:8000/api/projects/${id}/`, {
@@ -30,11 +39,13 @@ export default function Settings() {
             return res.json(); // Parse JSON response
         })
         .then(data => {
+            toast.success(`${project.project_name} has been deleted successfully!`);
             navigate('/project');
             console.log(data);
         })
         .catch(error => {
             console.error('Error deleting project:', error);
+            toast.error('Error deleting project');
             // Handle the error, e.g., show an error message to the user
         });
     }

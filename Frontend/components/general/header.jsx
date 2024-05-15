@@ -1,9 +1,9 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
+import Activity from '../../assets/activity.svg';
 
 const Header = ({loggedIn}) => {
 
@@ -12,25 +12,25 @@ const Header = ({loggedIn}) => {
     }; 
 
     return (
-        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-neutral-900">
+        <div className="fixed z-50 top-0 w-full p-3 px-5 bg-neutral-800">
             <div className="flex flex-row gap-10 justify-between items-center">
 
                 <Link to={"/"} className="flex flex-row justify-start items-center gap-2 ">
-                    <FontAwesomeIcon className="text-3xl text-pink-500" icon={faFolder} />
-                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500 text-3xl font-black'>Projects</div>
+                    <img src={Activity } alt="logo" className='h-8 ' />
+                    <div className='bg-clip-text text-transparent bg-gradient-to-r from-[#e4dede] to-[#e4dede] text-3xl font-black'>Workwize</div>
                 </Link>
                 
                 <div className=' flex flex-row gap-5 justify-center'>
-                    <Link to="/about" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
-                    <Link to="/contact" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
-                    <Link to="/faq" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
+                    <Link to="/#about" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">About</Link>
+                    <Link to="/#contact" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Contact</Link>
+                    <Link to="/#faq" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">FAQ</Link>
                 </div>
 
                 <div className='flex flex-row justify-end items-center gap-5 '>
 
                     {loggedIn &&
                     <div className='flex flex-row gap-5'>
-                    <Link to="/project" className="text-white text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Projects</Link>
+                    <Link to="/project" className="text-[#e6e4dd] text-md font-bold transition-all ease-in-out hover:scale-105 hover:cursor-pointer">Projects</Link>
                     </div>
                     }
 
@@ -40,7 +40,7 @@ const Header = ({loggedIn}) => {
                     </button>
                     :
                     <div>
-                        <FontAwesomeIcon className="w-10 h-7 pt-1 text-white" icon={faUserCircle} />
+                        <FontAwesomeIcon className="w-10 h-7 pt-1 text-[#e6e4dd]" icon={faUserCircle} />
                     </div>
                     }
 

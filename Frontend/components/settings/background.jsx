@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Sketch from '@uiw/react-color-sketch';
+import { toast } from 'react-toastify';
 
 const Background = () => {
 
@@ -13,7 +14,7 @@ const Background = () => {
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
 
     // form data
-    const [hex, setHex] = useState('#ffffff');
+    const [hex, setHex] = useState('');
     const { handleSubmit } = useForm();
 
 
@@ -29,9 +30,18 @@ const Background = () => {
 
     const onSubmit = () => {
 
-        if(hex === undefined) return;
-        if(hex === '') return;
-        if(hex === project.background) return;
+        if(hex === undefined){
+            toast.warning('Please enter a color');
+            return;
+        }
+        if(hex === ''){
+            toast.warning('Please enter a color');
+            return;
+        }
+        if(hex === project.background){
+            toast.error('Color is the same');
+            return;
+        }
         
         fetch(`http://localhost:8000/api/projects/${id}/`, {
             method: 'PATCH',
@@ -40,6 +50,7 @@ const Background = () => {
         })
         .then(res => res.json())
         .then(data => {
+            toast.success('Color updated');
             setProject(data);
             setEdit(false);
         });
