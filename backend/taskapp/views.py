@@ -13,34 +13,6 @@ from .permissions import IsOwner
 from .serializers import UserSerializer, ProjectSerializer, UserProjectSerializer, UserProjectSerializer, TaskSerializer, SubtaskSerializer, UserSubtaskSerializer, LabelSerializer
 from .models import User, Project, UserProject, UserProject, Task, Subtask, UserSubtask, Label
 
-class UserView(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-class ProjectView(viewsets.ModelViewSet):
-    serializer_class = ProjectSerializer
-    queryset = Project.objects.all()
-
-class UserProjectView(viewsets.ModelViewSet):
-    serializer_class = UserProjectSerializer
-    queryset = UserProject.objects.all()
-
-class TaskView(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
-    queryset = Task.objects.all()
-
-class SubtaskView(viewsets.ModelViewSet):
-    serializer_class = SubtaskSerializer
-    queryset = Subtask.objects.all()
-
-class UserSubtaskView(viewsets.ModelViewSet):
-    serializer_class = UserSubtaskSerializer
-    queryset = UserSubtask.objects.all()
-
-class LabelView(viewsets.ModelViewSet):
-    serializer_class = LabelSerializer
-    queryset = Label.objects.all()
-
 
 class LoginView(APIView):
     def post(self, request):
