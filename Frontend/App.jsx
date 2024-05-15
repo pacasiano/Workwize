@@ -87,7 +87,7 @@ function App() {
       path: "/login",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <Header loggedIn={false} disableMiddleLinks={true} />
           <div className="">
             <LoginSignin />
           </div>
@@ -99,7 +99,7 @@ function App() {
       path: "/signup",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <Header loggedIn={false} disableMiddleLinks={true} />
           <div className="">
             <LoginSignin />
           </div>
@@ -111,7 +111,7 @@ function App() {
       path: "/forgotpassword",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
-          <Header loggedIn={loggedIn} disableMiddleLinks={true} />
+          <Header loggedIn={false} disableMiddleLinks={true} />
           <div className="">
             <LoginSignin />
           </div>
