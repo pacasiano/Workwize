@@ -135,7 +135,7 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="text" 
                     {...register("first_name", {})}
-                    required
+                    
                   />
                 </div>
                 <div className="flex-1">
@@ -143,7 +143,7 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="text" 
                     {...register("last_name", {})}
-                    required
+                    
                   />
                 </div>
               </div>
@@ -155,13 +155,13 @@ function SignUpPage() {
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="password"  
                     {...register("password", {})}
-                    required
+                    
                   />
                   <label className='text-xs font-light -mb-1'>Confirm Password</label>
                   <input className="w-full px-1 py-1 border border-gray-300 rounded"
                     type="password"
                     {...register("confirm_password", {})}
-                    required
+                    
                   />
                 </div>
               </div>

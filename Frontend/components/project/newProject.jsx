@@ -10,6 +10,7 @@ import Sketch from '@uiw/react-color-sketch';
 //context imports
 import { ReloadContext } from '../../context/contexts';
 import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 
 import { toast } from 'react-toastify';
 
@@ -21,13 +22,14 @@ export default function NewProject({setAddProj}) {
 
     // context
     const { reload, setReload } = useContext(ReloadContext);
+    const { user } = useContext(UserContext);
 
     // form
     const { register, handleSubmit } = useForm();
     const [hex, setHex] = useState('');
 
     // data
-    const [user_id] = useState(1)
+    const [user_id] = useState(user.user_id)
     const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#1A73E8', '#FF6F00', '#4CAF50', '#9C27B0']
     const [name, setName] = useState('')
 
