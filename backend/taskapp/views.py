@@ -276,15 +276,46 @@ class SubtaskDetail(APIView):
         subtask.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+class UserSubtaskList(APIView):
+    # List all user-subtask, or create a new user-subtask.
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
+    
+    def get(self, request, format=None):
+        usersubtask = UserSubtask.objects.all()
+        serializer = UserSubtaskSerializer(usersubtask, many=True)
+        return Response(serializer.data)
 
+    def post(self, request, format=None):
+        serializer = UserSubtaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class UserSubtaskDetail(APIView):
     # Delete a User from a subtask
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, userid, subtaskid):
         try:
             return UserSubtask.objects.get(user_id = userid, subtask_id = subtaskid)
         except UserSubtask.DoesNotExist:
             raise Http404
+    
+    def get(self, request, pk, format=None):
+        usersubtask = self.get_object(pk)
+        serializer = UserSubtaskSerializer(instance = usersubtask)
+        return Response(serializer.data)
+
+    def patch(self, request, pk, format=None):
+        usersubtask = self.get_object(pk)
+        serializer = UserSubtaskSerializer(instance = usersubtask, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, userid, subtaskid, format=None):
         usersubtask = self.get_object(userid, subtaskid)
