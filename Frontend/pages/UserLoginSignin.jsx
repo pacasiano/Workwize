@@ -1,5 +1,5 @@
 
-import SignUpPage from '../components/loginsignup/singup';
+import SignUpPage from '../components/loginsignup/signup';
 import ForgotPasswordPage from '../components/loginsignup/ForgotPasswordPage';
 import Project from "../assets/homepic.svg";
 import Login from "../components/loginsignup/login";
@@ -12,7 +12,7 @@ function UserLoginSignin() {
   return (
     <div className='flex flex-col min-h-screen relative'>
 
-          <div className="w-full min-h-screen overflow-hidden resize-none shrink-0 border-2">
+          <div className="w-full min-h-screen overflow-hidden resize-none shrink-0">
             <img
               src={Project}
               className="object-cover w-full min-h-screen resize-none shrink-0"

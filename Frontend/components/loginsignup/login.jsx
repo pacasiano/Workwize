@@ -63,20 +63,20 @@ export default function Login() {
 
     return (
     <div className="flex justify-start "> 
-        <div className="flex flex-col gap-5 bg-white p-4 rounded-lg shadow-md relative z-10">
+        <div className="flex flex-col gap-5 bg-white p-4 rounded-lg shadow-md relative z-10 w-96">
         <h2 className="text-center font-bold text-2xl">Login</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4 flex flex-col">
-            <label className="font-bold">Username</label>
-            <input className="w-72 px-2 py-1 border border-gray-300 rounded"
+            <label className="font-medium">Username</label>
+            <input className="w-full px-2 py-1 border border-gray-300 rounded"
                 type="text" 
                 id="email" 
                 {...register("username", {})}
             />
             </div>
             <div className="mb-4 flex flex-col">
-            <label className="font-bold">Password</label>
-            <input className="w-72 px-2 py-1 border border-gray-300 rounded"
+            <label className="font-medium">Password</label>
+            <input className="w-full px-2 py-1 border border-gray-300 rounded"
                 type="password" 
                 id="password" 
                 {...register("password", {})}
@@ -87,7 +87,7 @@ export default function Login() {
                 <button className="px-3 py-1 mb-2 text-center bg-black/10 text-black rounded hover:bg-black/20 border-gray-100" type="submit">Login</button>
             </div>
             <div className="flex flex-row gap-1 justify-center text-sm font-light">
-                no account yet? sign up
+                No account yet? sign up
                 <Link to={"/signup"} className="text-blue-600 hover:text-blue-900 font-normal" >here</Link>!
             </div>
         </form>
