@@ -125,17 +125,7 @@ A task management app provides users with a centralized platform to plan, organi
 
 ## Contributors
 
-<a href="https://github.com/pacasiano"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240150752828199052/IMG_0954.jpg?ex=664583e4&is=66443264&hm=75d3f0a269dcd93a069c60b84107015fe5f7035d6dd4ed53119ca12ca89102de&" title="pacasiano" width="330" height="330"></a> <a href="https://github.com/
-AzorHorus1"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="AzorHorus1" width="330" height="330"></a> <a href="https://github.com/yappanthony"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="pacasiano" width="335" height="330"></a>
+<a href="https://github.com/pacasiano"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240150752828199052/IMG_0954.jpg?ex=664583e4&is=66443264&hm=75d3f0a269dcd93a069c60b84107015fe5f7035d6dd4ed53119ca12ca89102de&" title="pacasiano" width="300" height="300"></a> <a href="https://github.com/
+AzorHorus1"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="AzorHorus1" width="300" height="300"></a> <a href="https://github.com/yappanthony"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="pacasiano" width="300" height="300"></a>
 
-<p align=left>
-<b>Peter Andre Casiano</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b> Julian Remoreras </b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>Anthony Dexter Yap</b>
-</p>
 
-<p align=left>
-Fontend Developer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Frontend Developer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Backend Developer</p>
