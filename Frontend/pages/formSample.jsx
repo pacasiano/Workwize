@@ -13,12 +13,36 @@ export default function TaskSet() {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:8000/tasks/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchTasks = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+            console.log(accessToken)
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/tasks/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching tasks inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             setData(data)
-        });
-    }, [])
+          } catch (error) {
+            console.error('Error fetching tasks in catch block: ', error);
+          }
+        };
+      
+        fetchTasks();
+      }, []);
 
     const onSubmit = (data) => {
         //dapat ma set sa database na false

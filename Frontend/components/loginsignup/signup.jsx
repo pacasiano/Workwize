@@ -91,9 +91,7 @@ function SignUpPage() {
       const resData = await res.json()
       console.log("Sign up successful!")
       toast.success(`Your account ${data.username} has been created successfully!`);
-      setUser(resData);
-      navigate("/");
-
+      navigate("/login");
     }
     catch(error) {
       console.error("Error:", error);

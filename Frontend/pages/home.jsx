@@ -30,10 +30,9 @@ export default function Home({setAddProj}) {
     
     // dapat get all projects where user_id = user_id
     useEffect(() => {
-        const fetchProjectIds = async () => {
+        const fetchUserProjs = async () => {
           try {
             const accessToken = sessionStorage.getItem('accessToken');
-            console.log(accessToken)
       
             //Redirect to login if there's no access token
             if (!accessToken) {
@@ -48,7 +47,7 @@ export default function Home({setAddProj}) {
             });
       
             if (!response.ok) {
-              throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+              throw new Error(`Error fetching user-projects inside try block: ${response.status}`);
             }
       
             const data = await response.json();
@@ -56,11 +55,11 @@ export default function Home({setAddProj}) {
             let projects = data.filter(project => project.user_id === user_id)
             setProjectIds(projects)
           } catch (error) {
-            console.error('Error fetching project IDs in catch block: ', error);
+            console.error('Error fetching user-projects in catch block: ', error);
           }
         };
       
-        fetchProjectIds();
+        fetchUserProjs();
       }, [user_id, reload]);
 
     // gets all projects where project_id = projects_ids.project_id
@@ -68,7 +67,6 @@ export default function Home({setAddProj}) {
         const fetchProjects = async () => {
           try {
             const accessToken = sessionStorage.getItem('accessToken');
-            console.log(accessToken)
       
             //Redirect to login if there's no access token
             if (!accessToken) {

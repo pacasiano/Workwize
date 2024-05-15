@@ -23,28 +23,101 @@ export default function Tasks({setAddTask}) {
     const [tasks, setTasks] = useState([])
     const [subtasks, setSubtasks] = useState([])
     const [project, setProject] = useState({})
-    
-    useEffect(() => {
 
-        fetch(`http://localhost:8000/api/tasks/`)
-        .then(res => res.json())
-        .then(data => {
+    useEffect(() => {
+        const fetchTasks = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/tasks/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching tasks inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             // get all tasks where project_id = id
             const tasks = data.filter(task => task.project_id === parseInt(id));
             setTasks(tasks)
-        })
+          } catch (error) {
+            console.error('Error fetching tasks in catch block: ', error);
+          }
+        };
+      
+        fetchTasks();
+      }, [id, reload]);
+    
 
-    }, [id, reload]) 
+      useEffect(() => {
+        const fetchSubtasks = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/subtasks/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching subtasks inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
+            setSubtasks(data)
+          } catch (error) {
+            console.error('Error fetching subtasks in catch block: ', error);
+          }
+        };
+      
+        fetchSubtasks();
 
-    useEffect(() => {
-        fetch('http://localhost:8000/api/subtasks/')
-        .then(res => res.json())
-        .then(data => setSubtasks(data))
+        const fetchProject = async () => {
+            try {
+              const accessToken = sessionStorage.getItem('accessToken');
+        
+              //Redirect to login if there's no access token
+              if (!accessToken) {
+                  window.location.href = "http://localhost:5173/login"
+                return;
+              }
+        
+              const response = await fetch(`http://localhost:8000/projects/${id}/`, {
+                  headers: {
+                      'Authorization': `JWT ${accessToken}`, 
+                  },
+              });
+        
+              if (!response.ok) {
+                throw new Error(`Error fetching project with ID of ${id} inside try block: ${response.status}`);
+              }
+        
+              const data = await response.json();
+              setProject(data)
+            } catch (error) {
+              console.error(`Error fetching project with ID of ${id} in catch block: `, error);
+            }
+          };
+        
+          fetchProject();
+      }, [id, reload]);
 
-        fetch(`http://localhost:8000/api/projects/${id}/`)
-        .then(res => res.json())
-        .then(data => setProject(data))
-    }, [id, reload])
 
     // get all Task where project_id is 1
     const uniqueCategoriesData = tasks.filter((task) => task.project_id === parseInt(id))

@@ -67,7 +67,7 @@ export default function MyCalendar(){
         });
   
         if (!response.ok) {
-          throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+          throw new Error(`Error fetching subtasks inside try block: ${response.status}`);
         }
   
         const data = await response.json();
@@ -75,7 +75,7 @@ export default function MyCalendar(){
         let subtask = data.filter(sub => tasks.some(task => task.task_id === sub.task_id))
         setSubtasks(subtask)
       } catch (error) {
-        console.error('Error fetching project IDs in catch block: ', error);
+        console.error('Error fetching subtasks in catch block: ', error);
       }
     };
   
@@ -101,7 +101,7 @@ export default function MyCalendar(){
         });
   
         if (!response.ok) {
-          throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+          throw new Error(`Error fetching labels inside try block: ${response.status}`);
         }
   
         const data = await response.json();
@@ -109,7 +109,7 @@ export default function MyCalendar(){
         let label = data.filter(label => subtasks.some(subtask => subtask.subtask_id === label.subtask_id))
         setLabels(label)
       } catch (error) {
-        console.error('Error fetching project IDs in catch block: ', error);
+        console.error('Error fetching labels in catch block: ', error);
       }
     };
   
