@@ -123,6 +123,8 @@ A task management app provides users with a centralized platform to plan, organi
 
 ## Pictures of the Application
 
+  <img src="Frontend/assets/images/1.png" title="1" height="200"><img src="Frontend/assets/images/2.png" title="2" height="200"><img src="Frontend/assets/images/3.png" title="3" height="200"><img src="Frontend/assets/images/4.png" title="4" height="200"><img src="Frontend/assets/images/5.png" title="5" height="200"><img src="Frontend/assets/images/6.png" title="6" height="200"><img src="Frontend/assets/images/7.png" title="7" height="200"><img src="Frontend/assets/images/8.png" title="8" height="200"><img src="Frontend/assets/images/9.png" title="9" height="200"><img src="Frontend/assets/images/10.png" title="10" height="200"><img src="Frontend/assets/images/11.png" title="1" height="200">
+
 ## Contributors
 
 <a href="https://github.com/pacasiano"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240150752828199052/IMG_0954.jpg?ex=664583e4&is=66443264&hm=75d3f0a269dcd93a069c60b84107015fe5f7035d6dd4ed53119ca12ca89102de&" title="pacasiano" width="280" height="280"></a> <a href="https://github.com/
