@@ -47,9 +47,19 @@ const TaskChangeName = ({task}) => {
             return
         }
 
-        fetch(`http://localhost:8000/api/tasks/${task.task_id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+        fetch(`http://localhost:8000/tasks/${task.task_id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 task_name: data.task_name,
             })

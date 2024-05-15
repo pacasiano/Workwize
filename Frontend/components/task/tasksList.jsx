@@ -48,9 +48,20 @@ const TasksList = ({ task, subtasks }) => {
             return;
         }
 
+        const accessToken = sessionStorage.getItem('accessToken');
+      
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
         fetch(`http://localhost:8000/subtasks/`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 task_id: task.task_id,
                 subtask_name: subtaskName,

@@ -97,7 +97,7 @@ export default function Home({setAddProj}) {
           }
         };
         fetchProjects();
-      }, [project_ids, reload]);
+    }, [project_ids, reload]);
 
     const addProject = () => {
         console.log("clicked Add Project")

@@ -10,9 +10,17 @@ export default function Actions() {
 
     const deleteSubtask = () => {
 
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'DELETE',
             headers: {
+                'Authorization': `JWT ${accessToken}`, 
                 'Content-Type': 'application/json',
             },
         })

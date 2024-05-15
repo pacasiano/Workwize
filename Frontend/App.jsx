@@ -96,7 +96,7 @@ function App() {
       ),
     },
     {
-      path: "/siginup",
+      path: "/signup",
       element: (
         <div className={`h-screen w-full bg-[#e4dede]`}>
           <Header loggedIn={loggedIn} disableMiddleLinks={true} />

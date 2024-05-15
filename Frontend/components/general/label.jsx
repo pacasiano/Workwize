@@ -18,8 +18,19 @@ export default function Label({tag_id, word, color, type, reload, setReload}) {
     const [isHovered, setIsHovered] = useState(false);
 
     function delTag() {
-        fetch(`http://localhost:8000/api/labels/${parseInt(tag_id)}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/labels/${parseInt(tag_id)}/`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
         })
         .then(() => {
             toast.success('Label Deleted');

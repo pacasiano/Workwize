@@ -16,7 +16,20 @@ export default function Date() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     useEffect(() => {
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`)
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
+        })
         .then(res => res.json())
         .then(data => {
             setDate({
@@ -39,9 +52,19 @@ export default function Date() {
             return;
         }
 
-        fetch(`http://localhost:8000/api/subtasks/${subtask_id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/subtasks/${subtask_id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 start_date: data.start_date,
                 end_date: data.end_date

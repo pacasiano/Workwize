@@ -43,9 +43,19 @@ export default function NewProject({setAddProj}) {
         if (hex.length > 7){toast.warning('Color is too long'); return;}
         if (hex === ""){toast.warning('Color is invalid'); return;}
 
-        fetch('http://localhost:8000/api/projects/', {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch('http://localhost:8000/projects/', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 project_name: data.project_name,
                 background: hex,
@@ -67,9 +77,19 @@ export default function NewProject({setAddProj}) {
         
         if (project_id === '') return;
 
-        fetch(`http://localhost:8000/api/user-projects/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/user-projects/`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 user_id: parseInt(user_id),
                 project_id: parseInt(project_id),

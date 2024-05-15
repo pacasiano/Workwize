@@ -14,7 +14,20 @@ const ProjectName = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/projects/${id}/`)
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/projects/${id}/`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json',
+            },
+        })
         .then(res => res.json())
         .then(data => setProject(data));
     }
@@ -34,9 +47,19 @@ const ProjectName = () => {
             return;
         }
 
-        fetch(`http://localhost:8000/api/projects/${id}/`, {
+        const accessToken = sessionStorage.getItem('accessToken');
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+            return;
+        }
+
+        fetch(`http://localhost:8000/projects/${id}/`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(res => res.json())
