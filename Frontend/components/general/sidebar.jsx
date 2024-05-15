@@ -46,9 +46,9 @@ export default function Sidebar({Wide, setWide, setAddTask}) {
                     </div>
 
                     <div className="flex flex-col text-xl">
-                        <Link to={`/project/${id}/dashboard`} className={`flex flex-row h-10  gap-2 ${pathAfterId[1] === "dashboard" && "bg-neutral-100/10"} transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md`}>
+                        {/* <Link to={`/project/${id}/dashboard`} className={`flex flex-row h-10  gap-2 ${pathAfterId[1] === "dashboard" && "bg-neutral-100/10"} transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md`}>
                             <Dashboard /><p>Dashboard</p>
-                        </Link>
+                        </Link> */}
                         <Link to={`/project/${id}/tasks`} className={`flex flex-row h-10  ${((pathAfterId[1] === "tasks")) && "bg-neutral-100/10"} gap-2 transition-all hover:-translate-y-[2px] hover:cursor-pointer items-center text-white py-1 px-2 rounded-md`}>
                             <Task/>Tasks
                         </Link>
@@ -81,9 +81,9 @@ export default function Sidebar({Wide, setWide, setAddTask}) {
                     </div>
 
                     <div className="flex flex-col justify-start items-start text-xl">
-                        <Link to={`/project/${id}/dashboard`} className={`flex flex-row gap-2 h-10  ${pathAfterId[1] === "dashboard" && "bg-neutral-100/10"} transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-2 px-2 rounded-md`}>
+                        {/* <Link to={`/project/${id}/dashboard`} className={`flex flex-row gap-2 h-10  ${pathAfterId[1] === "dashboard" && "bg-neutral-100/10"} transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-2 px-2 rounded-md`}>
                             <Dashboard />   
-                        </Link>
+                        </Link> */}
                         <Link to={`/project/${id}/tasks`} className={`flex flex-row  h-10  gap-2 ${((pathAfterId[1] === "tasks")) && "bg-neutral-100/10"} transform-gpu hover:scale-105 hover:cursor-pointer items-center text-white py-2 px-2 rounded-md`}>
                             <Task />
                         </Link>
