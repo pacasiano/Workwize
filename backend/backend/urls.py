@@ -17,23 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from taskapp import views
-from rest_framework import routers
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserView, 'user')
-router.register(r'projects', views.ProjectView, 'project')
-router.register(r'user-projects', views.UserProjectView, 'userproject')
-router.register(r'tasks', views.TaskView, 'task')
-router.register(r'subtasks', views.SubtaskView, 'subtask')
-router.register(r'user-subtasks', views.UserSubtaskView, 'usersubtask')
-router.register(r'labels', views.LabelView, 'label')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    path('api/', include(router.urls)),
     path('login/', views.LoginView.as_view()),
     path('tasks/', views.TaskList.as_view()),
     path('tasks/<int:pk>/', views.TaskDetail.as_view()),
