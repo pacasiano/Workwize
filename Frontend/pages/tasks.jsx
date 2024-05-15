@@ -10,10 +10,10 @@ import TaskList from "../components/task/tasksList.jsx"
 import { ReloadContext } from "../context/contexts"
 import { useContext } from 'react';
 
-export default function Tasks({setAddSubtask}) {
+export default function Tasks({setAddTask}) {
 
     Tasks.propTypes = {
-        setAddSubtask: PropTypes.func,
+        setAddTask: PropTypes.func,
     };
 
     // context
@@ -59,7 +59,7 @@ export default function Tasks({setAddSubtask}) {
 
                     <>
                     {uniqueCategoriesData.sort((a, b) => a.order_num - b.order_num).map((task) => (
-                        <TaskList key={task.task_id} task={task} subtasks={subtasks} setAddSubtask={setAddSubtask}  />
+                        <TaskList key={task.task_id} task={task} subtasks={subtasks}  />
                     ))}
                     </>
 
@@ -72,7 +72,7 @@ export default function Tasks({setAddSubtask}) {
                             </object>
                             <div className='flex flex-col justify-center items-center gap-3'>
                                 <h1 className="text-1xl font-semibold">There are currently no list&apos;s available</h1>
-                                <div onClick={() => setAddSubtask({ show: true, data: "" })} className="flex flex-row group gap-2 justify-start items-center w-min px-3 py-1 rounded-md hover:bg-neutral-300 bg-neutral-300/60 hover:cursor-pointer">
+                                <div onClick={() => setAddTask({ show: true, data: "" })} className="flex flex-row group gap-2 justify-start items-center w-min px-3 py-1 rounded-md hover:bg-neutral-300 bg-neutral-300/60 hover:cursor-pointer">
                                 <div className="text-md text-neutral-900 font-sans text-nowrap group-hover:text-black">New list</div>
                                 </div>
                             </div>
