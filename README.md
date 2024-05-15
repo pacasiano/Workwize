@@ -125,7 +125,7 @@ A task management app provides users with a centralized platform to plan, organi
 
 ## Contributors
 
-<a href="https://github.com/pacasiano"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240150752828199052/IMG_0954.jpg?ex=664583e4&is=66443264&hm=75d3f0a269dcd93a069c60b84107015fe5f7035d6dd4ed53119ca12ca89102de&" title="pacasiano" width="300" height="300"></a> <a href="https://github.com/
-AzorHorus1"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="AzorHorus1" width="300" height="300"></a> <a href="https://github.com/yappanthony"><img src="https://avatars.githubusercontent.com/u/43705455?v=4" title="pacasiano" width="300" height="300"></a>
+<a href="https://github.com/pacasiano"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240150752828199052/IMG_0954.jpg?ex=664583e4&is=66443264&hm=75d3f0a269dcd93a069c60b84107015fe5f7035d6dd4ed53119ca12ca89102de&" title="pacasiano" width="280" height="280"></a> <a href="https://github.com/
+AzorHorus1"><img src="https://cdn.discordapp.com/attachments/863985502267768863/1240320134522863697/440915880_413295278263367_8661876673437416648_n.jpg?ex=664621a4&is=6644d024&hm=2d18621bb7b831f5a27890983cf53ab3d445759289312032a14eafce9a7732df&" title="AzorHorus1" width="280" height="280"></a> <a href="https://github.com/yappanthony"><img src="https://media.discordapp.net/attachments/863985502267768863/1240320453432840313/441046807_975548160946206_432612722262090655_n.jpg?ex=664621f0&is=6644d070&hm=8e757a6a467310431366a951a145fef39593efb8fdac515b27a83710f199b608&=&format=webp&width=700&height=700" title="pacasiano" width="280" height="280"></a>
 
 
