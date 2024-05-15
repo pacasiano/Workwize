@@ -23,32 +23,82 @@ export default function Home({setAddProj}) {
     // di ito normal, dapat kunin ang user_id somewhere
     const [user_id] = useState(user.user_id)
 
-    const [project_ids, setProject] = useState([])
-    const [data, setData] = useState([])
+    const [project_ids, setProjectIds] = useState([])
+    const [projects, setProjects] = useState([])
 
     const [selected, setSelected] = useState("projects")
     
     // dapat get all projects where user_id = user_id
     useEffect(() => {
-        fetch(`http://localhost:8000/api/user-projects/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchProjectIds = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+            console.log(accessToken)
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/user-projects/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             // get all projects where user_id = user_id
             let projects = data.filter(project => project.user_id === user_id)
-            setProject(projects)
-        });
-    }, [user_id, reload])
+            setProjectIds(projects)
+          } catch (error) {
+            console.error('Error fetching project IDs in catch block: ', error);
+          }
+        };
+      
+        fetchProjectIds();
+      }, [user_id, reload]);
 
     // gets all projects where project_id = projects_ids.project_id
     useEffect(() => {
-        fetch(`http://localhost:8000/api/projects/`)
-        .then(res => res.json())
-        .then(data => {
+        const fetchProjects = async () => {
+          try {
+            const accessToken = sessionStorage.getItem('accessToken');
+            console.log(accessToken)
+      
+            //Redirect to login if there's no access token
+            if (!accessToken) {
+                window.location.href = "http://localhost:5173/login"
+              return;
+            }
+      
+            const response = await fetch(`http://localhost:8000/projects/`, {
+                headers: {
+                    'Authorization': `JWT ${accessToken}`, 
+                },
+            });
+      
+            if (!response.ok) {
+              throw new Error(`Error fetching projects inside try block: ${response.status}`);
+            }
+      
+            const data = await response.json();
             // get all projects where project_id = projects_ids.project_id (array of objects)
-            let projects = data.filter(project2 => project_ids.some(project_id => project_id.project_id === project2.project_id))
-            setData(projects)
-        });
-    }, [project_ids, reload])
+            const filteredProjects = data.filter(project2 =>
+              project_ids.some(project_id => project_id.project_id === project2.project_id)
+            );
+            setProjects(filteredProjects);
+          } catch (error) {
+            console.error('Error fetching projects in catch block: ', error);
+          }
+        };
+      
+        fetchProjects();
+      }, [project_ids, reload]);
 
     const addProject = () => {
         console.log("clicked Add Project")
@@ -75,17 +125,17 @@ export default function Home({setAddProj}) {
                 <div className="border-l-2 h-11/12 border-black/10 pr-5 "></div>
                 <div className="flex flex-row flex-wrap gap-5 py-5">
                     {selected === "projects" && ( <>
-                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                    {projects.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
                         <ProjectCard key={index} data={item} />
                     ))}
                     </>)}
                     {selected === "recents" && ( <>
-                    {data.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
+                    {projects.sort((a, b) => a.project_id - b.project_id).map((item, index) => (
                         <ProjectCard key={index} data={item} />
                     ))}
                     </>)}
                     {selected === "starred" && ( <>
-                    {data.sort((a, b) => a.project_id - b.project_id).filter(item => item.isStarred).map((item) => (
+                    {projects.sort((a, b) => a.project_id - b.project_id).filter(item => item.isStarred).map((item) => (
                     <ProjectCard key={item.project_id} data={item} />
                     ))}
                     </>)}

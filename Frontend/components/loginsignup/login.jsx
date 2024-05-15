@@ -17,15 +17,20 @@ export default function Login() {
           toast.error("Please fill in all fields");
           return;
         }
-      
+
         try {
-            const res = await fetch('http://localhost:8000/api/users/');
-            const users = await res.json();
-            console.log(users);
+            const loginRes = await fetch('http://localhost:8000/login/', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({username: data.username, password: data.password})
+            });
+            const loginData = await loginRes.json();
+            console.log(loginData);
       
-            const currentUser = users.find(user => user.username === data.username && user.password === data.password);
-            if (currentUser) {
-                setUser(currentUser);
+            if (loginData.message === 'Login successful') {
+                setUser(loginData.user);
                 console.log(user);
             
                 const jwtRes = await fetch('http://localhost:8000/auth/jwt/create', {
@@ -33,22 +38,28 @@ export default function Login() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({username: currentUser.username, password: currentUser.password})
+                    body: JSON.stringify({username: data.username, password: data.password})
                 })
 
                 const jwtResData = await jwtRes.json();
+                const {access, refresh} = jwtResData;
+
+                if (access) {
+                    sessionStorage.setItem('accessToken', access);
+                }
                 console.log(jwtResData)
                 toast.success("Welcome! " + data.username);
                 navigate("/");
+                // window.location.href = "http://localhost:5173"
             } 
             else {
-                toast.error("Invalid email or password");
+                toast.error("Invalid username or password");
             }
         } 
         catch (error) {
             console.error("Error fetching users:", error);
         }
-    };
+    }
 
     return (
     <div className="flex justify-start "> 

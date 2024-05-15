@@ -52,8 +52,8 @@ Warning: Doesn't follow DRY principle AT ALL :(
 
 class UserList(APIView):
     # List all users, or create a new user.
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsOwner]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated, IsOwner]
 
     def get(self, request, format=None):
         users = User.objects.all()
@@ -142,7 +142,24 @@ class ProjectDetail(APIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserProjectList(APIView):
+    # List all rows from UserProject model
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsOwner]
     
+    def get(self, request, format=None):
+        projects = UserProject.objects.all()
+        serializer = UserProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = UserProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class UserProjectDetail(APIView):
     # Update the role of a user in a project
     # authentication_classes = [JWTAuthentication]

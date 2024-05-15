@@ -15,34 +15,106 @@ export default function MyCalendar(){
   const [labels, setLabels] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/tasks/`)
-    .then(res => res.json())
-    .then(data => {
-      // get all tasks where project_id = id
-      let task = data.filter(u => u.project_id === parseInt(id))
-      setTasks(task)
-    });
-  }, [id])
+    const fetchTasks = async () => {
+      try {
+        const accessToken = sessionStorage.getItem('accessToken');
+        console.log(accessToken)
+  
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+          return;
+        }
+  
+        const response = await fetch(`http://localhost:8000/tasks/`, {
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+            },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Error fetching tasks inside try block: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        // get all tasks where project_id = id
+        let task = data.filter(u => u.project_id === parseInt(id))
+        setTasks(task)
+      } catch (error) {
+        console.error('Error fetching tasks in catch block: ', error);
+      }
+    };
+  
+    fetchTasks();
+  }, [id]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/subtasks/')
-    .then(res => res.json())
-    .then(data => {
-      // get all subtasks where data.task_id = tasks.task_id
-      let subtask = data.filter(sub => tasks.some(task => task.task_id === sub.task_id))
-      setSubtasks(subtask)
-    });
-  }, [tasks])
+    const fetchSubtasks = async () => {
+      try {
+        const accessToken = sessionStorage.getItem('accessToken');
+        console.log(accessToken)
+  
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+          return;
+        }
+  
+        const response = await fetch(`http://localhost:8000/subtasks/`, {
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+            },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        // get all subtasks where data.task_id = tasks.task_id
+        let subtask = data.filter(sub => tasks.some(task => task.task_id === sub.task_id))
+        setSubtasks(subtask)
+      } catch (error) {
+        console.error('Error fetching project IDs in catch block: ', error);
+      }
+    };
+  
+    fetchSubtasks();
+  }, [tasks]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/labels/')
-    .then(res => res.json())
-    .then(data => {
-      // get all labels where data.subtask_id = subtasks.subtask_id
-      let label = data.filter(label => subtasks.some(subtask => subtask.subtask_id === label.subtask_id))
-      setLabels(label)
-    });
-  }, [subtasks])
+    const fetchLabels = async () => {
+      try {
+        const accessToken = sessionStorage.getItem('accessToken');
+        console.log(accessToken)
+  
+        //Redirect to login if there's no access token
+        if (!accessToken) {
+            window.location.href = "http://localhost:5173/login"
+          return;
+        }
+  
+        const response = await fetch(`http://localhost:8000/labels/`, {
+            headers: {
+                'Authorization': `JWT ${accessToken}`, 
+            },
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Error fetching project IDs inside try block: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        // get all labels where data.subtask_id = subtasks.subtask_id
+        let label = data.filter(label => subtasks.some(subtask => subtask.subtask_id === label.subtask_id))
+        setLabels(label)
+      } catch (error) {
+        console.error('Error fetching project IDs in catch block: ', error);
+      }
+    };
+  
+    fetchLabels();
+  }, [subtasks]);
 
   const myEventsList = subtasks.map((subtask) => {
     const label = labels.filter((label) => label.subtask_id === subtask.subtask_id);

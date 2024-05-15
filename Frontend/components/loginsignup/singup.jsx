@@ -11,7 +11,7 @@ function SignUpPage() {
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       first_name: firstName,
@@ -21,24 +21,37 @@ function SignUpPage() {
       email: email,
     }
 
-    fetch('http://localhost:8000/auth/users/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then( () => {
+    try {
+      const res = await fetch('http://localhost:8000/auth/users/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+  
+      if (!res.ok){
+        throw new Error(`Error: ${res.status}`)
+      }
+  
+      const resData = await res.json()
       console.log("Sign up successful!")
       setEmail('')
       setPassword('')
       setFirstName('')
       setLastName('')
       setUsername('')
-  })
-    .catch(err => console.error("Error: " + err.message))
-  };
+      window.location.href = "http://localhost:5173/login"
+    }
+    catch(error) {
+      console.error("Error:", error);
+
+      if (error.response && error.response.status === 400) {
+        console.error("Bad Request (400):", error.response.data); // Password too short
+        //Should prompt that password is too short or smtg
+      }
+    }
+  }
 
   return (
     <>
